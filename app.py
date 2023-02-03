@@ -62,10 +62,10 @@ if choix == 'Populations Non Actifs' :
     sns.barplot(x=max_col['DEP'], y=max_col['Non_Actifs'],  ax=ax1)
 
 
-    ax1.title.set_text("10 départements avec le plus d'actifs")
+    ax1.title.set_text("10 départements avec le plus de Non actifs")
 
     sns.barplot(x=min_col['DEP'], y=min_col['Non_Actifs'], ax=ax2)
 
-    ax2.title.set_text("10 départements avec le moins d'Actifs");
+    ax2.title.set_text("10 départements avec le moins de Non Actifs");
     
     st.write(fig)
