@@ -34,29 +34,22 @@ choix = st.sidebar.radio("Choix de la base", ("Populations Actifs", "Populations
 st.subheader(choix)
 
 if choix == 'Populations Actifs' :
-    
-     Popu_Actifs.head(100)
-
-#Visualisation des 10 département avec le + et le moins d'actifs
+    print(Popu_Actifs.head(100))
     max_col = Popu_Actifs.head(10)
     min_col = Popu_Actifs.tail(10)
 
-      print(Popu_Actifs.head(100))
-      max_col = Popu_Actifs.head(10)
-      min_col = Popu_Actifs.tail(10)
+    fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(16,6), sharey=True)
 
-      fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(16,6), sharey=True)
-
-      sns.barplot(x=max_col['DEP'], y=max_col['Actifs'],  ax=ax1)
+    sns.barplot(x=max_col['DEP'], y=max_col['Actifs'],  ax=ax1)
 
 
-      ax1.title.set_text("10 départements avec le plus d'actifs")
+    ax1.title.set_text("10 départements avec le plus d'actifs")
 
-      sns.barplot(x=min_col['DEP'], y=min_col['Actifs'], ax=ax2)
+    sns.barplot(x=min_col['DEP'], y=min_col['Actifs'], ax=ax2)
 
-      ax2.title.set_text("10 départements avec le moins d'Actifs");
+    ax2.title.set_text("10 départements avec le moins d'Actifs");
     
-      st.write(fig)
+    st.write(fig)
 
 if choix == 'Populations Populations Non Actifs' :
      
@@ -76,23 +69,3 @@ if choix == 'Populations Populations Non Actifs' :
     ax2.title.set_text("10 départements avec le moins d'Actifs");
     
     st.write(fig)
-
-if choix == 'Populations Populations Non Actifs' :
-  
-    max_col = Popu_Non_Actifs.head(10)
-    min_col = Popu_Non_Actifs.tail(10)
-
-    fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(16,6), sharey=True)
-
-    sns.barplot(x=max_col['DEP'], y=max_col['Non_Actifs'],  ax=ax1)
-
-
-    ax1.title.set_text("10 départements avec le plus d'actifs")
-
-    sns.barplot(x=min_col['DEP'], y=min_col['Non_Actifs'], ax=ax2)
-
-    ax2.title.set_text("10 départements avec le moins d'Actifs");
-    
-    st.write(fig)
-
-
