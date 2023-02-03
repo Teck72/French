@@ -7,6 +7,7 @@ import scipy.stats
 import time
 import altair as alt
 import seaborn as sns
+from PIL import Image
 
 sns.set_theme()
 
@@ -49,6 +50,11 @@ if choix == 'Populations Actifs' :
       sns.barplot(x=min_col['DEP'], y=min_col['Actifs'], ax=ax2)
 
       ax2.title.set_text("10 départements avec le moins d'Actifs");
+      
+      image = Image.open('Popu_Actif.png')
+
+
+      st.image(image)
     
       st.write(fig)
 
@@ -67,5 +73,10 @@ if choix == 'Populations Non Actifs' :
     sns.barplot(x=min_col['DEP'], y=min_col['Non_Actifs'], ax=ax2)
 
     ax2.title.set_text("10 départements avec le moins de Non Actifs");
+    
+    image = Image.open('Popu_Non_Actifs.png')
+
+
+    st.image(image)
     
     st.write(fig)
