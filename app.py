@@ -52,7 +52,7 @@ if choix == 'Populations Actifs' :
     
       st.write(fig)
 
-if choix == 'Populations Populations Non Actifs' :
+if choix == 'Populations Non Actifs' :
      
     max_col = Popu_Non_Actifs.head(10)
     min_col = Popu_Non_Actifs.tail(10)
