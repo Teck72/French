@@ -34,14 +34,13 @@ choix = st.sidebar.radio("Choix de la base", ("Populations Actifs", "Populations
 st.subheader(choix)
 
 if choix == 'Populations Actifs' :
-<<<<<<< Updated upstream
     
      Popu_Actifs.head(100)
 
 #Visualisation des 10 département avec le + et le moins d'actifs
     max_col = Popu_Actifs.head(10)
     min_col = Popu_Actifs.tail(10)
-=======
+
       print(Popu_Actifs.head(100))
       max_col = Popu_Actifs.head(10)
       min_col = Popu_Actifs.tail(10)
@@ -63,7 +62,7 @@ if choix == 'Populations Populations Non Actifs' :
      
     max_col = Popu_Non_Actifs.head(10)
     min_col = Popu_Non_Actifs.tail(10)
->>>>>>> Stashed changes
+
 
     fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(16,6), sharey=True)
 
@@ -78,7 +77,6 @@ if choix == 'Populations Populations Non Actifs' :
     
     st.write(fig)
 
-<<<<<<< Updated upstream
 if choix == 'Populations Populations Non Actifs' :
   
     max_col = Popu_Non_Actifs.head(10)
@@ -97,7 +95,4 @@ if choix == 'Populations Populations Non Actifs' :
     
     st.write(fig)
 
-  
-=======
-  
->>>>>>> Stashed changes
+
