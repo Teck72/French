@@ -20,6 +20,11 @@ base_etablissement_dp=pd.read_csv("base_etablissement_dp.csv")
 
 
 
+Popu = Popu.drop(['Unnamed: 0'], axis=1)
+dp_salaires = dp_salaires.drop(['Unnamed: 0'], axis=1)
+base_etablissement_dp = base_etablissement_dp.drop(['Unnamed: 0'], axis=1)
+
+
 
 
 st.title("Visualisation des Bases de données")
