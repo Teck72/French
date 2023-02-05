@@ -46,10 +46,19 @@ if choix == 'Populations' :
      
       image = Image.open('Populations_Actif.png')
       image2 = Image.open('Populations_Non_Actif.png')
+      
+      
+      col1, col2 = st.columns(2)
+      
+      original = Image.open('Populations_Actif.png')
+      col1.header("Actif")
+      col1.image(original, use_column_width=True)
+      
+      grayscale = Image.open('Populations_Non_Actif.png')
+      col2.header("Non Actif")
+      col2.image(grayscale, use_column_width=True)
 
-      st.image(image)
-      st.image(image2)
-    
+          
   
 
 if choix == 'Populations Non Actifs' :
@@ -78,6 +87,38 @@ if choix == 'Populations Non Actifs' :
 if choix == 'Salaire Moyen' :
 
     st.dataframe(dp_salaires)
+    
+    #Affichage des 10 départements ayant les salaires net moyen les plus élevés et bas
+
+
+    max_col = dp_salaires.head(10)
+    min_col = dp_salaires.tail(10)
+
+    fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(25,5), sharey=True)
+
+    sns.barplot(x=max_col['DEP'], y=max_col['SNHM'],ax=ax1);
+    ax1.title.set_text("10 départements ayant les salaires net moyen les plus élevés")
+    sns.barplot(x=min_col['DEP'], y=min_col['SNHM'], ax=ax2);
+    ax2.title.set_text("10 départements ayant les salaires net moyen les plus bas")
+    
+    st.write(fig)
+    
+    fig, ax = plt.subplots(1, figsize=(15,10))
+    
+    dp_salaires_age = dp_salaires[['18_25ans_SNHM','26_50ans_SNHM','>50ans_SNHM']]
+    sns.boxplot(data=dp_salaires_age);
+    
+    st.write(fig)
+    
+    fig, ax = plt.subplots(1, figsize=(10,10))
+    
+    plt.hist([dp_salaires['18_25ans_SNHM'], dp_salaires['26_50ans_SNHM'],dp_salaires['>50ans_SNHM']], bins=3, color=['red', 'blue', 'yellow'],label=['18-25', '26-50', '50+'])  
+    plt.title('Salaire moyen par heure')
+    plt.xlabel('Salaire moyen par heure')
+    plt.ylabel('Frequencies')
+    plt.legend();
+    
+    st.write(fig)
     
 if choix == 'Etablissement' :
     
