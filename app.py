@@ -12,114 +12,23 @@ from PIL import Image
 sns.set_theme()
 
 
-Popu=pd.read_csv("Popu_DEP.csv")
-Popu_Actifs =pd.read_csv("Popu_Actifs.csv")
-Popu_Non_Actifs =pd.read_csv("Popu_Non_Actifs.csv")
-dp_salaires=pd.read_csv("dp_salaires.csv")
-base_etablissement_dp=pd.read_csv("base_etablissement_dp.csv")
+from streamlit_base import bases_streamlit
 
 
+def main():
 
-Popu = Popu.drop(['Unnamed: 0'], axis=1)
-dp_salaires = dp_salaires.drop(['Unnamed: 0'], axis=1)
-base_etablissement_dp = base_etablissement_dp.drop(['Unnamed: 0'], axis=1)
+    # List of pages
+    liste_menu = ["Visualisation Base de donnée", "Machine Learning"]
 
+    # Sidebar
+    menu = st.sidebar.selectbox("selectionner votre activité", liste_menu)
 
-
-
-st.title("Visualisation des Bases de données")
-
-length = 30000
-bins=500
-
-st.sidebar.markdown("# Choix de la base")
-
-choix = st.sidebar.radio("Choix de la base", ("Populations", "Populations Non Actifs", "Salaire Moyen","Etablissement"))
+    # Page navigation
+    if menu == liste_menu[0]:
+        bases_streamlit()
+   # else:
+   #     demo_streamlit()
 
 
-st.subheader(choix)
-
-if choix == 'Populations' :
-
-      st.dataframe(Popu)
-     
-     
-      image = Image.open('Populations_Actif.png')
-      image2 = Image.open('Populations_Non_Actif.png')
-      
-      
-      col1, col2 = st.columns(2)
-      
-      original = Image.open('Populations_Actif.png')
-      col1.header("Actif")
-      col1.image(original, use_column_width=True)
-      
-      grayscale = Image.open('Populations_Non_Actif.png')
-      col2.header("Non Actif")
-      col2.image(grayscale, use_column_width=True)
-
-          
-  
-
-if choix == 'Populations Non Actifs' :
-     
-    max_col = Popu_Non_Actifs.head(10)
-    min_col = Popu_Non_Actifs.tail(10)
-
-    fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(16,6), sharey=True)
-
-    sns.barplot(x=max_col['DEP'], y=max_col['Non_Actifs'],  ax=ax1)
-
-
-    ax1.title.set_text("10 départements avec le plus de Non actifs")
-
-    sns.barplot(x=min_col['DEP'], y=min_col['Non_Actifs'], ax=ax2)
-
-    ax2.title.set_text("10 départements avec le moins de Non Actifs");
-    
-    image = Image.open('Popu_Non_Actifs.png')
-
-
-    st.image(image)
-    
-    st.write(fig)
-    
-if choix == 'Salaire Moyen' :
-
-    st.dataframe(dp_salaires)
-    
-    #Affichage des 10 départements ayant les salaires net moyen les plus élevés et bas
-
-
-    max_col = dp_salaires.head(10)
-    min_col = dp_salaires.tail(10)
-
-    fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(25,5), sharey=True)
-
-    sns.barplot(x=max_col['DEP'], y=max_col['SNHM'],ax=ax1);
-    ax1.title.set_text("10 départements ayant les salaires net moyen les plus élevés")
-    sns.barplot(x=min_col['DEP'], y=min_col['SNHM'], ax=ax2);
-    ax2.title.set_text("10 départements ayant les salaires net moyen les plus bas")
-    
-    st.write(fig)
-    
-    fig, ax = plt.subplots(1, figsize=(15,10))
-    
-    dp_salaires_age = dp_salaires[['18_25ans_SNHM','26_50ans_SNHM','>50ans_SNHM']]
-    sns.boxplot(data=dp_salaires_age);
-    
-    st.write(fig)
-    
-    fig, ax = plt.subplots(1, figsize=(10,10))
-    
-    plt.hist([dp_salaires['18_25ans_SNHM'], dp_salaires['26_50ans_SNHM'],dp_salaires['>50ans_SNHM']], bins=3, color=['red', 'blue', 'yellow'],label=['18-25', '26-50', '50+'])  
-    plt.title('Salaire moyen par heure')
-    plt.xlabel('Salaire moyen par heure')
-    plt.ylabel('Frequencies')
-    plt.legend();
-    
-    st.write(fig)
-    
-if choix == 'Etablissement' :
-    
-    st.dataframe(base_etablissement_dp)
+if __name__ == '__main__':
+    main()
