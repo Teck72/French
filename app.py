@@ -13,7 +13,7 @@ sns.set_theme()
 
 
 from streamlit_base import bases_streamlit
-
+from ML_streamlit import ML_stream
 
 def main():
 
@@ -26,8 +26,8 @@ def main():
     # Page navigation
     if menu == liste_menu[0]:
         bases_streamlit()
-   # else:
-   #     demo_streamlit()
+    else:
+        ML_stream()
 
 
 if __name__ == '__main__':
