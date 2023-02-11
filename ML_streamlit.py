@@ -16,7 +16,7 @@ def ML_stream():
     
     st.title('Machine Learning sur les salaires moyens en France')
     st.markdown('Nous allons utiliser des modéles de Régréssions pour prédir le salaire moyen d un département')
-    regr = joblib.load('./Modeles/RandomForestRegressor.joblib')
+    regr = joblib.load('RandomForestRegressor.joblib')
     st.dataframe(df)    
     st.subheader("Entrer le numéro de départements")
     dep = st.text_input('', 0,95)
