@@ -40,16 +40,16 @@ def ML_stream():
     if cible == 'Tous' :
         Median = salaires.SNHM.median()
         if modele == 'DecisionTreeRegressor' :
-            regr = joblib.load('.\Modeles\DecisionTreeRegressor.joblib')
+            regr = joblib.load('./Modeles/DecisionTreeRegressor.joblib')
         else :
-            regr = joblib.load('.\Modeles\RandomForestRegressor.joblib')
+            regr = joblib.load('./Modeles/RandomForestRegressor.joblib')
         
     if cible == 'Cadre' :  
          Median = salaires.cadre_SNHM.median()
          if modele == 'DecisionTreeRegressor' :
-             regr = joblib.load('.\Modeles\DecisionTreeRegressor_cadre.joblib')
+             regr = joblib.load('./Modeles/DecisionTreeRegressor_cadre.joblib')
          else :
-             regr = joblib.load('.\Modeles\RandomForestRegressor_cadre.joblib')
+             regr = joblib.load('./Modeles/RandomForestRegressor_cadre.joblib')
            
                       
     prediction = regr.predict(local)
