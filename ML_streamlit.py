@@ -47,28 +47,28 @@ def ML_stream():
     if cible == 'Cadre' :  
          Median = salaires.cadre_SNHM.median()
          if modele == 'DecisionTreeRegressor' :
-             regr = joblib.load('.\Modeles\DecisionTreeRegressor_cadre.joblib')
+             regr = joblib.load('./Modeles/DecisionTreeRegressor_cadre.joblib')
          else :
-             regr = joblib.load('.\Modeles\RandomForestRegressor_cadre.joblib')
+             regr = joblib.load('./Modeles/RandomForestRegressor_cadre.joblib')
              
     if cible == 'Cadre Moyen' :  
           Median = salaires.cadre_moyen_SNHM.median()
           if modele == 'DecisionTreeRegressor' :
-              regr = joblib.load('.\Modeles\DecisionTreeRegressor_cadre_moyen.joblib')
+              regr = joblib.load('./Modeles/DecisionTreeRegressor_cadre_moyen.joblib')
           else :
-              regr = joblib.load('.\Modeles\RandomForestRegressor_cadre_moyen.joblib')
+              regr = joblib.load('./Modeles/RandomForestRegressor_cadre_moyen.joblib')
     if cible == 'Travailleur' :  
           Median = salaires.travailleur_SNHM.median()
           if modele == 'DecisionTreeRegressor' :
-              regr = joblib.load('.\Modeles\DecisionTreeRegressor_travailleur.joblib')
+              regr = joblib.load('./Modeles/DecisionTreeRegressor_travailleur.joblib')
           else :
-              regr = joblib.load('.\Modeles\RandomForestRegressor_travailleur.joblib')          
+              regr = joblib.load('./Modeles/RandomForestRegressor_travailleur.joblib')          
     if cible == 'Employe' :  
         Median = salaires.employé_SNHM.median()
         if modele == 'DecisionTreeRegressor' :
-            regr = joblib.load('.\Modeles\DecisionTreeRegressor_employe.joblib')
+            regr = joblib.load('./Modeles/DecisionTreeRegressor_employe.joblib')
         else :
-            regr = joblib.load('.\Modeles\RandomForestRegressor_employe.joblib')           
+            regr = joblib.load('./Modeles/RandomForestRegressor_employe.joblib')           
              
            
                       
