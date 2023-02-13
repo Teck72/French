@@ -10,13 +10,12 @@ import shap
 # Custom function
 # st.cache is used to load the function into memory
 df=pd.read_csv("./Data/Data_ML.csv")
-
+salaires = pd.read_csv("./Data/salaires_dp.csv")
 
 def ML_stream():
     
     st.title('Machine Learning sur les salaires moyens en France')
     st.markdown('Nous allons utiliser des modéles de Régréssions pour prédir le salaire moyen d un département')
-    regr = joblib.load('./Modeles/RandomForestRegressor.joblib')
     st.dataframe(df)  
     dep = st.selectbox('Sélectionner votre départements : ',
     ('01 : Ain','02 : Aisne','03 : Allier','04 : Alpes-de-Haute-Provence','05 : Hautes-Alpes','06 : Alpes-Maritimes','07 : Ardèche','08 : Ardennes ','09 : Ariège',
@@ -34,13 +33,25 @@ def ML_stream():
     local.set_index('DEP', inplace = True)
     st.dataframe(local)
     st.subheader("Prediction du Salaire Moyen : ")
-    st.code(regr.predict(local))
+    st.markdown('Rouge : Inférieur au Salaire Médian Français')
+    modele = st.selectbox('Choix du modéle de régression :',('RandomForestRegressor','DecisionTreeRegressor'))
+    if modele == 'DecisionTreeRegressor' :
+        regr = joblib.load('.\Modeles\DecisionTreeRegressor.joblib')
+    else :
+        regr = joblib.load('.\Modeles\RandomForestRegressor.joblib')
+        
+        
+                      
+    prediction = regr.predict(local)
+    prediction = float(np.round(prediction, 2))
+    Median = salaires.SNHM.median()
+    if prediction < Median :
+        st.error(prediction)
+    else :
+        st.success(prediction)
     explainer = shap.TreeExplainer(regr)
     shap_values = explainer.shap_values(local)
-    st.set_option('deprecation.showPyplotGlobalUse', False)
-    st.pyplot(shap.summary_plot(shap_values, local, plot_type="bar"))
-    st.pyplot(shap.summary_plot(shap_values, local))
-    
+   
      
 
 
