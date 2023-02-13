@@ -34,7 +34,6 @@ def ML_stream():
     local.set_index('DEP', inplace = True)
     st.dataframe(local)
     st.subheader("Prediction du Salaire Moyen : ")
-    st.markdown('Rouge : Inférieur au Salaire Médian Français')
     modele = st.selectbox('Choix du modéle de régression :',('RandomForestRegressor','DecisionTreeRegressor'))
             
     cible = st.selectbox('Choix de la valeur cible du salaire Moyen :',('Tous', 'Cadre','Cadre Moyen','Travailleur','Employe'))
@@ -93,6 +92,8 @@ def ML_stream():
         
     prediction = regr.predict(local)
     prediction = float(np.round(prediction, 2))
+    st.markdown('**Prédiction du salaire moyen :**')
+    st.markdown('Rouge : Inférieur au Salaire Médian Français')
     if prediction < Median :
         st.error(prediction)
     else :
