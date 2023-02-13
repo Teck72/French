@@ -36,9 +36,9 @@ def ML_stream():
     st.markdown('Rouge : Inférieur au Salaire Médian Français')
     modele = st.selectbox('Choix du modéle de régression :',('RandomForestRegressor','DecisionTreeRegressor'))
     if modele == 'DecisionTreeRegressor' :
-        regr = joblib.load('.\Modeles\DecisionTreeRegressor.joblib')
+        regr = joblib.load('./Modeles/DecisionTreeRegressor.joblib')
     else :
-        regr = joblib.load('.\Modeles\RandomForestRegressor.joblib')
+        regr = joblib.load('./Modeles/RandomForestRegressor.joblib')
         
         
                       
