@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import numpy as np 
 import joblib
 import shap
+from pandas.api.types import is_numeric_dtype
 
 
 # Custom function
@@ -37,6 +38,7 @@ def ML_stream():
     modele = st.selectbox('Choix du modéle de régression :',('RandomForestRegressor','DecisionTreeRegressor'))
             
     cible = st.selectbox('Choix de la valeur cible du salaire Moyen :',('Tous', 'Cadre','Cadre Moyen','Travailleur','Employe'))
+     
     if cible == 'Tous' :
         Median = salaires.SNHM.median()
         if modele == 'DecisionTreeRegressor' :
@@ -70,21 +72,37 @@ def ML_stream():
         else :
             regr = joblib.load('./Modeles/RandomForestRegressor_employe.joblib')           
              
-           
-                      
+ 
+                    
+    
+    
+    col = st.selectbox("Select  column", local.columns)
+    old_value = local[col].median()
+    with st.form(key='my_form'):
+     col1,col2 = st.columns(2)
+     st_input = st.number_input if is_numeric_dtype(local[col]) else st.text_input
+     with col1:
+          st.markdown ("Ancienne Valeur")
+          st.markdown(old_value)
+     with col2:
+          new_val = st_input("Nouvelle Valeur")
+     if st.form_submit_button("Remplace"):
+          local[col]=local[col].replace(old_value,new_val)
+          st.dataframe(local) 
+    
+        
     prediction = regr.predict(local)
     prediction = float(np.round(prediction, 2))
     if prediction < Median :
         st.error(prediction)
     else :
-        st.success(prediction)
+        st.success(prediction)    
+   
     explainer = shap.TreeExplainer(regr)
     shap_values = explainer.shap_values(local)
     st.set_option('deprecation.showPyplotGlobalUse', False)
     st.pyplot(shap.summary_plot(shap_values, local, plot_type="bar"))
-    st.pyplot(shap.summary_plot(shap_values, local))
-   
-     
+    st.pyplot(shap.summary_plot(shap_values, local)) 
 
 
 ML_stream()
