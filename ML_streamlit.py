@@ -36,7 +36,7 @@ def ML_stream():
     st.markdown('Rouge : Inférieur au Salaire Médian Français')
     modele = st.selectbox('Choix du modéle de régression :',('RandomForestRegressor','DecisionTreeRegressor'))
             
-    cible = st.selectbox('Choix de la valeur cible du salaire Moyen :',('Tous', 'Cadre'))
+    cible = st.selectbox('Choix de la valeur cible du salaire Moyen :',('Tous', 'Cadre','Cadre Moyen','Travailleur','Employe'))
     if cible == 'Tous' :
         Median = salaires.SNHM.median()
         if modele == 'DecisionTreeRegressor' :
@@ -47,9 +47,29 @@ def ML_stream():
     if cible == 'Cadre' :  
          Median = salaires.cadre_SNHM.median()
          if modele == 'DecisionTreeRegressor' :
-             regr = joblib.load('./Modeles/DecisionTreeRegressor_cadre.joblib')
+             regr = joblib.load('.\Modeles\DecisionTreeRegressor_cadre.joblib')
          else :
-             regr = joblib.load('./Modeles/RandomForestRegressor_cadre.joblib')
+             regr = joblib.load('.\Modeles\RandomForestRegressor_cadre.joblib')
+             
+    if cible == 'Cadre Moyen' :  
+          Median = salaires.cadre_moyen_SNHM.median()
+          if modele == 'DecisionTreeRegressor' :
+              regr = joblib.load('.\Modeles\DecisionTreeRegressor_cadre_moyen.joblib')
+          else :
+              regr = joblib.load('.\Modeles\RandomForestRegressor_cadre_moyen.joblib')
+    if cible == 'Travailleur' :  
+          Median = salaires.travailleur_SNHM.median()
+          if modele == 'DecisionTreeRegressor' :
+              regr = joblib.load('.\Modeles\DecisionTreeRegressor_travailleur.joblib')
+          else :
+              regr = joblib.load('.\Modeles\RandomForestRegressor_travailleur.joblib')          
+    if cible == 'Employe' :  
+        Median = salaires.employé_SNHM.median()
+        if modele == 'DecisionTreeRegressor' :
+            regr = joblib.load('.\Modeles\DecisionTreeRegressor_employe.joblib')
+        else :
+            regr = joblib.load('.\Modeles\RandomForestRegressor_employe.joblib')           
+             
            
                       
     prediction = regr.predict(local)
