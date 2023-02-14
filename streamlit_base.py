@@ -41,12 +41,10 @@ def bases_streamlit():
         image = Image.open('./Images/SNHM.png')
 
         st.image(image)
-        st.text("Nous pouvons constater une forte inégalité des salaires moyens selon les départements")
-        st.text("Nous allons étudier l'impacte de plusieurs variables sur celui-ci afin de fournir")
-        st.text("un outil de machine Learning capable de prédire si celui-ci sera en dessous")
-        st.text("ou supérieur au salaire Médian")
-        st.text("Nous allons aussi prédire celui-ci")
-        
+        st.markdown("Nous pouvons constater une forte inégalité des salaires moyens selon les départements")
+        st.markdown("Nous allons étudier l'impacte de plusieurs variables sur celui-ci afin de fournir")
+        st.markdown("un outil de machine Learning capable de prédire le salaire Moyen par déparement")
+      
 
     if choix == 'Populations' :
         st.dataframe(Popu)
@@ -83,6 +81,10 @@ def bases_streamlit():
         ax2.title.set_text("10 départements ayant les salaires net moyen les plus bas")
     
         st.write(fig)
+        
+        st.markdown ( "Sur le graphe ci-dessus, on constate que les départements 75,92 et 78 sont ceux ayant les salaires net moyen les plus élevés.")
+        st.markdown ( "Et les 10 départements qui ont les salaires net moyens les plus bas ont presque les mêmes salaires net moyens.")
+        st.markdown ( " Un peu moins que 13.33 euros/heure (moyen salaire net moyen en France)")
     
         fig, ax = plt.subplots(1, figsize=(15,10))
     
@@ -91,15 +93,12 @@ def bases_streamlit():
     
         st.write(fig)
     
-        fig, ax = plt.subplots(1, figsize=(10,10))
-    
-        plt.hist([dp_salaires['18_25ans_SNHM'], dp_salaires['26_50ans_SNHM'],dp_salaires['>50ans_SNHM']], bins=3, color=['red', 'blue', 'yellow'],label=['18-25', '26-50', '50+'])  
-        plt.title('Salaire moyen par heure')
-        plt.xlabel('Salaire moyen par heure')
-        plt.ylabel('Frequencies')
-        plt.legend();
-    
-        st.write(fig)
+        st.markdown ( "1er constat: Le salaire net moyen par heure pour un cadre est supérieur à ceux des autres catégories.") 
+        st.markdown ( "2e constat: Pour les employés et les travailleurs, la tranche salariale est approximativement la même bien que les travailleurs ont un salaire plus élevé.")
+        st.markdown ( "Conclusion: On ressent une forte inégalité des salaires des cadres par rapport à ceux des autres catégories. Les cadres et les cadres moyens sont privilégiés niveau salariale.")
+        
+        image = Image.open('./Images/SNHM.png')
+        st.image(image)
     
     if choix == 'Etablissement' :
     
