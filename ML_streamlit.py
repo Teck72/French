@@ -14,7 +14,7 @@ df=pd.read_csv("./Data/Data_ML.csv")
 salaires = pd.read_csv("./Data/salaires_dp.csv")
 
 def ML_stream():
-    st.sidebar.markdown('Salaire Median Français par heure en € :')
+    st.sidebar.markdown('**Salaire Median Français par heure en € :**')
     st.sidebar.markdown('Global :')
     st.sidebar.success(round(salaires.SNHM.median(),2))
     st.sidebar.markdown('Cadre :')
