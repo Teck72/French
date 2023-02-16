@@ -9,11 +9,22 @@ from pandas.api.types import is_numeric_dtype
 
 
 # Custom function
-# st.cache is used to load the function into memory
+st.cache
 df=pd.read_csv("./Data/Data_ML.csv")
 salaires = pd.read_csv("./Data/salaires_dp.csv")
 
 def ML_stream():
+    st.sidebar.markdown('Salaire Median Français par heure en € :')
+    st.sidebar.markdown('Global :')
+    st.sidebar.success(round(salaires.SNHM.median(),2))
+    st.sidebar.markdown('Cadre :')
+    st.sidebar.success(round(salaires.cadre_SNHM.median(),2))
+    st.sidebar.markdown('Cadre Moyen :')
+    st.sidebar.success(round(salaires.cadre_moyen_SNHM.median(),2))
+    st.sidebar.markdown('Travailleur :')
+    st.sidebar.success(round(salaires.travailleur_SNHM.median(),2))
+    st.sidebar.markdown('Employé:')
+    st.sidebar.success(round(salaires.employé_SNHM.median(),2))
     
     st.title('Machine Learning sur les salaires moyens en France')
     st.markdown('Nous allons utiliser des modéles de Régréssions pour prédir le salaire moyen d un département')
@@ -93,8 +104,9 @@ def ML_stream():
         
     prediction = regr.predict(local)
     prediction = float(np.round(prediction, 2))
-    st.markdown('**Prédiction du salaire moyen :**')
+    st.markdown('**Prédiction du salaire moyen par heure en € :**')
     st.markdown('Rouge : Inférieur au Salaire Médian Français')
+    st.markdown('Vert : Supérieur ou égale au Salaire Médian Français')
     if prediction < Median :
         st.error(prediction)
     else :
