@@ -109,7 +109,7 @@ def ML_stream():
      col1,col2 = st.columns(2)
      st_input = st.number_input if is_numeric_dtype(local[col]) else st.text_input
      with col1:
-          st.markdown ("Ancienne Valeur")
+          st.markdown ("Valeur d'Origine")
           st.markdown(old_value)
      with col2:
           new_val = st.slider("Nouvelle Valeur")
