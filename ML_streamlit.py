@@ -104,7 +104,7 @@ def ML_stream():
         
     prediction = regr.predict(local)
     prediction = float(np.round(prediction, 2))
-    st.markdown('**Prédiction du salaire moyen par heure en € :**')
+    st.markdown('**Prédiction du salaire median par heure en € :**')
     st.markdown('Rouge : Inférieur au Salaire Médian Français')
     st.markdown('Vert : Supérieur ou égale au Salaire Médian Français')
     if prediction < Median :
