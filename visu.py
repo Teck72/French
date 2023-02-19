@@ -11,9 +11,9 @@ from PIL import Image
 
 sns.set_theme()
 
-Popu=pd.read_csv("Popu_DEP.csv")
-dp_salaires=pd.read_csv("dp_salaires.csv")
-base_etablissement_dp=pd.read_csv("base_etablissement_dp.csv")
+Popu=pd.read_csv(".Data/Popu_DEP.csv")
+dp_salaires=pd.read_csv("./Data/dp_salaires.csv.csv")
+base_etablissement_dp=pd.read_csv("./Data/base_etablissement_dp.csv")
 
 
 
@@ -73,6 +73,11 @@ def bases_streamlit():
     ax2.title.set_text("10 départements ayant les salaires net moyen les plus bas")
     
     st.write(fig)
+    
+    st.markdown ("Sur le graphe ci-dessus, on constate que les départements 75,92 et 78 sont ceux ayant les salaires net moyen les plus élevés.")
+    st.markdown ("Et les 10 départements qui ont les salaires net moyens les plus bas ont presque les mêmes salaires net moyens.")
+    st.markdown( "Un peu moins que 13.33 euros/heure (moyen salaire net moyen en France')")
+    
     
     fig, ax = plt.subplots(1, figsize=(15,10))
     

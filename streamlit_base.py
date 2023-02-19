@@ -23,6 +23,8 @@ base_etablissement_dp = base_etablissement_dp.drop(['Unnamed: 0'], axis=1)
 
 
 
+
+
 def bases_streamlit():
     st.title("Visualisation des Bases de données")
     length = 30000
@@ -31,8 +33,7 @@ def bases_streamlit():
     st.sidebar.markdown("# Choix de la base")
 
     choix = st.sidebar.radio("Choix de la base", ("Projet Globale","Populations", "Salaire Moyen","Etablissement"))
-
-
+ 
     st.subheader(choix)
     
     

@@ -48,7 +48,7 @@ def ML_stream():
     st.subheader("Prediction du Salaire Median : ")
     modele = st.selectbox('Choix du modéle de régression :',('RandomForestRegressor','DecisionTreeRegressor'))
             
-    cible = st.selectbox('Choix de la valeur cible du salaire Moyen :',('Tous', 'Cadre','Cadre Moyen','Travailleur','Employe'))
+    cible = st.selectbox('Choix de la valeur cible du salaire Moyen :',('Tous', 'Cadre','Cadre Moyen','Travailleur','Employe','18_25ans','26_50ans','>50ans'))
      
     if cible == 'Tous' :
         Median = salaires.SNHM.median()
@@ -81,9 +81,25 @@ def ML_stream():
         if modele == 'DecisionTreeRegressor' :
             regr = joblib.load('./Modeles/DecisionTreeRegressor_employe.joblib')
         else :
-            regr = joblib.load('./Modeles/RandomForestRegressor_employe.joblib')           
-             
- 
+            regr = joblib.load('./Modeles/RandomForestRegressor_employe.joblib')   
+    if cible == '18_25ans' :  
+           Median = salaires.employé_SNHM.median()
+           if modele == 'DecisionTreeRegressor' :
+               regr = joblib.load('./Modeles/DecisionTreeRegressor_18_25ans.joblib')
+           else :
+               regr = joblib.load('./Modeles/RandomForestRegressor_18_25ans.joblib')          
+    if cible == '26_50ans' :  
+             Median = salaires.employé_SNHM.median()
+             if modele == 'DecisionTreeRegressor' :
+                 regr = joblib.load('./Modeles/DecisionTreeRegressor_26_50ans.joblib')
+             else :
+                 regr = joblib.load('./Modeles/RandomForestRegressor_26_50ans.joblib')     
+    if cible == '>50ans' :  
+             Median = salaires.employé_SNHM.median()
+             if modele == 'DecisionTreeRegressor' :
+                 regr = joblib.load('./Modeles/DecisionTreeRegressor_50ans.joblib')
+             else :
+                 regr = joblib.load('./Modeles/RandomForestRegressor_50ans.joblib')               
                     
     
     
@@ -96,7 +112,7 @@ def ML_stream():
           st.markdown ("Ancienne Valeur")
           st.markdown(old_value)
      with col2:
-          new_val = st_input("Nouvelle Valeur")
+          new_val = st.slider("Nouvelle Valeur")
      if st.form_submit_button("Remplace"):
           local[col]=local[col].replace(old_value,new_val)
           st.dataframe(local) 
