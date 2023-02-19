@@ -45,7 +45,7 @@ def ML_stream():
     local = df[df['DEP'].isin([dep])]
     local.set_index('DEP', inplace = True)
     st.dataframe(local)
-    st.subheader("Prediction du Salaire Moyen : ")
+    st.subheader("Prediction du Salaire Median : ")
     modele = st.selectbox('Choix du modéle de régression :',('RandomForestRegressor','DecisionTreeRegressor'))
             
     cible = st.selectbox('Choix de la valeur cible du salaire Moyen :',('Tous', 'Cadre','Cadre Moyen','Travailleur','Employe'))
