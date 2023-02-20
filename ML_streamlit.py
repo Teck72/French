@@ -6,6 +6,9 @@ import numpy as np
 import joblib
 import shap
 from pandas.api.types import is_numeric_dtype
+import sklearn.metrics
+from sklearn.metrics import mean_squared_error
+from sklearn.metrics import mean_absolute_error
 
 
 # Custom function
@@ -133,6 +136,7 @@ def ML_stream():
     st.set_option('deprecation.showPyplotGlobalUse', False)
     st.pyplot(shap.summary_plot(shap_values, local, plot_type="bar"))
     st.pyplot(shap.summary_plot(shap_values, local)) 
+   
 
 
 ML_stream()
