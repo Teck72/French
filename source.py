@@ -25,9 +25,5 @@ def sources():
     st.markdown("**indicateurs-loyers-appartements.csv :**")
     st.markdown("Indicateurs de loyers d'annonce par commune en 2018")
     st.markdown("  ")
-    st.markdown(" https://www.insee.fr/fr/statistiques/2012730#graphique-TCRD_044_tab1_departements ")
-    st.markdown(" **TCRD_044.csv :** ")
-    st.markdown(" Évolution de la population entre 2013 et 2019 et estimation de la population au 1er janvier 2022 : comparaisons départementales ")
-    
-    
+   
 
