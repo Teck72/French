@@ -33,7 +33,7 @@ def main():
     if menu == liste_menu[2] :
         ML_etude()
    
-    else :
+    if menu == liste_menu[3] :
         sources()
 
 if __name__ == '__main__':
