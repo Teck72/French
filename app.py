@@ -20,7 +20,7 @@ from source import sources
 def main():
 
     # List of pages
-    liste_menu = ["Visualisation Base de donnée", "Machine Learning","Etude Choix Machine Learning","Sources"]
+    liste_menu = ["Visualisation Base de donnée", "Machine Learning","Etude Machine Learning","Sources"]
 
     # Sidebar
     menu = st.sidebar.selectbox("selectionner votre activité", liste_menu)
