@@ -23,7 +23,7 @@ salary=pd.read_csv("./Data/dp_salaires.csv")
 popu=pd.read_csv("./Data/Popu_DEP.csv")
 te_100 = pd.read_csv("./Data/te_100.csv")
 dep_loyer = pd.read_csv('./Data/dep_loyer_app.csv')
-metrics = pd.read_csv('./Data/metrics.csv')
+metrics = pd.read_csv('./Data/Metrics.csv')
 metrics_total = pd.read_csv('./Data/Metrics_total.csv')
 
 base_etablissement = base_etablissement.drop(['Unnamed: 0'], axis=1)
