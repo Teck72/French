@@ -153,6 +153,9 @@ def bases_streamlit():
     if choix == 'Etablissement' :
     
         st.dataframe(base_etablissement_dp)
+        image = Image.open('./Images/SUMMG.png')
+        st.image(image)
+        
         
     if choix == "Loyer Appartement" :
         
