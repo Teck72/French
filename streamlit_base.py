@@ -204,6 +204,13 @@ def bases_streamlit():
         plt.xlabel('Département')
         plt.ylabel('Nombre d\'activité ')
         st.write(fig)
+        
+        image = Image.open('./Images/dep_indus.png')
+        st.image(image)
+        image = Image.open('./Images/dep_CTRH.png')
+        st.image(image)   
+        image = Image.open('./Images/dep_STServAdmi.png')
+        st.image(image) 
 
 
 plt.legend()
