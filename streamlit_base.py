@@ -205,16 +205,24 @@ def bases_streamlit():
         plt.ylabel('Nombre d\'activité ')
         st.write(fig)
         
-        image = Image.open('./Images/dep_indus.png')
-        st.image(image)
-        image = Image.open('./Images/dep_CTRH.png')
-        st.image(image)   
-        image = Image.open('./Images/dep_STServAdmi.png')
-        st.image(image) 
+        modele = st.selectbox("Choix du type d'entreprise pour la visualisation :",('Industriel','CTRH','STServAdmi'))
+        if modele == 'Industriel' :
+            image = Image.open('./Images/dep_indus.png')
+            st.image(image)
+            
+        if modele == 'CTRH' :   
+            image = Image.open('./Images/dep_CTRH.png')
+            st.image(image)   
+                
+        if modele == 'STServAdmi' :
+            image = Image.open('./Images/dep_STServAdmi.png')
+            st.image(image) 
+          
+     
 
 
-plt.legend()
-plt.show()
+#plt.legend()
+#plt.show()
         
          
         
