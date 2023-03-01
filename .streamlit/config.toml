@@ -2,7 +2,8 @@
 base="light"
 
 # Primary accent color for interactive elements.
-primaryColor = '#2e86de'
+# primaryColor = '#2e86de'
+primaryColor="#F63366"
 
 # Background color for the main content area.
 backgroundColor= '#FFF'
