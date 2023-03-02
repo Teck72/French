@@ -17,17 +17,17 @@ df=pd.read_csv("./Data/Data_ML.csv")
 salaires = pd.read_csv("./Data/salaires_dp.csv")
 
 def ML_stream():
-    st.sidebar.markdown('**Salaire Median Français par heure en € :**')
+    st.sidebar.markdown('**Salaire Median en Françe Metropolitaine par heure en € :**')
     st.sidebar.markdown('Global :')
-    st.sidebar.success(round(salaires.SNHM.median(),2))
+    st.sidebar.markdown(round(salaires.SNHM.median(),2))
     st.sidebar.markdown('Cadre :')
-    st.sidebar.success(round(salaires.cadre_SNHM.median(),2))
+    st.sidebar.markdown(round(salaires.cadre_SNHM.median(),2))
     st.sidebar.markdown('Cadre Moyen :')
-    st.sidebar.success(round(salaires.cadre_moyen_SNHM.median(),2))
+    st.sidebar.markdown(round(salaires.cadre_moyen_SNHM.median(),2))
     st.sidebar.markdown('Travailleur :')
-    st.sidebar.success(round(salaires.travailleur_SNHM.median(),2))
+    st.sidebar.markdown(round(salaires.travailleur_SNHM.median(),2))
     st.sidebar.markdown('Employé:')
-    st.sidebar.success(round(salaires.employé_SNHM.median(),2))
+    st.sidebar.markdown(round(salaires.employé_SNHM.median(),2))
     
     st.title('Machine Learning sur les salaires moyens en France')
     st.markdown('Nous allons utiliser des modéles de Régréssions pour prédir le salaire moyen d un département')
@@ -123,13 +123,16 @@ def ML_stream():
         
     prediction = regr.predict(local)
     prediction = float(np.round(prediction, 2))
-    st.markdown('**Prédiction du salaire median par heure en € :**')
-    st.markdown('Rouge : Inférieur au Salaire Médian Français')
-    st.markdown('Vert : Supérieur ou égale au Salaire Médian Français')
-    if prediction < Median :
-        st.error(prediction)
-    else :
-        st.success(prediction)    
+    st.markdown('**Prédiction du salaire median :**')
+    #st.markdown('Rouge : Inférieur au Salaire Médian Français')
+    #st.markdown('Vert : Supérieur ou égale au Salaire Médian Français')
+    
+    st.metric(label="En € par Heure", value=prediction, delta=round((prediction-Median),2))
+    
+    #if prediction < Median :
+    #    st.error(prediction)
+    #else :
+    #    st.success(prediction)    
    
     explainer = shap.TreeExplainer(regr)
     shap_values = explainer.shap_values(local)
