@@ -205,6 +205,7 @@ def bases_streamlit():
         plt.ylabel('Nombre d\'activité ')
         st.write(fig)
         
+        
         modele = st.selectbox("Choix du type d'entreprise pour la visualisation :",('Industriel','CTRH','STServAdmi'))
         if modele == 'Industriel' :
             image = Image.open('./Images/dep_indus.png')

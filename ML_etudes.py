@@ -111,16 +111,20 @@ def ML_etude():
     fig1, ax1 = plt.subplots()
     shap.summary_plot(shap_values, X_test, plot_type="bar")
     st.pyplot(fig1)
+    st.markdown("**Importance de chaque variable explicative par rapport à la variation de notre variable cible (que ce soit en positif ou en négatif)**")
     fig1, ax1 = plt.subplots()
     shap.summary_plot(shap_values, X_test)
     st.pyplot(fig1)
+    st.markdown("**Il y a deux infos principales :**")
+    st.markdown("  **#Le SHAP = plus le chiffre est élevé positivement ou négativement, plus la variable cible à de l’importance dans la valeure de notre variable cible.**")            
+    st.markdown("  **#La COULEUR des observations, ici plus elle est rouge plus la valeur dans notre base de donnée est élevé.**")
     if modele == 'DecisionTreeRegressor' :
         image = Image.open('./Images/Tree_DecisionTreeRegressor.png')
-        st.image(image)
+        st.image(image,output_format='PNG')
             
     else :
         image = Image.open('./Images/Tree_RandomForestRegressor.png')
-        st.image(image)
+        st.image(image,output_format='PNG')
     
     
    
