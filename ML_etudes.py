@@ -11,6 +11,8 @@ from sklearn.tree import plot_tree
 import sklearn.metrics
 from sklearn.metrics import mean_squared_error
 from sklearn.metrics import mean_absolute_error
+from sklearn.ensemble import RandomForestRegressor
+
 
 
 sns.set_theme()
@@ -118,15 +120,20 @@ def ML_etude():
     st.markdown("**Il y a deux infos principales :**")
     st.markdown("  **#Le SHAP = plus le chiffre est élevé positivement ou négativement, plus la variable cible à de l’importance dans la valeure de notre variable cible.**")            
     st.markdown("  **#La COULEUR des observations, ici plus elle est rouge plus la valeur dans notre base de donnée est élevé.**")
+    st.markdown("   ")
+    st.markdown("   ")
+    st.markdown("**Arbre de Décision :**  ")
+    
     if modele == 'DecisionTreeRegressor' :
-        image = Image.open('./Images/Tree_DecisionTreeRegressor.png')
-        st.image(image,output_format='PNG')
+        fig, ax = plt.subplots()
+        plot_tree(model, feature_names=X_test.columns,filled=True,rounded=True);
+        st.pyplot(fig)
             
     else :
-        image = Image.open('./Images/Tree_RandomForestRegressor.png')
-        st.image(image,output_format='PNG')
-    
-    
+        
+        fig, ax = plt.subplots()
+        plot_tree(model.estimators_[0], feature_names=X_test.columns,filled=True,rounded=True);
+        st.pyplot(fig)
    
 
 
