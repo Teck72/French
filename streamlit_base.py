@@ -206,7 +206,8 @@ def bases_streamlit():
         st.write(fig)
         
         
-        modele = st.selectbox("Choix du type d'entreprise pour la visualisation :",('Industriel','CTRH','STServAdmi'))
+        modele = st.selectbox("Choix du type d'entreprise pour la visualisation :",
+                              ('Industriel','CTRH','STServAdmi','ApESS','AutreServ','Const','FinAss','Immo','InfoComm'))
         if modele == 'Industriel' :
             image = Image.open('./Images/dep_indus.png')
             st.image(image)
@@ -218,8 +219,30 @@ def bases_streamlit():
         if modele == 'STServAdmi' :
             image = Image.open('./Images/dep_STServAdmi.png')
             st.image(image) 
-          
-     
+            
+        if modele == 'ApESS' :
+            image = Image.open('./Images/dep_ApESS.png')
+            st.image(image) 
+            
+        if modele == 'AutreServ' :
+            image = Image.open('./Images/dep_AutreServ.png')
+            st.image(image)     
+              
+        if modele == 'Const' :
+             image = Image.open('./Images/dep_const.png')
+             st.image(image)    
+             
+        if modele == 'FinAss' :
+             image = Image.open('./Images/dep_FinAss.png')
+             st.image(image)      
+        
+        if modele == 'Immo' :
+             image = Image.open('./Images/dep_Immo.png')
+             st.image(image)           
+   
+        if modele == 'InfoComm' :
+             image = Image.open('./Images/dep_InfoComm.png')
+             st.image(image)          
 
 
 #plt.legend()
