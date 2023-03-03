@@ -85,9 +85,10 @@ def ML_etude():
     st.markdown("   ")
     st.markdown("   ")
     st.markdown("**Etudes de la valeur Cible du Salaire Moyen : SNHM**")
-    target = salary.SNHM
-    salary.SNHM = round(salary.SNHM,2)
-    X_train, X_test, y_train, y_test = train_test_split(df3, target, test_size = 0.25, random_state=35)
+    with st.echo():
+        target = salary.SNHM
+        salary.SNHM = round(salary.SNHM,2)
+        X_train, X_test, y_train, y_test = train_test_split(df3, target, test_size = 0.25, random_state=35)
     
        
     
@@ -102,21 +103,22 @@ def ML_etude():
     st.markdown("   ")
     st.markdown("Affichage SHAP")
     
-
-    explainer = shap.TreeExplainer(model)
-
-    shap_values = explainer.shap_values(X_test)
+    with st.echo():
+        explainer = shap.TreeExplainer(model)
+        shap_values = explainer.shap_values(X_test)
 
     st.markdown("Expected Value :   ")
     st.text(explainer.expected_value)
     st.dataframe(shap_values)
-    fig1, ax1 = plt.subplots()
-    shap.summary_plot(shap_values, X_test, plot_type="bar")
-    st.pyplot(fig1)
+    with st.echo():
+        fig1, ax1 = plt.subplots()
+        shap.summary_plot(shap_values, X_test, plot_type="bar")
+        st.pyplot(fig1)
     st.markdown("**Importance de chaque variable explicative par rapport à la variation de notre variable cible (que ce soit en positif ou en négatif)**")
-    fig1, ax1 = plt.subplots()
-    shap.summary_plot(shap_values, X_test)
-    st.pyplot(fig1)
+    with st.echo():
+        fig1, ax1 = plt.subplots()
+        shap.summary_plot(shap_values, X_test)
+        st.pyplot(fig1)
     st.markdown("**Il y a deux infos principales :**")
     st.markdown("  **#Le SHAP = plus le chiffre est élevé positivement ou négativement, plus la variable cible à de l’importance dans la valeure de notre variable cible.**")            
     st.markdown("  **#La COULEUR des observations, ici plus elle est rouge plus la valeur dans notre base de donnée est élevé.**")
@@ -124,16 +126,20 @@ def ML_etude():
     st.markdown("   ")
     st.markdown("**Arbre de Décision :**  ")
     
+    
     if modele == 'DecisionTreeRegressor' :
-        fig, ax = plt.subplots()
-        plot_tree(model, feature_names=X_test.columns,filled=True,rounded=True);
-        st.pyplot(fig)
+        with st.echo():
+            fig, ax = plt.subplots()
+            plot_tree(model, feature_names=X_test.columns,
+                      filled=True,rounded=True);
+            st.pyplot(fig)
             
     else :
-        
-        fig, ax = plt.subplots()
-        plot_tree(model.estimators_[0], feature_names=X_test.columns,filled=True,rounded=True);
-        st.pyplot(fig)
+        with st.echo():
+            fig, ax = plt.subplots()
+            plot_tree(model.estimators_[0], feature_names=X_test.columns,
+                      filled=True,rounded=True);
+            st.pyplot(fig)
    
 
 
