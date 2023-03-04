@@ -18,16 +18,7 @@ salaires = pd.read_csv("./Data/salaires_dp.csv")
 
 def ML_stream():
     st.sidebar.markdown("**Salaire Moyen d'un département :**")
-    #st.sidebar.markdown('Global :')
-    #st.sidebar.info(round(salaires.SNHM.median(),2))
-    #st.sidebar.markdown('Cadre :')
-    #st.sidebar.info(round(salaires.cadre_SNHM.median(),2))
-    #st.sidebar.markdown('Cadre Moyen :')
-    #st.sidebar.info(round(salaires.cadre_moyen_SNHM.median(),2))
-    #st.sidebar.markdown('Travailleur :')
-    #st.sidebar.info(round(salaires.travailleur_SNHM.median(),2))
-    #st.sidebar.markdown('Employé:')
-    #st.sidebar.info(round(salaires.employé_SNHM.median(),2))
+    
     
     st.title('Machine Learning ')
     st.markdown('Nous allons utiliser des modéles de Régréssions pour prédir le salaire moyen d un département')
@@ -123,19 +114,15 @@ def ML_stream():
     prediction = regr.predict(local)
     prediction = float(np.round(prediction, 2))
     st.markdown('**Prédiction du salaire median :**')
-    #st.markdown('Rouge : Inférieur au Salaire Médian Français')
-    #st.markdown('Vert : Supérieur ou égale au Salaire Médian Français')
+    
     
     st.sidebar.markdown('Numpéro du département : ')
     st.sidebar.markdown(dep)
     st.sidebar.markdown("catégories d'emploi ou d'âge : ")
     st.sidebar.markdown(cible)
-    st.sidebar.metric(label="En € par Heure : ", value=prediction, delta=round((prediction-Median),2))
-    
-    #if prediction < Median :
-    #    st.error(prediction)
-    #else :
-    #    st.success(prediction)    
+    st.sidebar.metric(label="**En € par Heure :** ", value=prediction, delta=round((prediction-Median),2))
+    st.sidebar.markdown('*(Indique la différence avec le salaire médian Français)*')
+  
    
     explainer = shap.TreeExplainer(regr)
     shap_values = explainer.shap_values(local)
