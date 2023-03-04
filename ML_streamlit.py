@@ -17,17 +17,17 @@ df=pd.read_csv("./Data/Data_ML.csv")
 salaires = pd.read_csv("./Data/salaires_dp.csv")
 
 def ML_stream():
-    st.sidebar.markdown('**Salaire Median en Françe Metropolitaine par heure en € :**')
-    st.sidebar.markdown('Global :')
-    st.sidebar.info(round(salaires.SNHM.median(),2))
-    st.sidebar.markdown('Cadre :')
-    st.sidebar.info(round(salaires.cadre_SNHM.median(),2))
-    st.sidebar.markdown('Cadre Moyen :')
-    st.sidebar.info(round(salaires.cadre_moyen_SNHM.median(),2))
-    st.sidebar.markdown('Travailleur :')
-    st.sidebar.info(round(salaires.travailleur_SNHM.median(),2))
-    st.sidebar.markdown('Employé:')
-    st.sidebar.info(round(salaires.employé_SNHM.median(),2))
+    st.sidebar.markdown('**Salaire Median en Françe Metropolitaine :**')
+    #st.sidebar.markdown('Global :')
+    #st.sidebar.info(round(salaires.SNHM.median(),2))
+    #st.sidebar.markdown('Cadre :')
+    #st.sidebar.info(round(salaires.cadre_SNHM.median(),2))
+    #st.sidebar.markdown('Cadre Moyen :')
+    #st.sidebar.info(round(salaires.cadre_moyen_SNHM.median(),2))
+    #st.sidebar.markdown('Travailleur :')
+    #st.sidebar.info(round(salaires.travailleur_SNHM.median(),2))
+    #st.sidebar.markdown('Employé:')
+    #st.sidebar.info(round(salaires.employé_SNHM.median(),2))
     
     st.title('Machine Learning sur les salaires moyens en France')
     st.markdown('Nous allons utiliser des modéles de Régréssions pour prédir le salaire moyen d un département')
@@ -110,7 +110,6 @@ def ML_stream():
     old_value = local[col].median()
     with st.form(key='my_form'):
      col1,col2 = st.columns(2)
-     st_input = st.number_input if is_numeric_dtype(local[col]) else st.text_input
      with col1:
           st.markdown ("Valeur d'Origine en %")
           st.markdown(old_value)
@@ -127,7 +126,11 @@ def ML_stream():
     #st.markdown('Rouge : Inférieur au Salaire Médian Français')
     #st.markdown('Vert : Supérieur ou égale au Salaire Médian Français')
     
-    st.metric(label="En € par Heure", value=prediction, delta=round((prediction-Median),2))
+    st.sidebar.markdown('Numpéro du département : ')
+    st.sidebar.markdown(dep)
+    st.sidebar.markdown("catégories d'emploi ou d'âge : ")
+    st.sidebar.markdown(cible)
+    st.sidebar.metric(label="En € par Heure : ", value=prediction, delta=round((prediction-Median),2))
     
     #if prediction < Median :
     #    st.error(prediction)
