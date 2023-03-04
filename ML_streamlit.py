@@ -17,7 +17,7 @@ df=pd.read_csv("./Data/Data_ML.csv")
 salaires = pd.read_csv("./Data/salaires_dp.csv")
 
 def ML_stream():
-    st.sidebar.markdown('**Salaire Median en Françe Metropolitaine :**')
+    st.sidebar.markdown("**Salaire Moyen d'un département :**")
     #st.sidebar.markdown('Global :')
     #st.sidebar.info(round(salaires.SNHM.median(),2))
     #st.sidebar.markdown('Cadre :')
