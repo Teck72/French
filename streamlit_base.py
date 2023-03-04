@@ -24,6 +24,7 @@ dp_salaires = dp_salaires.drop(['Unnamed: 0'], axis=1)
 base_etablissement_dp = base_etablissement_dp.drop(['Unnamed: 0'], axis=1)
 dep_loyer_app = dep_loyer_app.drop(['Unnamed: 0'], axis=1)
 te = te.drop(['Unnamed: 0'], axis=1)
+te.set_index('DEP',inplace = True)
 
 
 
@@ -177,9 +178,45 @@ def bases_streamlit():
         
     if choix == "Type d'entreprise" :
         
+        
+        
+     
         st.dataframe(te)
         
-        data = te.head(20)
+        modele = st.selectbox("Choix de la région :",
+                              ("Auvergne-Rhône-Alpes","Bourgogne-Franche-Comté","Bretagne","Centre-Val de Loire","Corse",
+                               "Grand Est","Hauts-de-France","Île-de-France","Normandie","Nouvelle-Aquitaine",
+                               "Occitanie","Pays de la Loire","Provence-Alpes-Côte d'Azur"))
+        if modele == 'Auvergne-Rhône-Alpes' :
+            data = te.filter(items=['01','03','07','15','26','38','42','43','63','69','73','74'], axis =0)
+        if modele == 'Bourgogne-Franche-Comté' :
+            data = te.filter(items=['39','58','70','71'], axis =0)    
+        if modele == 'Bretagne' :
+            data = te.filter(items=['22','29','35','56'], axis =0) 
+        if modele == 'Centre-Val de Loire' :
+            data = te.filter(items=['18','28','36','37','41','45'], axis =0)    
+        if modele == 'Corse' :
+            data = te.filter(items=['2A','2B'], axis =0)            
+        if modele == 'Grand Est' :
+            data = te.filter(items=['08','10','51','52','54','55','57','67','68','88'], axis =0)
+        if modele == 'Hauts-de-France' :
+            data = te.filter(items=['02','59','60','62','80'], axis =0)
+        if modele == 'Île-de-France' :
+            data = te.filter(items=['75','78','77','91','92','93','94','95'], axis =0)
+        if modele == 'Normandie' :
+            data = te.filter(items=['14','27','50','61','76'], axis =0)
+        if modele == 'Nouvelle-Aquitaine' :
+            data = te.filter(items=['33','40','47','64'], axis =0)    
+        if modele == 'Occitanie' :
+            data = te.filter(items=['09','11','12','30','31','32','34','46','48','65','66','81','82'], axis =0)
+        if modele == 'Pays de la Loire' :
+            data = te.filter(items=['44','49','53','72','85'], axis =0)
+        if modele == "Provence-Alpes-Côte d'Azur" :
+            data = te.filter(items=['06','13','83','84'], axis =0)
+
+        
+        
+        data=data.reset_index()
         fig, ax = plt.subplots()
         plt.bar(data['DEP'], data['indus'], color='blue', label='indus')
         plt.bar(data['DEP'], data['const'], color='orange', label='const')
@@ -195,6 +232,7 @@ def bases_streamlit():
         plt.title('Nombre de type d\'activité par département')
         plt.xlabel('Département')
         plt.ylabel('Nombre d\'activité ')
+        plt.legend()
         st.write(fig)
         
         
