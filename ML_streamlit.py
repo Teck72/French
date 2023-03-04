@@ -29,7 +29,7 @@ def ML_stream():
     #st.sidebar.markdown('Employé:')
     #st.sidebar.info(round(salaires.employé_SNHM.median(),2))
     
-    st.title('Machine Learning sur les salaires moyens en France')
+    st.title('Machine Learning ')
     st.markdown('Nous allons utiliser des modéles de Régréssions pour prédir le salaire moyen d un département')
     st.dataframe(df)  
     st.markdown('**Sélectionner votre départements :**')

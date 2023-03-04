@@ -36,20 +36,12 @@ def bases_streamlit():
 
     st.sidebar.markdown("# Choix de la base")
 
-    choix = st.sidebar.radio("Choix de la base", ("Projet Globale","Populations", "Salaire Moyen","Etablissement","Loyer Appartement","Type d'entreprise"))
+    choix = st.sidebar.radio("Choix de la base", ("Populations", "Salaire Moyen","Etablissement","Loyer Appartement","Type d'entreprise"))
  
     st.subheader(choix)
     
     
-    if choix == 'Projet Globale':
-        st.title("Les Inégalitées Salariale en France selon les terrritoires")
-        image = Image.open('./Images/SNHM.png')
-
-        st.image(image)
-        st.markdown("Nous pouvons constater une forte inégalité des salaires moyens selon les départements")
-        st.markdown("Nous allons étudier l'impacte de plusieurs variables sur celui-ci afin de fournir")
-        st.markdown("un outil de machine Learning capable de prédire le salaire Moyen par déparement")
-      
+   
 
     if choix == 'Populations' :
         st.dataframe(Popu)

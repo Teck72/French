@@ -12,6 +12,8 @@ import sklearn.metrics
 from sklearn.metrics import mean_squared_error
 from sklearn.metrics import mean_absolute_error
 from sklearn.ensemble import RandomForestRegressor
+import graphviz
+from sklearn.tree import DecisionTreeClassifier, export_graphviz
 
 
 
@@ -82,13 +84,14 @@ def ML_etude():
     drop_df = ['ApESS','Immo','FinAss']
     df3 = df2.drop(drop_df, axis = 1 )
     
+    
     st.markdown("   ")
     st.markdown("   ")
     st.markdown("**Etudes de la valeur Cible du Salaire Moyen : SNHM**")
     with st.echo():
         target = salary.SNHM
         salary.SNHM = round(salary.SNHM,2)
-        X_train, X_test, y_train, y_test = train_test_split(df3, target, test_size = 0.25, random_state=35)
+        X_train, X_test, y_train,y_test = train_test_split(df3, target, test_size = 0.25, random_state=35)
     
        
     
@@ -109,6 +112,10 @@ def ML_etude():
 
     st.markdown("Expected Value :   ")
     st.text(explainer.expected_value)
+    st.markdown("*C'est la valeur moyenne des valeurs SHAP pour toutes les instances du jeux de test.*")
+    st.markdown("*Elle permet de comprendre l'importance relative de chaque fonctionnalité pour le modèle de prédiction*")
+    
+  
     st.dataframe(shap_values)
     with st.echo():
         fig1, ax1 = plt.subplots()
@@ -134,13 +141,14 @@ def ML_etude():
                       filled=True,rounded=True);
             st.pyplot(fig)
             
+            
     else :
         with st.echo():
             fig, ax = plt.subplots()
             plot_tree(model.estimators_[0], feature_names=X_test.columns,
                       filled=True,rounded=True);
             st.pyplot(fig)
-   
+           
 
 
 
