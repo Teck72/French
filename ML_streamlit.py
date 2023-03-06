@@ -117,9 +117,9 @@ def ML_stream():
     
     
     st.sidebar.markdown('Numpéro du département : ')
-    st.sidebar.markdown(dep)
+    st.sidebar.info(dep)
     st.sidebar.markdown("catégories d'emploi ou d'âge : ")
-    st.sidebar.markdown(cible)
+    st.sidebar.info(cible)
     st.sidebar.metric(label="**En € par Heure :** ", value=prediction, delta=round((prediction-Median),2))
     st.sidebar.markdown('*(Indique la différence avec le salaire médian Français)*')
   
