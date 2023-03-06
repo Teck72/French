@@ -95,12 +95,20 @@ def ML_etude():
        
     
     st.markdown("   ")
-    modele = st.selectbox('Choix du modéle de régression :',('RandomForestRegressor','DecisionTreeRegressor'))
+    modele = st.sidebar.selectbox('Choix du modéle de régression :',('DecisionTreeRegressor','RandomForestRegressor'))
     if modele == 'DecisionTreeRegressor' :
         model = joblib.load('./Modeles/DecisionTreeRegressor.joblib')
-            
+        st.markdown("**Modéle DecisionTreeRegressor :**")
+        st.markdown("*Ce modèle est un modèle de régression basé sur un arbre de décision.*")
+        st.markdown("*L'arbre de décision est construit en divisant récursivement l'ensemble de données d'entraînement en sous-ensembles en fonction des valeurs des variables d'entrée.*")
+        st.markdown("*Le processus de construction de l'arbre commence par la sélection d'une variable d'entrée pour diviser l'ensemble de données en deux sous-ensembles. L'objectif est de choisir une variable qui minimise la somme des erreurs quadratiques (ou tout autre critère de qualité de séparation) des deux sous-ensembles résultants.*")
+        st.markdown("*Le processus de division est répété de manière récursive sur chaque sous-ensemble jusqu'à ce qu'un critère d'arrêt soit atteint, tel que le nombre minimum de données dans un sous-ensemble ou le nombre maximum de niveaux de l'arbre*")    
+        st.markdown("   ")
+        st.markdown("**Score du modéle :**")
+    
     else :
         model = joblib.load('./Modeles/RandomForestRegressor.joblib')  
+        st.markdown("**Modéle RandomForestRegressor :**")
       
     st.markdown("   ")
     st.markdown("Affichage SHAP")
