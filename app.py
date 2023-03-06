@@ -21,7 +21,7 @@ from intro import intro_streamlit
 def main():
 
     # List of pages
-    liste_menu = ["Introduction","Visualisation Base de donnée", "Machine Learning","Etude Machine Learning","Sources"]
+    liste_menu = ["Introduction","Visualisation Base de donnée", "Etude Machine Learning","Machine Learning","Sources"]
 
     # Sidebar
     menu = st.sidebar.selectbox("selectionner votre activité", liste_menu)
@@ -32,10 +32,11 @@ def main():
     if menu == liste_menu[1]:
         bases_streamlit()
     if menu == liste_menu[2] :
-        ML_stream()
+           ML_etude()
+      
     if menu == liste_menu[3] :
-        ML_etude()
-   
+        ML_stream()
+      
     if menu == liste_menu[4] :
         sources()
 
