@@ -111,9 +111,9 @@ def ML_etude():
        
 
         st.markdown('Score sur ensemble train : ')
-        st.markdown(model.score(X_train, y_train))
+        st.info(model.score(X_train, y_train))
         st.markdown('Score sur ensemble test : ')
-        st.markdown(model.score(X_test, y_test))
+        st.info(model.score(X_test, y_test))
         st.markdown("**Conclusion :**   ")
         st.markdown("Nous constatons un surajustement (overfitting) avec un score partiquement de 1 sur le modéle d'entrenaiment et inférieur à 0,5 sur celui de test.")
         st.markdown("Notre modèle d'entraînement est trop complexe et s'adapte trop étroitement aux données d'entraînement. Il est capable de mémoriser les exemples d'entraînement plutôt que de généraliser les modèles sous-jacents dans les données.   ")   
@@ -128,13 +128,13 @@ def ML_etude():
         st.markdown("**Score du modéle :**")
        
         st.markdown('Score sur ensemble train : ')
-        st.markdown(model.score(X_train, y_train))
+        st.info(model.score(X_train, y_train))
         st.markdown('Score sur ensemble test : ')
-        st.markdown(model.score(X_test, y_test))
+        st.info(model.score(X_test, y_test))
         y_pred = model.predict(X_test)
         r2 = r2_score(y_test, y_pred)
         st.markdown(" **Le score R² est :**  ")
-        st.markdown(r2)
+        st.info(r2)
         st.markdown(" *Le score R² (R carré) est une mesure de la qualité de l'ajustement d'un modèle de régression aux données.*")
         st.markdown("*Plus le score R² est proche de 1, meilleure est la qualité de l'ajustement du modèle.*   ")
         st.markdown("*Il ne permet pas de déterminer si le modèle est pertinent ou non pour les données.*")
