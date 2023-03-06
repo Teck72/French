@@ -62,8 +62,8 @@ def ML_etude():
     image = Image.open('./Images/Correlation.png')
     st.image(image)
     st.markdown("   ")
-    st.markdown("Nous constatons une forte corrélation des variables TOT et %SumMG avec d'autres.    ")
-    st.markdown("Nous les supprimons pour notre étude  ")
+    st.markdown("*Nous constatons une forte corrélation des variables TOT et %SumMG avec d'autres.*    ")
+    st.markdown("*Nous les supprimons pour notre étude*  ")
     
     drop_df = ['%SumMG','TOT']
     df2 =df.drop(drop_df, axis = 1 )
@@ -81,7 +81,8 @@ def ML_etude():
     image = Image.open('./Images/Correlation_cible.png')
     st.image(image)
     st.markdown("   ")
-    st.markdown("**COMMENTAIRES**")
+    st.markdown("*Nous constatons 3 Variables qui ont trés peu de corrélation avec nos variables cibles : ApESS,Immo etFinAss* ")
+    st.markdown("*Nous allons les supprimer pour l'étude de nos modèles.*    ")
     drop_df = ['ApESS','Immo','FinAss']
     df3 = df2.drop(drop_df, axis = 1 )
     
