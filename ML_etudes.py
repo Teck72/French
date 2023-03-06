@@ -120,6 +120,20 @@ def ML_etude():
     else :
         model = joblib.load('./Modeles/RandomForestRegressor.joblib')  
         st.markdown("**Modéle RandomForestRegressor :**")
+        st.markdown("*Il est basé sur un ensemble d'arbres de décision, où chaque arbre est entraîné sur un sous-ensemble aléatoire des données d'entraînement et des caractéristiques. Lors de la prédiction, chaque arbre de décision dans l'ensemble donne une prédiction, puis une moyenne (pour la régression) ou un vote majoritaire (pour la classification) est effectué pour produire la prédiction finale.*   ")
+        st.markdown("*Il est capable de traiter des ensembles de données avec des caractéristiques et des classes très nombreuses ou complexes, sans surajustement (overfitting) comme cela a été constaté avec notre modéle DecisionTreeRegressor.*   ")
+        st.markdown("   ")
+        st.markdown("   ")
+        st.markdown("   ")
+        st.markdown("**Score du modéle :**")
+        predictions_tree = model.predict(X_test)
+        predictions_tree_train = model.predict(X_train)
+
+        st.markdown('Score sur ensemble train : ')
+        st.markdown(model.score(X_train, y_train))
+        st.markdown('Score sur ensemble test : ')
+        st.markdown(model.score(X_test, y_test))
+        
       
     st.markdown("   ")
     st.markdown("Affichage SHAP")
