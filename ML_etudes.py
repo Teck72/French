@@ -12,6 +12,8 @@ import sklearn.metrics
 from sklearn.metrics import mean_squared_error
 from sklearn.metrics import mean_absolute_error
 from sklearn.ensemble import RandomForestRegressor
+from sklearn.metrics import r2_score
+
 
 
 
@@ -105,8 +107,7 @@ def ML_etude():
         st.markdown("*Le processus de division est répété de manière récursive sur chaque sous-ensemble jusqu'à ce qu'un critère d'arrêt soit atteint, tel que le nombre minimum de données dans un sous-ensemble ou le nombre maximum de niveaux de l'arbre*")    
         st.markdown("   ")
         st.markdown("**Score du modéle :**")
-        predictions_tree = model.predict(X_test)
-        predictions_tree_train = model.predict(X_train)
+       
 
         st.markdown('Score sur ensemble train : ')
         st.markdown(model.score(X_train, y_train))
@@ -123,16 +124,20 @@ def ML_etude():
         st.markdown("*Il est basé sur un ensemble d'arbres de décision, où chaque arbre est entraîné sur un sous-ensemble aléatoire des données d'entraînement et des caractéristiques. Lors de la prédiction, chaque arbre de décision dans l'ensemble donne une prédiction, puis une moyenne (pour la régression) ou un vote majoritaire (pour la classification) est effectué pour produire la prédiction finale.*   ")
         st.markdown("*Il est capable de traiter des ensembles de données avec des caractéristiques et des classes très nombreuses ou complexes, sans surajustement (overfitting) comme cela a été constaté avec notre modéle DecisionTreeRegressor.*   ")
         st.markdown("   ")
-        st.markdown("   ")
-        st.markdown("   ")
         st.markdown("**Score du modéle :**")
-        predictions_tree = model.predict(X_test)
-        predictions_tree_train = model.predict(X_train)
-
+       
         st.markdown('Score sur ensemble train : ')
         st.markdown(model.score(X_train, y_train))
         st.markdown('Score sur ensemble test : ')
         st.markdown(model.score(X_test, y_test))
+        y_pred = model.predict(X_test)
+        r2 = r2_score(y_test, y_pred)
+        st.markdown(" **Le score R² est :**  ")
+        st.markdown(r2)
+        st.markdown(" *Le score R² (R carré) est une mesure de la qualité de l'ajustement d'un modèle de régression aux données.*")
+        st.markdown("*Plus le score R² est proche de 1, meilleure est la qualité de l'ajustement du modèle.*   ")
+        st.markdown("*Il ne permet pas de déterminer si le modèle est pertinent ou non pour les données.*")
+        st.markdown("*Nous allons par la suite évaluer les performances du modéle à l'aide de l'erreur moyenne absolue (MAE).*")
         
       
     st.markdown("   ")
@@ -184,12 +189,28 @@ def ML_etude():
 
 
 
-    st.title("Metrics pour le salaire Moyen  :")
-    st.dataframe(metrics)
+    st.title("**Evaluation des performances des deux modéles sur le salaire Moyen par département  :**")
+    metrics2 = metrics.rename(columns={'Unnamed: 0': 'Modèle'})
+    st.dataframe(metrics2)
+    st.markdown("*MAE : Mesure l'erreur moyenne absolue entre les valeurs réelles et les valeurs prédites par le modèle*   ")
+    st.markdown("*MSE :  Mesure la moyenne des carrés des erreurs entre les valeurs réelles et les valeurs prédites par le modèle.*   ")
+    st.markdown("*Il est plus approprié pour certains types de problèmes, notamment lorsque les erreurs positives et négatives ont des effets égaux sur le résultat final.*")
+    st.markdown("*RMSE : Il est la racine carrée du MSE.*   ")
+    st.markdown("*Il mesure la distance moyenne entre les valeurs réelles et les valeurs prédites par le modèle, exprimée dans les mêmes unités que la variable de réponse (ou variable cible).*   ")
     st.markdown("   ")
+    
+    st.title("**Evaluation des modéles sur toutes nos variables cibles gràce au MAPE  :**")
+    metrics_total2 = metrics_total.rename(columns={'Unnamed: 0': 'Modèle'})
+    drop_metrics = ['MAE Moyen','MAE Cadres','MAE Cadres Moyens','MAE Employes','MAE Travailleurs','MAE 18_25 ans','MAE 26-50 ans','MAE + 50 ans']
+    metrics_total3 =  metrics_total2.drop(drop_metrics, axis = 1 )
+    metrics_total3 = metrics_total3.set_index('Modèle')
+    st.markdown("**Par catégories d'emploi :**     ")
+    st.dataframe(metrics_total3.loc[:,['MAPE Moyen', 'MAPE Cadres','MAPE Cadres Moyens','MAPE Employes','MAPE Travailleurs']])
+    st.markdown("**Par catégories d'age:**     ")
+    st.dataframe(metrics_total3.loc[:,['MAPE 18_25 ans', 'MAPE 26-50 ans','MAPE + 50 ans']])
     st.markdown("   ")
-    st.title("Metrics pour toutes les valeurs cibles  :")
-    st.dataframe(metrics_total)
+    st.markdown("*Le MAPE (Mean Absolute Percentage Error) est une mesure de l'erreur de prédiction d'un modèle qui exprime l'erreur absolue moyenne en pourcentage de la valeur réelle.*   ")
+    st.markdown("*Il mesure la différence moyenne en pourcentage entre les valeurs réelles et les valeurs prédites. Pour chaque observation dans l'ensemble de données, l'erreur est calculée comme la différence entre la valeur réelle et la valeur prédite, puis elle est divisée par la valeur réelle pour obtenir une erreur en pourcentage. Les erreurs absolues en pourcentage sont ensuite moyennées sur toutes les observations pour obtenir le MAPE.*  ")
     
     
     
