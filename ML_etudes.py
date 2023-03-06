@@ -98,7 +98,7 @@ def ML_etude():
        
     
     st.markdown("   ")
-    modele = st.sidebar.selectbox('Choix du modéle de régression :',('DecisionTreeRegressor','RandomForestRegressor'))
+    modele = st.selectbox('Choix du modéle de régression :',('DecisionTreeRegressor','RandomForestRegressor'))
     if modele == 'DecisionTreeRegressor' :
         model = joblib.load('./Modeles/DecisionTreeRegressor.joblib')
         st.markdown("**Modéle DecisionTreeRegressor :**")
