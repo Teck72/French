@@ -16,7 +16,7 @@ def intro_streamlit():
     st.markdown("   ")
     st.markdown("Cette problématique nous semble très importante pour certains corps décisionnels comme les entreprises, les instances politique ou encore les personnes actives dans le monde professionnel. ")
     st.markdown("En effet, la connaissance des salaires moyens peut permettre aux entreprises de mieux comprendre les écarts salariaux et de prendre des décisions éclairées en matière de rémunération.")
-    st.markdown("De même, les personnes actives dans le monde professionnel (salariés, agence d’intérim, …) pour par exaider à négocier des salaires équitables.   ")
+    st.markdown("De même, les personnes actives dans le monde professionnel (salariés, agence d’intérim, …) pour par exemple aider à négocier des salaires équitables.   ")
     st.markdown("Et enfin les décideurs politiques en matière de stratégie de développement social et économique. Exemple : promotion d’une région pour l’implantation d’entreprises, décision sur la politique des prix des loyers, le tout basé sur l’évolution du salaire moyen au niveau d’un département français.")
     st.markdown("   ")
     st.markdown("Les données utilisées dans cette étude proviennent de sources officielles telles que DATASCIENTEST, l'observatoire des territoires et l'INSEE.   ")

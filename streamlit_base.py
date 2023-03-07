@@ -18,6 +18,7 @@ Popu_DEP = pd.read_csv("./Data/Popu_DEP2.csv")
 Popu_Actifs = pd.read_csv("./Data/Popu_Actifs.csv")
 dep_loyer_app = pd.read_csv("./Data/dep_loyer_app.csv")
 te = pd.read_csv("./Data/te.csv")
+te = pd.read_csv("./Data/te_100.csv")
 
 Popu = Popu.drop(['Unnamed: 0'], axis=1)
 dp_salaires = dp_salaires.drop(['Unnamed: 0'], axis=1)
@@ -45,31 +46,18 @@ def bases_streamlit():
    
 
     if choix == 'Populations' :
+        
+        st.markdown("Les informations de base de cette base de données venant de L’INSEE nous indiquaient, par ville/village, le nombre de personne par tranche d’âge.")
+        st.markdown("Nous avons travaillé cette base de données afin d’obtenir par département le nombre de personne par catégorie suivante :")
+        st.markdown("Enfants : jusqu’à 15 ans (Non actifs) ")
+        st.markdown("Juniors : de 16 ans à 29 ans (Actifs) ")
+        st.markdown("Séniors : 30 ans à 44 ans (Actifs) ")
+        st.markdown("Masters : 45 ans à 64 ans (Actifs) ")  
+        st.markdown("Ainés : 65 ans et plus. (Non Actifs) ")              
         st.dataframe(Popu)
      
+            
          
-        col1, col2 = st.columns(2)
-      
-        original = Image.open('./Images/Populations_Actif.png')
-        col1.header("Actif")
-        col1.image(original, use_column_width=True)
-      
-        grayscale = Image.open('./Images/Populations_Non_Actif.png')
-        col2.header("Non Actif")
-        col2.image(grayscale, use_column_width=True)
-        
-        max_col = Popu_Actifs.head(10)
-        min_col = Popu_Actifs.tail(10)
-
-        fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(25,5), sharey=True)
-
-        sns.barplot(x=max_col['DEP'], y=max_col['Actifs'],ax=ax1);
-        ax1.title.set_text("10 départements avec le plus d'actifs en Millions")
-        sns.barplot(x=min_col['DEP'], y=min_col['Actifs'], ax=ax2);
-        ax2.title.set_text("10 départements avec le moins d'Actifs")
-    
-        st.write(fig)
-        
         
         
         plt.figure(figsize = (8, 8))
@@ -81,6 +69,8 @@ def bases_streamlit():
                 shadow = False)
         plt.title('Répartition des catégories de population en France Métropolitaine')
         st.pyplot(fig1)
+        st.markdown("La plus grande proportion de populations est potentiellement active et a entre 30 et 44 ans, on remarque aussi que la population d’enfants est supérieur au nombre d’ainés, ce qui est plutôt encourageant d’un point de vue économique.")
+        
         
         Popu_DEP['Non_Actifs']=Popu_DEP.Enfants + Popu_DEP.Ainés
         Popu_DEP['Actifs']=Popu_DEP.Juniors + Popu_DEP.Masters + Popu_DEP.Séniors
@@ -103,7 +93,23 @@ def bases_streamlit():
 
         plt.title("10 départements les plus peuplés")
         st.pyplot(fig1)
-
+        st.markdown("Nous avons ici la répartition des populations actives et non actives sur les 10 département les plus peuplés de France.")
+        st.markdown("On retrouve le Nord avec Lille, Tourcoing, roubaix, Dukerqye, le département de Paris, les Bouches du rhône avec Marseille, le Rhône avec Lyon, la région parisienne (92,93), la Gironde avec Bordeaux, le Pas-de-Calais, la région parisienne (78,77).")
+        
+        col1, col2 = st.columns(2)
+        
+        original = Image.open('./Images/Populations_Actif.png')
+        col1.header("Actif")
+        col1.image(original, use_column_width=True)
+      
+        grayscale = Image.open('./Images/Populations_Non_Actif.png')
+        col2.header("Non Actif")
+        col2.image(grayscale, use_column_width=True)
+        
+        st.markdown("Plus la couleur est foncé plus la population décrites est présente.")
+        st.markdown("En corrélation avec les graphiques suivants qui indique les 10 départements les plus peuplés et les moins peuplés de personnes Actives.")
+        st.markdown("Les population (actives et non actives) sont concentrés autours villes et des gros « pôles » économique français.")
+        
           
  
     

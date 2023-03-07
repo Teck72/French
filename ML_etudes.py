@@ -165,8 +165,8 @@ def ML_etude():
         shap.summary_plot(shap_values, X_test)
         st.pyplot(fig1)
     st.markdown("**Il y a deux infos principales :**")
-    st.markdown("  **#Le SHAP = plus le chiffre est élevé positivement ou négativement, plus la variable cible à de l’importance dans la valeure de notre variable cible.**")            
-    st.markdown("  **#La COULEUR des observations, ici plus elle est rouge plus la valeur dans notre base de donnée est élevé.**")
+    st.markdown("  **#Le SHAP = plus le chiffre est élevé positivement ou négativement, plus la variable cible explicative à de l’importance dans la valeure de notre variable cible.**")            
+    st.markdown("  **#La COULEUR des observations, ici plus elle est rouge plus la valeur dans notre base de donnée est élevée**")
     st.markdown("   ")
     st.markdown("   ")
     st.markdown("**Arbre de Décision :**  ")
@@ -190,9 +190,9 @@ def ML_etude():
 
 
 
-    st.title("**Evaluation des performances des deux modéles sur le salaire Moyen par département  :**")
+    st.title("**Evaluation des performances du modéle choisi ( RandomForest ) sur le salaire Moyen par département  :**")
     metrics2 = metrics.rename(columns={'Unnamed: 0': 'Modèle'})
-    st.dataframe(metrics2)
+    st.dataframe(metrics2.tail(1))
     st.markdown("*MAE : Mesure l'erreur moyenne absolue entre les valeurs réelles et les valeurs prédites par le modèle*   ")
     st.markdown("*MSE :  Mesure la moyenne des carrés des erreurs entre les valeurs réelles et les valeurs prédites par le modèle.*   ")
     st.markdown("*Il est plus approprié pour certains types de problèmes, notamment lorsque les erreurs positives et négatives ont des effets égaux sur le résultat final.*")
@@ -200,15 +200,16 @@ def ML_etude():
     st.markdown("*Il mesure la distance moyenne entre les valeurs réelles et les valeurs prédites par le modèle, exprimée dans les mêmes unités que la variable de réponse (ou variable cible).*   ")
     st.markdown("   ")
     
-    st.title("**Evaluation des modéles sur toutes nos variables cibles gràce au MAPE  :**")
+    st.title("**Evaluation du modéle choisi ( RandomForest ) sur toutes nos variables cibles gràce au MAPE  :**")
     metrics_total2 = metrics_total.rename(columns={'Unnamed: 0': 'Modèle'})
     drop_metrics = ['MAE Moyen','MAE Cadres','MAE Cadres Moyens','MAE Employes','MAE Travailleurs','MAE 18_25 ans','MAE 26-50 ans','MAE + 50 ans']
     metrics_total3 =  metrics_total2.drop(drop_metrics, axis = 1 )
     metrics_total3 = metrics_total3.set_index('Modèle')
+    metrics_total3 =  metrics_total3.applymap(lambda x: '{:.2%}'.format(x))
     st.markdown("**Par catégories d'emploi :**     ")
-    st.dataframe(metrics_total3.loc[:,['MAPE Moyen', 'MAPE Cadres','MAPE Cadres Moyens','MAPE Employes','MAPE Travailleurs']])
+    st.dataframe(metrics_total3.loc[:,['MAPE Moyen', 'MAPE Cadres','MAPE Cadres Moyens','MAPE Employes','MAPE Travailleurs']].tail(1))
     st.markdown("**Par catégories d'age:**     ")
-    st.dataframe(metrics_total3.loc[:,['MAPE 18_25 ans', 'MAPE 26-50 ans','MAPE + 50 ans']])
+    st.dataframe(metrics_total3.loc[:,['MAPE 18_25 ans', 'MAPE 26-50 ans','MAPE + 50 ans']].tail(1))
     st.markdown("   ")
     st.markdown("*Le MAPE (Mean Absolute Percentage Error) est une mesure de l'erreur de prédiction d'un modèle qui exprime l'erreur absolue moyenne en pourcentage de la valeur réelle.*   ")
     st.markdown("*Il mesure la différence moyenne en pourcentage entre les valeurs réelles et les valeurs prédites. Pour chaque observation dans l'ensemble de données, l'erreur est calculée comme la différence entre la valeur réelle et la valeur prédite, puis elle est divisée par la valeur réelle pour obtenir une erreur en pourcentage. Les erreurs absolues en pourcentage sont ensuite moyennées sur toutes les observations pour obtenir le MAPE.*  ")
