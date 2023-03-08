@@ -9,6 +9,7 @@ from pandas.api.types import is_numeric_dtype
 import sklearn.metrics
 from sklearn.metrics import mean_squared_error
 from sklearn.metrics import mean_absolute_error
+import mpld3 
 
 
 # Custom function
@@ -129,9 +130,17 @@ def ML_stream():
     st.set_option('deprecation.showPyplotGlobalUse', False)
     #st.pyplot(shap.summary_plot(shap_values, local, plot_type="bar"))
     #st.pyplot(shap.summary_plot(shap_values, local)) 
-    shap.force_plot(explainer.expected_value, shap_values, local,matplotlib=True, show=False)
+    f = shap.force_plot(explainer.expected_value, shap_values, local,matplotlib=True, show=False,)
     
-    st.pyplot(bbox_inches='tight')
+    st.pyplot(f,bbox_inches='tight')
+    
+        
+    feature_cols = st.multiselect('Choisissez les features à afficher :', df.iloc[:, 1:].columns.tolist())
+   
+    f = shap.force_plot(explainer.expected_value, shap_values, local, feature_names=feature_cols, matplotlib=True, show=False)
+   
+    st.pyplot(f,bbox_inches='tight')
+   
    
 
 
