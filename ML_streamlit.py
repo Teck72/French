@@ -22,7 +22,7 @@ def ML_stream():
     
     st.title('Machine Learning ')
     st.markdown('Nous allons utiliser des modéles de Régréssions pour prédir le salaire moyen d un département')
-    st.dataframe(df)  
+    #st.dataframe(df)  
     st.markdown('**Sélectionner votre départements :**')
     dep = st.selectbox('',
     ('01 : Ain','02 : Aisne','03 : Allier','04 : Alpes-de-Haute-Provence','05 : Hautes-Alpes','06 : Alpes-Maritimes','07 : Ardèche','08 : Ardennes ','09 : Ariège',
