@@ -113,7 +113,7 @@ def ML_stream():
         
     prediction = regr.predict(local)
     prediction = float(np.round(prediction, 2))
-    st.markdown('**Prédiction du salaire median :**')
+    st.markdown('**Affichage du SHAP Local :**')
     
     
     st.sidebar.markdown('Numpéro du département : ')
@@ -127,8 +127,11 @@ def ML_stream():
     explainer = shap.TreeExplainer(regr)
     shap_values = explainer.shap_values(local)
     st.set_option('deprecation.showPyplotGlobalUse', False)
-    st.pyplot(shap.summary_plot(shap_values, local, plot_type="bar"))
-    st.pyplot(shap.summary_plot(shap_values, local)) 
+    #st.pyplot(shap.summary_plot(shap_values, local, plot_type="bar"))
+    #st.pyplot(shap.summary_plot(shap_values, local)) 
+    shap.force_plot(explainer.expected_value, shap_values, local,matplotlib=True, show=False)
+    
+    st.pyplot(bbox_inches='tight')
    
 
 
