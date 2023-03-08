@@ -9,7 +9,6 @@ from pandas.api.types import is_numeric_dtype
 import sklearn.metrics
 from sklearn.metrics import mean_squared_error
 from sklearn.metrics import mean_absolute_error
-import mpld3 
 
 
 # Custom function
