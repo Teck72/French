@@ -8,6 +8,7 @@ import time
 import altair as alt
 import seaborn as sns
 from PIL import Image
+import plotly.express as px
 
 sns.set_theme()
 
@@ -153,7 +154,10 @@ def bases_streamlit():
     
         st.dataframe(base_etablissement_dp)
         image = Image.open('./Images/SUMMG.png')
-        st.image(image)
+        variable = st.selectbox("Sélectionnez une variable :", base_etablissement_dp.columns)
+        fig = px.box(base_etablissement_dp, y=variable)
+        st.plotly_chart(fig)
+        
         
         
     if choix == "Loyer Appartement" :
