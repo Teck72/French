@@ -121,7 +121,7 @@ def bases_streamlit():
     if choix == 'Salaire Moyen' :
         st.dataframe(dp_salaires)
         
-        variable = st.selectbox("Sélectionnez une variable :", dp_salaires.columns)
+        variable = st.selectbox("Sélectionnez une variable :", dp_salaires.columns[1:])
         fig = px.box(dp_salaires, y=variable)
         st.plotly_chart(fig)    
     
