@@ -21,8 +21,7 @@ def ML_stream():
     
     
     st.title('Machine Learning ')
-    st.markdown('Nous allons utiliser des modéles de Régréssions pour prédir le salaire moyen d un département')
-    #st.dataframe(df)  
+     
     st.markdown('**Sélectionner votre départements :**')
     dep = st.selectbox('',
     ('01 : Ain','02 : Aisne','03 : Allier','04 : Alpes-de-Haute-Provence','05 : Hautes-Alpes','06 : Alpes-Maritimes','07 : Ardèche','08 : Ardennes ','09 : Ariège',
@@ -40,7 +39,8 @@ def ML_stream():
     local.set_index('DEP', inplace = True)
     st.dataframe(local)
     st.subheader("Prediction du Salaire Median : ")
-    modele = st.selectbox('Choix du modéle de régression :',('RandomForestRegressor','DecisionTreeRegressor'))
+    #modele = st.selectbox('Choix du modéle de régression :',('RandomForestRegressor','DecisionTreeRegressor'))
+    modele='RandomForestRegressor'
             
     cible = st.selectbox('Choix de la valeur cible du salaire Moyen :',('Tous', 'Cadre','Cadre Moyen','Travailleur','Employe','18_25ans','26_50ans','>50ans'))
      
