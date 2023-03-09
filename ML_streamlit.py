@@ -22,7 +22,7 @@ def ML_stream():
     
     st.title('Machine Learning ')
      
-    st.markdown('**Sélectionner votre départements :**')
+    st.markdown('**Sélectionner votre département :**')
     dep = st.selectbox('',
     ('01 : Ain','02 : Aisne','03 : Allier','04 : Alpes-de-Haute-Provence','05 : Hautes-Alpes','06 : Alpes-Maritimes','07 : Ardèche','08 : Ardennes ','09 : Ariège',
 '10 : Aube','11 : Aude','12 : Aveyron','13 : Bouches-du-Rhône','14 : Calvados','15 : Cantal','16 : Charente','17 : Charente-Maritime','18 : Cher','19 : Corrèze',
@@ -96,7 +96,7 @@ def ML_stream():
                     
     
     
-    col = st.selectbox("Selection d'une collone pour modification :", local.columns)
+    col = st.selectbox("Selection du facteur à moduler :", local.columns)
     old_value = local[col].median()
     with st.form(key='my_form'):
      col1,col2 = st.columns(2)
