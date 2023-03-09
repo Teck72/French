@@ -29,8 +29,8 @@ te = te.drop(['Unnamed: 0'], axis=1)
 te.set_index('DEP',inplace = True)
 base_etablissement_dp.set_index('DEP',inplace = True) 
 
-dp_salaires.set_index('DEP',inplace = True) 
 
+Popu.set_index('DEP',inplace = True) 
 
 
 def bases_streamlit():
