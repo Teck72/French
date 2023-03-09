@@ -27,9 +27,10 @@ base_etablissement_dp = base_etablissement_dp.drop(['Unnamed: 0'], axis=1)
 dep_loyer_app = dep_loyer_app.drop(['Unnamed: 0'], axis=1)
 te = te.drop(['Unnamed: 0'], axis=1)
 te.set_index('DEP',inplace = True)
+base_etablissement_dp.set_index('DEP',inplace = True) 
 
-
-
+dp_salaires.set_index('DEP',inplace = True) 
+Popu.set_index('DEP',inplace = True) 
 
 
 def bases_streamlit():
@@ -56,6 +57,9 @@ def bases_streamlit():
         st.markdown("Masters : 45 ans à 64 ans (Actifs) ")  
         st.markdown("Ainés : 65 ans et plus. (Non Actifs) ")              
         st.dataframe(Popu)
+        variable = st.selectbox("Sélectionnez une variable :", Popu.columns)
+        fig = px.box(Popu, y=variable)
+        st.plotly_chart(fig) 
      
             
          
@@ -116,6 +120,10 @@ def bases_streamlit():
     
     if choix == 'Salaire Moyen' :
         st.dataframe(dp_salaires)
+        
+        variable = st.selectbox("Sélectionnez une variable :", dp_salaires.columns)
+        fig = px.box(dp_salaires, y=variable)
+        st.plotly_chart(fig)    
     
     #Affichage des 10 départements ayant les salaires net moyen les plus élevés et bas
 
@@ -151,7 +159,8 @@ def bases_streamlit():
      
     
     if choix == 'Etablissement' :
-    
+        
+       
         st.dataframe(base_etablissement_dp)
         image = Image.open('./Images/SUMMG.png')
         variable = st.selectbox("Sélectionnez une variable :", base_etablissement_dp.columns)
@@ -163,6 +172,9 @@ def bases_streamlit():
     if choix == "Loyer Appartement" :
         
         st.dataframe(dep_loyer_app)
+        
+        fig = px.box(dep_loyer_app, y=dep_loyer_app['loyerm2'])
+        st.plotly_chart(fig) 
         
         image = Image.open('./Images/dep_loyer_app.png')
         st.image(image)
@@ -192,6 +204,10 @@ def bases_streamlit():
         
      
         st.dataframe(te)
+        
+        variable = st.selectbox("Sélectionnez une variable :", te.columns)
+        fig = px.box(te, y=variable)
+        st.plotly_chart(fig)    
         
         modele = st.selectbox("Choix de la région :",
                               ("Auvergne-Rhône-Alpes","Bourgogne-Franche-Comté","Bretagne","Centre-Val de Loire","Corse",
@@ -244,7 +260,7 @@ def bases_streamlit():
         plt.ylabel('Nombre d\'activité ')
         plt.legend()
         st.write(fig)
-        
+                
         
         modele = st.selectbox("Choix du type d'entreprise pour la visualisation :",
                               ('Industriel','CTRH','STServAdmi','ApESS','AutreServ','Const','FinAss','Immo','InfoComm'))
@@ -282,12 +298,12 @@ def bases_streamlit():
    
         if modele == 'InfoComm' :
              image = Image.open('./Images/dep_InfoComm.png')
-             st.image(image)          
-
-
-#plt.legend()
-#plt.show()
+             st.image(image)  
+             
         
+
+
+     
          
         
 bases_streamlit()
