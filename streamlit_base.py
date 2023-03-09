@@ -168,7 +168,7 @@ def bases_streamlit():
         fig2 = px.box(dp_salaires, y='cadre_moyen_SNHM')
         fig3 = px.box(dp_salaires, y='employé_SNHM')
         fig4 = px.box(dp_salaires, y = 'travailleur_SNHM')
-        fig = make_subplots(rows=1, cols=4, subplot_titles=("Salaires des cadres","Salaires des cadres moyens", "Salaires des employés","Salaires des Travailleurs"))
+        fig = make_subplots(rows=1, cols=4, subplot_titles=("Cadres","Cadres moyens", "Employés","Travailleurs"))
 
 
         fig.add_trace(fig1.data[0], row=1, col=1)
