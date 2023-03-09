@@ -17,14 +17,15 @@ from ML_streamlit import ML_stream
 from ML_etudes import ML_etude
 from source import sources
 from intro import intro_streamlit
+from ML_evaluation import ML_evaluation
 
 def main():
 
     # List of pages
-    liste_menu = ["Introduction","Visualisation Base de donnée", "Etude Machine Learning","Machine Learning","Sources"]
+    liste_menu = ["Introduction","Visualisation Base de donnée", "Etude Machine Learning","Evaluation du modéle","Machine Learning","Sources"]
 
     # Sidebar
-    menu = st.sidebar.selectbox("selectionner votre activité", liste_menu)
+    menu = st.sidebar.selectbox("selectionner votre activité :", liste_menu)
 
     # Page navigation
     if menu == liste_menu[0] :
@@ -32,12 +33,15 @@ def main():
     if menu == liste_menu[1]:
         bases_streamlit()
     if menu == liste_menu[2] :
-           ML_etude()
-      
+        ML_etude()
+     
     if menu == liste_menu[3] :
-        ML_stream()
-      
+        ML_evaluation()
     if menu == liste_menu[4] :
+        ML_stream()
+           
+      
+    if menu == liste_menu[5] :
         sources()
 
 if __name__ == '__main__':

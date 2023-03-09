@@ -197,6 +197,11 @@ def bases_streamlit():
         variable = st.multiselect("Visulation de la distribution des données :", base_etablissement_dp.columns)
         fig = px.box(base_etablissement_dp, y=variable)
         st.plotly_chart(fig)
+        fig = plt.figure(figsize = (6,6))
+
+        base_etablissement_dp.head(10)['%SumMG'].plot(kind='pie');
+        
+        st.write(fig)
         
         
         

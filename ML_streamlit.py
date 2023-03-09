@@ -132,30 +132,13 @@ def ML_stream():
     
     st.pyplot(f,bbox_inches='tight')
     
-        
-    feature_cols = st.multiselect('Choisissez les features à afficher :', local.columns.tolist())
-    
-    if not feature_cols:
-        st.markdown("Veuillez selectionner une Features")
-   
-    else:
-   
-       feature_indices = [local.columns.tolist().index(col) for col in feature_cols]
-       feature_shap_values = shap_values[:, feature_indices]
+      
+     
+    fig1, ax1 = plt.subplots()
+    shap.summary_plot(shap_values, local)
+    st.pyplot(fig1)
+    st.markdown("*Importance de chaque variable explicative par rapport à la variation de notre variable cible (que ce soit en positif ou en négatif)*")
 
-
-       fig, axs = plt.subplots(len(feature_cols), 1, figsize=(6, 3 * len(feature_cols)))
-       
-       if isinstance(axs, plt.Axes):
-           axs = [axs]
-
-       for i, ax in enumerate(axs):
-           ax.plot(local.iloc[:, feature_indices[i]], feature_shap_values[:, i], '.', alpha=0.5)
-           ax.set_xlabel(f'{feature_cols[i]}')
-           ax.set_ylabel('SHAP value')
-
-
-       st.pyplot(fig)
    
 
 
