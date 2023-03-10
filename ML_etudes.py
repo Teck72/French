@@ -115,7 +115,7 @@ def ML_etude():
         st.markdown("**Conclusion :**   ")
         st.markdown("Nous constatons un surajustement (overfitting) avec un score partiquement de 1 sur le modéle d'entrenaiment et inférieur à 0,5 sur celui de test.")
         st.markdown("Notre modèle d'entraînement est trop complexe et s'adapte trop étroitement aux données d'entraînement. Il est capable de mémoriser les exemples d'entraînement plutôt que de généraliser les modèles sous-jacents dans les données.   ")   
-        st.markdown("Pour éviter cela, nous allons utilisé un modéle de forêt aléatoire (Random Forest), qui permet de combiner plusieurs modèles simples pour obtenir une performance de prédiction plus robuste.   ")
+        st.markdown("Pour éviter cela, nous allons utiliser un modéle de forêt aléatoire (Random Forest), qui permet de combiner plusieurs modèles simples pour obtenir une performance de prédiction plus robuste.   ")
     
     else :
         model = joblib.load('./Modeles/RandomForestRegressor.joblib')  
