@@ -137,8 +137,21 @@ def ML_etude():
         st.markdown("*Plus le score R² est proche de 1, meilleure est la qualité de l'ajustement du modèle.*   ")
         st.markdown("*Il ne permet pas de déterminer si le modèle est pertinent ou non pour les données.*")
         st.markdown("*Nous allons par la suite évaluer les performances du modéle à l'aide de l'erreur moyenne absolue (MAE).*")
-        
-      
-    
+        st.markdown("  ")
+        st.markdown("Nos premiers scores de train et de test ainsi que notre R² de 0.83 sont satisfaisants et présagent de bons résultats pour la prédiction de salaire.")
+        fig, ax = plt.subplots()
+        plot_tree(model.estimators_[0], feature_names=X_test.columns,
+                     filled=True,rounded=True);
+        st.pyplot(fig)
+        st.markdown("*Ici notre variable cible est le salaire moyen en France.*")
+        st.markdown("*Notre arbre est plutôt homogène dans son ensemble de 47 occurrences, choisies par la machine, avec un salaire moyen de 13,58€ ainsi qu’une MSE de 4.6.*")
+        st.markdown("*L’objectif final était de faire des groupes homogènes avec une MSE la plus proche possible de 0.*")
+        st.markdown("*La variable explicative la plus importante étant le % d’entreprise classées dans des activités spécialisées, scientifique et technique, et dans des activités de service et d’administratif..*")
+        st.markdown("*Il en ressort un groupe de 46 ayant moins de 22% de ces entreprises présentent dans le département avec un salaire moyen de 13.16€ ainsi qu’une MSE = 1.7 et un groupe de 1 que nous mettrons de coté ayant un salaire moyen de 20.77€ avec une MSE de 0, c’est-à-dire qu’il représente précisément un département.*")
+        st.markdown("*A partir de ce nouvel échantillon de 46 lignes, la seconde variable explicative la plus importante est le % de personne peuplant le département entre 16 et 29 ans (% de juniors). La machine crée ensuite deux nouveaux groupes les plus homogènes possible avec comme frontière 11.56% de Juniors.*")
+        st.markdown("*Nous obtenons donc un groupe de moins de 11.56% de juniors avec un salaire moyen de 12.52€ ainsi qu’un MSE de 0.246 et un autre groupe de plus de 11.56% de juniors avec un salaire moyen de 14.71€ ainsi qu’une MSE de 1.766.*")
+        st.markdown("*Ces deux groupes sont ensuite rescindés en deux pour obtenir 4 groupes les plus homogènes possible. L’un de ces deux groupes à la frontière de 1.5% d’entreprise ayant comme activité principale Info & Communication et l’autre à la frontière de 5.5% d’entreprise dans le secteur industriel.*")
+        st.markdown("*Déjà dans ce 3ème étage du Random Forest nous obtenons 4 groupes de 19, 14,6 et 7 départements ayant respectivement pour salaire moyen 12.25, 12.62, 15.77 et 13.65 euros ainsi qu’une MSE de respectivement 0.13, 0.16, 1.095 et 0.20.*")
+        st.markdown("*La machine découpe ainsi chaque groupe en sous-groupe afin d’obtenir des populations représentatives de notre échantillon de base que nous pourrons comparer avec nos éléments « réels » lorsque l’utilisateur voudra obtenir une prédiction.*")
     
     

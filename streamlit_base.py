@@ -15,7 +15,7 @@ sns.set_theme()
 
 Popu=pd.read_csv("./Data/Popu_DEP.csv")
 dp_salaires=pd.read_csv("./Data/dp_salaires.csv")
-base_etablissement_dp=pd.read_csv("./Data/base_etablissement_dp.csv")
+base_etablissement_dp=pd.read_csv("./Data/base_etablissement.csv")
 Popu_DEP = pd.read_csv("./Data/Popu_DEP2.csv")
 Popu_Actifs = pd.read_csv("./Data/Popu_Actifs.csv")
 dep_loyer_app = pd.read_csv("./Data/dep_loyer_app.csv")
@@ -28,7 +28,7 @@ base_etablissement_dp = base_etablissement_dp.drop(['Unnamed: 0'], axis=1)
 dep_loyer_app = dep_loyer_app.drop(['Unnamed: 0'], axis=1)
 te = te.drop(['Unnamed: 0'], axis=1)
 te.set_index('DEP',inplace = True)
-base_etablissement_dp.set_index('DEP',inplace = True) 
+#base_etablissement_dp.set_index('DEP',inplace = True) 
 
 
 Popu.set_index('DEP',inplace = True) 
@@ -168,13 +168,19 @@ def bases_streamlit():
         fig2 = px.box(dp_salaires, y='cadre_moyen_SNHM')
         fig3 = px.box(dp_salaires, y='employé_SNHM')
         fig4 = px.box(dp_salaires, y = 'travailleur_SNHM')
-        fig = make_subplots(rows=1, cols=4, subplot_titles=("Cadres","Cadres moyens", "Employés","Travailleurs"))
+        y_range = [0, dp_salaires[['cadre_SNHM', 'cadre_moyen_SNHM', 'employé_SNHM', 'travailleur_SNHM']].max().max()]
+        fig = make_subplots(rows=1, cols=4, subplot_titles=("Cadres", "Cadres moyens", "Employés", "Travailleurs"))
 
 
         fig.add_trace(fig1.data[0], row=1, col=1)
         fig.add_trace(fig2.data[0], row=1, col=2)
         fig.add_trace(fig3.data[0], row=1, col=3)
         fig.add_trace(fig4.data[0], row=1, col=4)
+        
+        fig.update_yaxes(range=y_range, row=1, col=1)
+        fig.update_yaxes(range=y_range, row=1, col=2)
+        fig.update_yaxes(range=y_range, row=1, col=3)
+        fig.update_yaxes(range=y_range, row=1, col=4)
 
         fig.update_layout(title="Comparaison des salaires par type d'employé et par département")
 
@@ -197,12 +203,13 @@ def bases_streamlit():
         variable = st.multiselect("Visulation de la distribution des données :", base_etablissement_dp.columns)
         fig = px.box(base_etablissement_dp, y=variable)
         st.plotly_chart(fig)
-        fig = plt.figure(figsize = (6,6))
+        df = base_etablissement_dp.head(10)
+        fig = px.pie(df, values='%SumMG', names='DEP')
 
-        base_etablissement_dp.head(10)['%SumMG'].plot(kind='pie');
-        
-        st.write(fig)
-        
+
+        st.plotly_chart(fig)
+        st.markdown("*Ce Pie chart nous permet d’identifier les 10 départements ayant le plus de moyennes et grandes entreprises.*")
+        st.markdown("*Nous constatons une grande différence entre les départements du 75 (paris) et  du 33 (Gironde avec Bordeaux), le somme des moyennes et grandes entreprise du 75 est environs 2 fois plus élevé que celle du 33 (le dixième département). Cependant nous pouvons nous poser la question de la véracité de ces données concernant Paris puisque peut être s’agit-il d’adresse postale uniquement.*")
         
         
     if choix == "Loyer Appartement" :
@@ -239,9 +246,7 @@ def bases_streamlit():
         ax.set_title('Top derniers des loyers par mètre carré dans différents départements de France')
         st.write(fig)
         
-        st.markdown ("*On remarque ici que les loyers les plus élevés se situent autour de Paris, de l’Iles de France, de Marseille, dans les Alpes maritime et en Haute-Savoie.*")
-        st.markdown ("*On retrouve le détail de cette carte dans les graphes ci-dessous montrant le top des 10 départements avec les loyers par m² les plus élevés et le plus faibles.*")
-        
+       
     if choix == "Type d'entreprise" :
         
         st.markdown("Pour la même raison que l’ajout de la base de données précédente, nous avons décidé d’ajouter une base de donnée gouvernementale nous indiquant le nombre d’entreprise par département selon leur secteur d’activité : ")
@@ -314,7 +319,7 @@ def bases_streamlit():
         plt.title('Nombre de type d\'activité par département')
         plt.xlabel('Département')
         plt.ylabel('Nombre d\'activité ')
-        plt.legend()
+        plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
         st.write(fig)
                 
         

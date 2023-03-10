@@ -13,6 +13,9 @@ from sklearn.metrics import mean_squared_error
 from sklearn.metrics import mean_absolute_error
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import r2_score
+import plotly.graph_objs as go
+from plotly.subplots import make_subplots
+from sklearn.tree import export_graphviz
 
 
 
@@ -30,6 +33,8 @@ popu = popu.drop(['Unnamed: 0'], axis=1)
 te_100 = te_100.drop(['Unnamed: 0'], axis=1)
 dep_loyer  = dep_loyer.drop(['Unnamed: 0'], axis=1)
 salary  = salary.drop(['Unnamed: 0'], axis=1)
+
+
 
 df = base_etablissement.merge(popu, how="left", left_on = "DEP", right_on="DEP")
 df = df.merge(te_100, how="left", left_on = "DEP", right_on="DEP")
@@ -55,10 +60,15 @@ X_train, X_test, y_train,y_test = train_test_split(df3, target, test_size = 0.25
 
 def ML_evaluation():
     
-    st.title("Evaluation du modéle")
+    st.title("Evaluation du modèle Random Forest Regressor")
     
     model = joblib.load('./Modeles/RandomForestRegressor.joblib')
-    st.markdown("Affichage SHAP")
+    st.markdown("**Affichage SHAP**")
+    st.markdown("*Cette librairie permet d’expliquer les modèles complexes au niveau GLOBAL et LOCAL.*")
+    st.markdown("*L’idée ici est d’appliquer la théorie des jeux (game therory) et de redistribuer le gain obtenu durant la partie, à tous les joueurs en fonction de leur implication dans la partie jouer.*")
+    st.markdown("Si l’on retranscrit sur nos modèles, l’idée est de calculer ce shape en fonction de l’implication de chaque variable à faire varier notre variable cible.")
+    st.markdown("  *- Chaque variable représente un jour de notre partie.*")
+    st.markdown("  *- Le gain représente la différence entre la vrai valeur cible et la valeur prédite par le modèle.*")
 
     with st.echo():
          explainer = shap.TreeExplainer(model)
@@ -87,15 +97,14 @@ def ML_evaluation():
     st.markdown("   ")
     st.markdown("**Arbre de Décision :**  ")
 
-
     with st.echo():
             fig, ax = plt.subplots()
             plot_tree(model.estimators_[0], feature_names=X_test.columns,
                       filled=True,rounded=True);
             st.pyplot(fig)
-       
-
-
+  
+           
+            
 
     st.title("**Evaluation des performances du modéle choisi ( RandomForest ) sur le salaire Moyen par département  :**")
     metrics2 = metrics.rename(columns={'Unnamed: 0': 'Modèle'})
