@@ -6,6 +6,7 @@ import joblib
 import shap
 import matplotlib.pyplot as plt
 
+
 def shap_plots(model, X):
     explainer = shap.TreeExplainer(model)
     shap_values = explainer.shap_values(X)

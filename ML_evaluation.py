@@ -102,6 +102,12 @@ def ML_evaluation():
             plot_tree(model.estimators_[0], feature_names=X_test.columns,
                       filled=True,rounded=True);
             st.pyplot(fig)
+            
+    with st.container():
+        image = st.image("./Images/Tree_RandomForestRegressor.png", use_column_width=True)
+        zoom_level = st.slider("Niveau de zoom", min_value=0, max_value=500, step=5, value=0)
+        nouvelle_largeur = int(image.width * zoom_level)
+        image.width = nouvelle_largeur        
   
            
             
