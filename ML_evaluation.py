@@ -74,12 +74,6 @@ def ML_evaluation():
          explainer = shap.TreeExplainer(model)
          shap_values = explainer.shap_values(X_test)
 
-    st.markdown("Expected Value :   ")
-    st.text(explainer.expected_value)
-    st.markdown("*C'est la valeur moyenne des valeurs SHAP pour toutes les instances du jeux de test.*")
-    st.markdown("*Elle permet de comprendre l'importance relative de chaque fonctionnalité pour le modèle de prédiction*")
-
-
     st.dataframe(shap_values)
     with st.echo():
         fig1, ax1 = plt.subplots()
