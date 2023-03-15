@@ -22,7 +22,7 @@ def ML_inter():
   
       
     column_list = list(salaires)[1:]
-    selected_column = st.selectbox('Sélectionnez une colonne', column_list)
+    selected_column = st.selectbox('Sélectionnez La categorie de Salaire :', column_list)
     
     
     
