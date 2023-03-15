@@ -74,6 +74,12 @@ def ML_evaluation():
          explainer = shap.TreeExplainer(model)
          shap_values = explainer.shap_values(X_test)
 
+    st.markdown("Expected Value :   ")
+    st.text(explainer.expected_value)
+    st.markdown("*C'est la valeur moyenne des valeurs SHAP pour toutes les instances du jeux de test.*")
+    st.markdown("*Elle permet de comprendre l'importance relative de chaque fonctionnalité pour le modèle de prédiction*")
+
+
     st.dataframe(shap_values)
     with st.echo():
         fig1, ax1 = plt.subplots()
@@ -97,7 +103,13 @@ def ML_evaluation():
                       filled=True,rounded=True);
             st.pyplot(fig)
             
-            
+    with st.container():
+        image = st.image("./Images/Tree_RandomForestRegressor.png", use_column_width=True)
+        zoom_level = st.slider("Niveau de zoom", min_value=0, max_value=500, step=5, value=0)
+        nouvelle_largeur = int(image.width * zoom_level)
+        image.width = nouvelle_largeur        
+  
+           
             
 
     st.title("**Evaluation des performances du modéle choisi ( RandomForest ) sur le salaire Moyen par département  :**")
