@@ -17,14 +17,35 @@ def ML_inter():
     df=pd.read_csv("./Data/Data_ML.csv")
     salaires = pd.read_csv("./Data/salaires_dp.csv")
     st.title("Evaluation de la prédiction")
-    model = joblib.load('./Modeles/RandomForestRegressor.joblib')
+   
     df.set_index('DEP', inplace = True)
-    predictions = model.predict(df)
-    df_pred = pd.DataFrame(predictions, columns=['valeur_predite'])
-    
+  
+      
     column_list = list(salaires)[1:]
     selected_column = st.selectbox('Sélectionnez une colonne', column_list)
     
+    
+    
+    
+    if selected_column == 'SNHM' :
+        model = joblib.load('./Modeles/RandomForestRegressor.joblib')
+    if selected_column == 'cadre_SNHM' :
+        model = joblib.load('./Modeles/RandomForestRegressor_cadre.joblib')
+    if selected_column == 'cadre_moyen_SNHM' :
+        model = joblib.load('./Modeles/RandomForestRegressor_cadre_moyen.joblib')
+    if selected_column == 'employé_SNHM' :
+        model = joblib.load('./Modeles/RandomForestRegressor_employe.joblib')
+    if selected_column == 'travailleur_SNHM' :
+        model = joblib.load('./Modeles/RandomForestRegressor_travailleur.joblib')
+    if selected_column == '18_25ans_SNHM' :
+        model = joblib.load('./Modeles/RandomForestRegressor_18_25ans.joblib')
+    if selected_column == '26_50ans_SNHM' :
+        model = joblib.load('./Modeles/RandomForestRegressor_26_50ans.joblib')
+    if selected_column == '>50ans_SNHM' :
+        model = joblib.load('./Modeles/RandomForestRegressor_50ans.joblib')
+        
+    predictions = model.predict(df)
+    df_pred = pd.DataFrame(predictions, columns=['valeur_predite'])
        
     fig, ax = plt.subplots()
     ax.plot(salaires['DEP'].head(20),salaires[selected_column].head(20), label='Valeur réelle')
