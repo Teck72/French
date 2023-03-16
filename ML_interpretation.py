@@ -81,11 +81,10 @@ def ML_inter():
  )
 
 
-    max_salary = max(salaires[selected_column])
-    y_axis_range = [0, max_salary * 1.1]
+ 
 
 
-    st.plotly_chart(fig1.update_yaxes(range=y_axis_range))
-    st.plotly_chart(fig2.update_yaxes(range=y_axis_range))
+    st.plotly_chart(fig1)
+    st.plotly_chart(fig2)
 
 
