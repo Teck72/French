@@ -1,23 +1,18 @@
 import numpy as np
 import pandas as pd 
-import seaborn as sns 
 import streamlit as st
 import joblib
 import shap
 import matplotlib.pyplot as plt
-import lime
-import lime.lime_tabular
 import plotly.graph_objs as go
-import lime
-import lime.lime_tabular
-from lime.lime_tabular import LimeTabularExplainer
 
 
 
 
 
 
-def ML_inter():
+
+def ML_predi():
      
     df=pd.read_csv("./Data/Data_ML.csv")
     salaires = pd.read_csv("./Data/salaires_dp.csv")
@@ -108,46 +103,7 @@ def ML_inter():
 
     st.plotly_chart(fig1)
     st.plotly_chart(fig2)
-    
-    st.header( 'Etude du fonctionnement de notre modéle sur un département : ')
-  
-  
-    dep = '33'
-    local = df[df['DEP'].isin([dep])]
-    local.set_index('DEP', inplace = True)
-    st.dataframe(local)
-    
-    prediction = model.predict(local)
-    prediction = float(np.round(prediction, 2))
-    
-    st.success(prediction)
-    
-    explainer = shap.TreeExplainer(model)
-    shap_values = explainer.shap_values(local)
-
-    
-    st.set_option('deprecation.showPyplotGlobalUse', False)
-    st.pyplot(shap.summary_plot(shap_values, local, plot_type="bar"))
-    
-      
-     
-    fig1, ax1 = plt.subplots()
-    shap.summary_plot(shap_values, local)
-    st.pyplot(fig1)
-    st.markdown("*Importance de chaque variable explicative par rapport à la variation de notre variable cible (que ce soit en positif ou en négatif)*")
-
-
-    
-
-    st.markdown('Expected Value:')
-    st.markdown(explainer.expected_value)
-
-    valeur = pd.DataFrame(shap_values).head()
-    
-    st.dataframe(valeur)
-    st.dataframe(local)
-    
-    
+   
     
     
   
