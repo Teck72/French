@@ -59,24 +59,44 @@ def local():
     
     st.markdown("  ")
     st.markdown("  ")
-    st.markdown("** Explication :**  ")
+    st.markdown("**Explication :**  ")
     st.markdown("  ")
     st.markdown("  ")
     st.markdown(" les valeurs indiquent que %InfoComm, %STServAdmi, %Juniors et %Masters sont les variables les plus importantes pour expliquer la prédiction du modèle, tandis que %Moyenne, %const et %AutreServ ont une influence plus faible  ")
-    st.markdown("La variable la plus importante est %InfoComm avec une valeur de SHAP de 0.3832, ce qui suggère que les valeurs élevées de cette variable ont un impact positif important sur la prédiction.")
+    st.markdown("La variable la plus importante est %STServAdmi avec une valeur de SHAP de 0.5315, ce qui suggère que les valeurs élevées de cette variable ont un impact positif important sur la prédiction.")
     st.markdown("  ")
     st.markdown("  ")
-    expected_info_comm = 27
-    info_comm_values = np.arange(0, 51, 5)
-    prediction_changes = local['InfoComm'] * (info_comm_values - expected_info_comm)
-
-
-    new_predictions =  prediction + prediction_changes
-
-
-    for i in range(len(info_comm_values)):
-        print("Lorsque %InfoComm est égal à {:.0f}, la prédiction est {:.2f}".format(info_comm_values[i], new_predictions[i]))
     
+    st.markdown("**Impact du changement de certaines variables sur note prédiction :**")
+    info_comm_values = np.arange(0, 51, 5)
+
+
+    predictions_df = pd.DataFrame({'%InfoComm': info_comm_values})
+
+
+    for info_comm in info_comm_values:
+        local_copy = local.copy()
+        local_copy['%InfoComm'] = info_comm
+        prediction = model.predict(local_copy)
+        prediction = float(np.round(prediction, 2))
+        predictions_df.loc[predictions_df['%InfoComm'] == info_comm, 'Prédiction'] = prediction
+
+    st.markdown("En fonction de pourcentage d'entreprise d'Information et de communication : ")  
+    st.dataframe(predictions_df)
+    
+    info_comm_values = np.arange(0, 40, 3)
+    predictions_df2 = pd.DataFrame({'%STServAdmi': info_comm_values})
+
+
+    for info_comm in info_comm_values:
+        local_copy = local.copy()
+        local_copy['%STServAdmi'] = info_comm
+        prediction = model.predict(local_copy)
+        prediction = float(np.round(prediction, 2))
+        predictions_df2.loc[predictions_df2['%STServAdmi'] == info_comm, 'Prédiction'] = prediction
+
+    st.markdown("En fonction de pourcentage d'entreprise d'Activités spécialisées, scient et techn, et activités de service et administratif : ") 
+    st.dataframe(predictions_df2)
  
     
     
