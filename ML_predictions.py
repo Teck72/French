@@ -103,6 +103,12 @@ def ML_predi():
 
     st.plotly_chart(fig1)
     st.plotly_chart(fig2)
+    st.markdown("  ")
+    st.markdown("  ")
+    st.header("**Analyse :**")
+    st.markdown("Les caractéristiques de la région Ile de France sont différentes des autres régions :")
+    st.markdown("Cette région a des caractéristiques uniques qui distinguent ces départements ( 75,77,78,91,92,93,94 et 95 )  des autres, telles que le coût de la vie plus élevé, une concentration de travailleurs hautement qualifiés et une forte proportion de travailleurs indépendants. Ces caractéristiques affectent le salaire moyen de manière unique et nécessitent une approche différente pour prédire le salaire moyen dans ces départements.")
+    
    
     
     

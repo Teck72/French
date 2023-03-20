@@ -49,8 +49,10 @@ def local():
 
     
 
-    st.markdown('valeur prédite moyenne :')
+    st.markdown('Expected Value :')
     st.success(explainer.expected_value)
+    st.markdown("*La valeur Expected Value est la sortie moyenne attendue du modèle lorsque toutes les variables d'entrée ont une valeur moyenne.*")
+    
     st.markdown('Matrice SHAP :')
     valeur = pd.DataFrame(shap_values).head()
     st.dataframe(valeur)
@@ -62,7 +64,18 @@ def local():
     st.markdown("  ")
     st.markdown(" les valeurs indiquent que %InfoComm, %STServAdmi, %Juniors et %Masters sont les variables les plus importantes pour expliquer la prédiction du modèle, tandis que %Moyenne, %const et %AutreServ ont une influence plus faible  ")
     st.markdown("La variable la plus importante est %InfoComm avec une valeur de SHAP de 0.3832, ce qui suggère que les valeurs élevées de cette variable ont un impact positif important sur la prédiction.")
-   
+    st.markdown("  ")
+    st.markdown("  ")
+    expected_info_comm = 27
+    info_comm_values = np.arange(0, 51, 5)
+    prediction_changes = local['InfoComm'] * (info_comm_values - expected_info_comm)
+
+
+    new_predictions =  prediction + prediction_changes
+
+
+    for i in range(len(info_comm_values)):
+        print("Lorsque %InfoComm est égal à {:.0f}, la prédiction est {:.2f}".format(info_comm_values[i], new_predictions[i]))
     
  
     
