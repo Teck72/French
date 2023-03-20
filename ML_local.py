@@ -54,7 +54,7 @@ def local():
     st.markdown("*La valeur Expected Value est la sortie moyenne attendue du modèle lorsque toutes les variables d'entrée ont une valeur moyenne.*")
     
     st.markdown('Matrice SHAP :')
-    valeur = pd.DataFrame(shap_values).head()
+    valeur = pd.DataFrame(shap_values,columns=local.columns).head()
     st.dataframe(valeur)
     
     st.markdown("  ")
@@ -65,7 +65,7 @@ def local():
     st.markdown(" les valeurs indiquent que %InfoComm, %STServAdmi, %Juniors et %Masters sont les variables les plus importantes pour expliquer la prédiction du modèle, tandis que %Moyenne, %const et %AutreServ ont une influence plus faible  ")
     st.markdown("La variable la plus importante est %STServAdmi avec une valeur de SHAP de 0.5315, ce qui suggère que les valeurs élevées de cette variable ont un impact positif important sur la prédiction.")
     st.markdown("  ")
-    st.markdown("  ")
+    st.markdown("Pour expliquer les valeurs de SHAP données, prenons l'exemple de la variable %Petite. La contribution moyenne de cette variable à la prédiction est de 0,0146. Cela signifie que, en moyenne, une augmentation de 1% de la variable %Petite entraînera une augmentation de la prédiction de 0,0146, par rapport à la prédiction moyenne de toutes les observations d'entraînement. De même, pour la variable %Moyenne, la contribution moyenne est de -0,0171, ce qui signifie qu'une diminution de 1% de cette variable entraînera une diminution de la prédiction de 0,0171, par rapport à la prédiction moyenne.  ")
     
     st.markdown("**Impact du changement de certaines variables sur note prédiction :**")
     info_comm_values = np.arange(0, 51, 5)
