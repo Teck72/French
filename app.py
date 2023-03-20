@@ -24,7 +24,7 @@ from ML_local import local
 def main():
 
     # List of pages
-    liste_menu = ["Introduction","Visualisation Base de donnée", "Etude Machine Learning","Evaluation du modéle","Machine Learning"," Evaluation de la prédiction","Etude Local du département 33 ( en cours)","Sources"]
+    liste_menu = ["Introduction","Visualisation Base de donnée", "Etude Machine Learning","Evaluation du modéle","Machine Learning"," Evaluation de la prédiction","Etude Local du département 33","Sources"]
 
     # Sidebar
     menu = st.sidebar.selectbox("selectionner votre activité :", liste_menu)
