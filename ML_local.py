@@ -81,12 +81,21 @@ def local():
         prediction = float(np.round(prediction, 2))
         predictions_df.loc[predictions_df['%InfoComm'] == info_comm, 'Prédiction'] = prediction
 
-    st.markdown("En fonction de pourcentage d'entreprise d'Information et de communication : ")  
-    st.dataframe(predictions_df)
+    
+ 
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(x=predictions_df['%InfoComm'], y=predictions_df['Prédiction'], mode='lines', name='Prédictions'))
+
+
+    fig.update_layout(title="En fonction de pourcentage d'entreprise d'Information et de communication :",
+                  xaxis_title='%InfoComm',
+                  yaxis_title='Prédiction')
+
+
+    st.plotly_chart(fig)
     
     info_comm_values = np.arange(0, 40, 3)
     predictions_df2 = pd.DataFrame({'%STServAdmi': info_comm_values})
-
 
     for info_comm in info_comm_values:
         local_copy = local.copy()
@@ -95,8 +104,11 @@ def local():
         prediction = float(np.round(prediction, 2))
         predictions_df2.loc[predictions_df2['%STServAdmi'] == info_comm, 'Prédiction'] = prediction
 
-    st.markdown("En fonction de pourcentage d'entreprise d'Activités spécialisées, scient et techn, et activités de service et administratif : ") 
-    st.dataframe(predictions_df2)
- 
-    
-    
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(x=predictions_df2['%STServAdmi'], y=predictions_df2['Prédiction'], mode='lines', name='Prédictions'))
+
+    fig.update_layout(title="En fonction de pourcentage d'entreprise d'Activités spécialisées, scient et techn, et activités de service et administratif :",
+                  xaxis_title='%STServAdmi',
+                  yaxis_title='Prédiction')
+
+    st.plotly_chart(fig)
