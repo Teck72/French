@@ -68,7 +68,7 @@ def local():
     st.markdown("Pour expliquer les valeurs de SHAP données, prenons l'exemple de la variable %STServAdmi. La contribution moyenne de cette variable à la prédiction est de 0.5315. Cela signifie que, en moyenne, une augmentation de 1% de cette variable entraînera une augmentation de la prédiction de 0.5315, par rapport à la prédiction moyenne de toutes les observations d'entraînement. De même, pour la variable %Moyenne, la contribution moyenne est de -0,0171, ce qui signifie qu'une diminution de 1% de cette variable entraînera une diminution de la prédiction de 0,0171, par rapport à la prédiction moyenne.  ")
     
     st.markdown("**Impact du changement de certaines variables sur note prédiction :**")
-    info_comm_values = np.arange(0, 51, 5)
+    info_comm_values = np.arange(0, 40, 2)
 
 
     predictions_df = pd.DataFrame({'%InfoComm': info_comm_values})
@@ -94,7 +94,7 @@ def local():
 
     st.plotly_chart(fig)
     
-    info_comm_values = np.arange(0, 40, 3)
+    info_comm_values = np.arange(0, 40, 2)
     predictions_df2 = pd.DataFrame({'%STServAdmi': info_comm_values})
 
     for info_comm in info_comm_values:
@@ -109,6 +109,25 @@ def local():
 
     fig.update_layout(title="En fonction de pourcentage d'entreprise d'Activités spécialisées, scient et techn, et activités de service et administratif :",
                   xaxis_title='%STServAdmi',
+                  yaxis_title='Prédiction')
+
+    st.plotly_chart(fig)
+    
+    info_comm_values = np.arange(0, 40, 2)
+    predictions_df2 = pd.DataFrame({'%Masters': info_comm_values})
+
+    for info_comm in info_comm_values:
+        local_copy = local.copy()
+        local_copy['%Masters'] = info_comm
+        prediction = model.predict(local_copy)
+        prediction = float(np.round(prediction, 2))
+        predictions_df2.loc[predictions_df2['%Masters'] == info_comm, 'Prédiction'] = prediction
+
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(x=predictions_df2['%Masters'], y=predictions_df2['Prédiction'], mode='lines', name='Prédictions'))
+
+    fig.update_layout(title="En fonction de pourcentage de personnes de 45 à 64 ans :",
+                  xaxis_title='%Masters',
                   yaxis_title='Prédiction')
 
     st.plotly_chart(fig)
