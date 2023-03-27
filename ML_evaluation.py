@@ -1,23 +1,10 @@
-import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-import seaborn as sns
 from sklearn.model_selection import train_test_split
 import streamlit as st
-from PIL import Image
 import joblib
 import shap
 from sklearn.tree import plot_tree
-import sklearn.metrics
-from sklearn.metrics import mean_squared_error
-from sklearn.metrics import mean_absolute_error
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.metrics import r2_score
-import plotly.graph_objs as go
-from plotly.subplots import make_subplots
-from sklearn.tree import export_graphviz
-
-
 
 
 base_etablissement=pd.read_csv("./Data/base_etablissement_dp.csv")
@@ -134,3 +121,4 @@ def ML_evaluation():
 
 
 
+ML_evaluation()

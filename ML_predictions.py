@@ -1,9 +1,6 @@
-import numpy as np
 import pandas as pd 
 import streamlit as st
 import joblib
-import shap
-import matplotlib.pyplot as plt
 import plotly.graph_objs as go
 
 
@@ -111,5 +108,5 @@ def ML_predi():
     
    
     
-    
+ML_predi()    
   

@@ -1,11 +1,6 @@
 import streamlit as st
-import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-import scipy
-import scipy.stats
-import time
-import altair as alt
 import seaborn as sns
 from PIL import Image
 import plotly.express as px
@@ -36,9 +31,7 @@ Popu.set_index('DEP',inplace = True)
 
 def bases_streamlit():
     st.title("Visualisation des Bases de données")
-    length = 30000
-    bins=500
-
+  
     st.sidebar.markdown("# Choix de la base")
 
     choix = st.sidebar.radio("Choix de la base", ("Populations", "Salaire Moyen","Etablissement","Loyer Appartement","Type d'entreprise"))
@@ -59,13 +52,14 @@ def bases_streamlit():
         st.markdown("Ainés : 65 ans et plus. (Non Actifs) ")              
         st.dataframe(Popu)
         variable = st.multiselect("Visulation de la distribution des données :", Popu.columns)
+       
+        # Visualisation de la distribution de la ou des colonnes choisis précédement
         fig = px.box(Popu, y=variable)
         st.plotly_chart(fig) 
-     
-            
+        
          
         
-        
+        # Affichage d'un graphique circulaire qui montre la répartition des catégories de population en France métropolitaine
         plt.figure(figsize = (8, 8))
         x = [Popu_DEP['Ainés'].sum(),Popu_DEP['Enfants'].sum(),Popu_DEP['Juniors'].sum(),Popu_DEP['Masters'].sum(),Popu_DEP['Séniors'].sum()]
         fig1, ax1 = plt.subplots()
@@ -77,7 +71,7 @@ def bases_streamlit():
         st.pyplot(fig1)
         st.markdown("La plus grande proportion de populations est potentiellement active et a entre 30 et 44 ans, on remarque aussi que la population d’enfants est supérieure au nombre d’ainés, ce qui est plutôt encourageant d’un point de vue économique.")
         
-        
+        # Calcule la proportion de la population active et non active
         Popu_DEP['Non_Actifs']=Popu_DEP.Enfants + Popu_DEP.Ainés
         Popu_DEP['Actifs']=Popu_DEP.Juniors + Popu_DEP.Masters + Popu_DEP.Séniors
         Popu_DEP['Total'] = Popu_DEP.Juniors + Popu_DEP.Masters + Popu_DEP.Séniors+Popu_DEP.Enfants + Popu_DEP.Ainés
@@ -85,6 +79,7 @@ def bases_streamlit():
         Popu_DEP2 = Popu_DEP.sort_values('Total', ascending=False)
 
         
+        # Affichage d'un graphique à barres qui montre la répartition des populations actives et non actives sur les 10 départements les plus peuplés de France
         fig1, ax1 = plt.subplots()
         max_col = Popu_DEP2.head(10)
         x =  max_col['DEP']
@@ -99,9 +94,13 @@ def bases_streamlit():
 
         plt.title("10 départements les plus peuplés")
         st.pyplot(fig1)
+        
+        
         st.markdown("Nous avons ici la répartition des populations actives et non actives sur les 10 département les plus peuplés de France.")
         st.markdown("On retrouve le Nord avec Lille, Tourcoing, Roubaix, Dunkerque, le département de Paris,  les Bouches du Rhône avec Marseille, le Rhône avec Lyon, la région parisienne (92,93), la Gironde avec Bordeaux, le Pas-de-Calais, la région parisienne (78,77).")
         
+        
+        # Affichage des cartes de France sauvegardées lors de la préparation des données
         col1, col2 = st.columns(2)
         
         original = Image.open('./Images/Populations_Actif.png')
@@ -139,16 +138,19 @@ def bases_streamlit():
         st.dataframe(dp_salaires)
         
         variable = st.multiselect("Visulation de la distribution des données :", dp_salaires.columns[1:])
+        
+        # Visualisation de la distribution de la ou des colonnes choisis précédement
         fig = px.box(dp_salaires, y=variable)
         st.plotly_chart(fig)    
     
-
+        # Affichage de la carte de France
         image = Image.open('./Images/SNHM.png')
         st.image(image)
     
         st.markdown("*Ici on remarque que les salaires les plus élevés sont regroupés autour des grandes villes de France et non pas forcément dans les zones les plus peuplés.*")
         st.markdown("*On remarque notamment que toute la zone Nord et Nord-Pas-de-Calais est plutôt claire alors que très peuplés.*")
     
+        # Graphiques à barres qui montrent les 10 départements ayant les salaires net moyen les plus élevés et les plus bas.
         max_col = dp_salaires.head(10)
         min_col = dp_salaires.tail(10)
 
@@ -163,7 +165,9 @@ def bases_streamlit():
         
         st.markdown ( "*Sur le graphe ci-dessus, on constate que les départements 75,92 et 78 sont ceux ayant les salaires net moyen les plus élevés.*")
         st.markdown ( "*Les 10 départements qui ont les salaires net moyens les plus bas ont presque le même niveau de salaire net moyen égal à un peu moins que 13.33 euros/heure (salaire net horaire moyen en France)*")
-           
+         
+        
+        # Graphique en boîte qui montre la comparaison des salaires par type d’employé et par département.
         fig1 = px.box(dp_salaires, y='cadre_SNHM')
         fig2 = px.box(dp_salaires, y='cadre_moyen_SNHM')
         fig3 = px.box(dp_salaires, y='employé_SNHM')
@@ -201,8 +205,12 @@ def bases_streamlit():
         st.dataframe(base_etablissement_dp)
         image = Image.open('./Images/SUMMG.png')
         variable = st.multiselect("Visulation de la distribution des données :", base_etablissement_dp.columns)
+        # Visualisation de la distribution de la ou des colonnes choisis précédement
         fig = px.box(base_etablissement_dp, y=variable)
         st.plotly_chart(fig)
+        
+        
+        # Graphique circulaire qui montre les 10 départements ayant le plus de moyennes et grandes entreprises.
         df = base_etablissement_dp.head(10)
         fig = px.pie(df, values='%SumMG', names='DEP')
 
@@ -218,16 +226,18 @@ def bases_streamlit():
         st.markdown("Après étude de cette base de données comprenant différents indicateurs, nous décidons de garder uniquement 2 colonnes : le département et le loyer moyen par m² des appartements.")
         
         st.dataframe(dep_loyer_app)
-        
+        # Visualisation de la distribution
         fig = px.box(dep_loyer_app, y=dep_loyer_app['loyerm2'])
         st.plotly_chart(fig) 
         
+        # Affichage carte de France
         image = Image.open('./Images/dep_loyer_app.png')
         st.image(image)
         
         st.markdown("*On remarque ici que les loyers les plus élevés se situent autour de Paris, de l’Iles de France, de Marseille, dans les Alpes maritime et en Haute-Savoie.*")
         st.markdown("*On retrouve le détail de cette carte dans les graphes ci-dessous montrant le top des 10 départements avec les loyers par m² les plus élevés et le plus faibles.*")
         
+        #  Graphiques à barres horizontales qui montrent les 10 départements ayant les loyers par mètre carré les plus élevés et les moins élevés
         max_col = dep_loyer_app.head(10)
         max_col = max_col.sort_values('loyerm2', ascending=True)
         min_col = dep_loyer_app.tail(10)
@@ -265,6 +275,7 @@ def bases_streamlit():
         st.dataframe(te)
         
         variable = st.multiselect("Visulation de la distribution des données :", te.columns)
+        # Visualisation de la distribution de la ou des colonnes choisis précédement
         fig = px.box(te, y=variable)
         st.plotly_chart(fig)    
         
@@ -304,6 +315,8 @@ def bases_streamlit():
         
         
         data=data.reset_index()
+        
+        # Graphique à barres qui montre le nombre d’activités par type d’activité et par département.
         fig, ax = plt.subplots()
         plt.bar(data['DEP'], data['indus'], color='blue', label='indus')
         plt.bar(data['DEP'], data['const'], color='orange', label='const')

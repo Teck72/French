@@ -1,23 +1,17 @@
 import numpy as np
 import pandas as pd 
-import seaborn as sns 
 import streamlit as st
 import joblib
 import shap
 import matplotlib.pyplot as plt
-import lime
-import lime.lime_tabular
 import plotly.graph_objs as go
-import lime
-import lime.lime_tabular
-from lime.lime_tabular import LimeTabularExplainer
+
 
 
 
 
 def local():
     df=pd.read_csv("./Data/Data_ML.csv")
-    salaires = pd.read_csv("./Data/salaires_dp.csv")
     st.title("Etude de la prédiction sur le département 33")
     model = joblib.load('./Modeles/RandomForestRegressor.joblib')
     
@@ -131,3 +125,5 @@ def local():
                   yaxis_title='Prédiction')
 
     st.plotly_chart(fig)
+    
+local()    

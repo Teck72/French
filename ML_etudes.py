@@ -1,4 +1,3 @@
-import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -6,12 +5,7 @@ from sklearn.model_selection import train_test_split
 import streamlit as st
 from PIL import Image
 import joblib
-import shap
 from sklearn.tree import plot_tree
-import sklearn.metrics
-from sklearn.metrics import mean_squared_error
-from sklearn.metrics import mean_absolute_error
-from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import r2_score
 
 
@@ -154,4 +148,4 @@ def ML_etude():
         st.markdown("*Déjà dans ce 3ème étage du Random Forest nous obtenons 4 groupes de 19, 14,6 et 7 départements ayant respectivement pour salaire moyen 12.25, 12.62, 15.77 et 13.65 euros ainsi qu’une MSE de respectivement 0.13, 0.16, 1.095 et 0.20.*")
         st.markdown("*La machine découpe ainsi chaque groupe en sous-groupe afin d’obtenir des populations représentatives de notre échantillon de base que nous pourrons comparer avec nos éléments « réels » lorsque l’utilisateur voudra obtenir une prédiction.*")
     
-    
+ML_etude()    
