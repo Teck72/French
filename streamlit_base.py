@@ -80,20 +80,24 @@ def bases_streamlit():
 
         
         # Affichage d'un graphique à barres qui montre la répartition des populations actives et non actives sur les 10 départements les plus peuplés de France
-        fig1, ax1 = plt.subplots()
+        fig, ax = plt.subplots(figsize=(8,6))
+
         max_col = Popu_DEP2.head(10)
+
         x =  max_col['DEP']
         y1 = max_col['Actifs']
         y2 = max_col['Non_Actifs']
 
+        ax.bar(x, y1, color = "#3ED8C9", label = 'Actifs')
+        ax.bar(x, y2,bottom = y1, color = "#EDFF91", label = 'Non Actifs')
 
-        plt.bar(x, y1, color = "#3ED8C9", label = 'Actifs')
+        ax.set_xlabel('Départements')
+        ax.set_ylabel('Population')
+        ax.set_title('10 départements les plus peuplés')
 
-        plt.bar(x, y2,bottom = y1, color = "#EDFF91", label = 'Non Actifs')
-        plt.legend()
+        ax.legend()
 
-        plt.title("10 départements les plus peuplés")
-        st.pyplot(fig1)
+        st.pyplot(fig)
         
         
         st.markdown("Nous avons ici la répartition des populations actives et non actives sur les 10 département les plus peuplés de France.")
@@ -154,14 +158,13 @@ def bases_streamlit():
         max_col = dp_salaires.head(10)
         min_col = dp_salaires.tail(10)
 
-        fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(25,5), sharey=True)
+        fig1 = px.bar(max_col, x="DEP", y="SNHM", color="DEP", title="10 départements ayant les salaires net moyen les plus élevés")
+        fig1.update_layout(xaxis=dict(type='category'))
 
-        sns.barplot(x=max_col['DEP'], y=max_col['SNHM'],ax=ax1);
-        ax1.title.set_text("10 départements ayant les salaires net moyen les plus élevés")
-        sns.barplot(x=min_col['DEP'], y=min_col['SNHM'], ax=ax2);
-        ax2.title.set_text("10 départements ayant les salaires net moyen les plus bas")
-    
-        st.write(fig)
+        fig2 = px.bar(min_col, x="DEP", y="SNHM", color="DEP", title="10 départements ayant les salaires net moyen les plus bas")
+        fig2.update_layout(xaxis=dict(type='category'))
+        st.plotly_chart(fig1)
+        st.plotly_chart(fig2)
         
         st.markdown ( "*Sur le graphe ci-dessus, on constate que les départements 75,92 et 78 sont ceux ayant les salaires net moyen les plus élevés.*")
         st.markdown ( "*Les 10 départements qui ont les salaires net moyens les plus bas ont presque le même niveau de salaire net moyen égal à un peu moins que 13.33 euros/heure (salaire net horaire moyen en France)*")
