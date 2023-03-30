@@ -214,10 +214,10 @@ def bases_streamlit():
         
         
         # Graphique circulaire qui montre les 10 départements ayant le plus de moyennes et grandes entreprises.
-        df = base_etablissement_dp.head(10)
-        fig = px.pie(df, values='%SumMG', names='DEP')
-
-
+        fig = px.bar(base_etablissement_dp, x='DEP', y='%SumMG', text='%SumMG')
+        fig.update_traces(textposition='outside')
+        fig.update_layout(xaxis_title='Département', yaxis_title='% Moyennes et Grandes Entreprises')
+        fig.update_layout(annotations=[dict(x=xi, y=yi, text=str(yi)+'%', xanchor='center', yanchor='bottom', showarrow=False) for xi, yi in zip(base_etablissement_dp['DEP'], base_etablissement_dp['%SumMG'])])
         st.plotly_chart(fig)
         st.markdown("*Ce Pie chart nous permet d’identifier les 10 départements ayant le plus de moyennes et grandes entreprises.*")
         st.markdown("*Nous constatons une grande différence entre les départements du 75 (paris) et  du 33 (Gironde avec Bordeaux), le somme des moyennes et grandes entreprise du 75 est environs 2 fois plus élevé que celle du 33 (le dixième département). Cependant nous pouvons nous poser la question de la véracité de ces données concernant Paris puisque peut être s’agit-il d’adresse postale uniquement.*")
@@ -331,13 +331,13 @@ def bases_streamlit():
         plt.bar(data['DEP'], data['STServAdmi'], color='pink', label='STServAdmi')
         plt.bar(data['DEP'], data['ApESS'], color='gray', label='ApESS')
         plt.bar(data['DEP'], data['AutreServ'], color='black', label='AutreServ')
-
-
         plt.title('Nombre de type d\'activité par département')
         plt.xlabel('Département')
         plt.ylabel('Nombre d\'activité ')
         plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
-        st.write(fig)
+
+        
+        st.pyplot(fig)
                 
         
         st.markdown("Nous vous proposons enfin de regarder la répartition des entreprises sur la toute la France selon leur secteur d’activité.")
