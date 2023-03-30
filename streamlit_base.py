@@ -79,6 +79,23 @@ def bases_streamlit():
         Popu_DEP2 = Popu_DEP.sort_values('Total', ascending=False)
 
         
+          
+        
+        # Affichage des cartes de France sauvegardées lors de la préparation des données
+        col1, col2 = st.columns(2)
+        
+        original = Image.open('./Images/Populations_Actif.png')
+        col1.header("Actif")
+        col1.image(original, use_column_width=True)
+      
+        grayscale = Image.open('./Images/Populations_Non_Actif.png')
+        col2.header("Non Actif")
+        col2.image(grayscale, use_column_width=True)
+        
+        st.markdown("Plus la couleur est foncée plus la population décrite est présente.")
+        st.markdown("Cette visualisation est en en corrélation avec les graphiques suivants qui indique les 10 départements les plus peuplés et les moins peuplés de personnes Actives.")
+        st.markdown("Les populations (actives et non actives) sont concentrés autours villes et des gros « pôles » économiques français (Paris, Lille, Dunkerque, Bordeaux, Lyon, Marseille, …).")
+        
         # Affichage d'un graphique à barres qui montre la répartition des populations actives et non actives sur les 10 départements les plus peuplés de France
         fig, ax = plt.subplots(figsize=(8,6))
 
@@ -101,25 +118,7 @@ def bases_streamlit():
         
         
         st.markdown("Nous avons ici la répartition des populations actives et non actives sur les 10 département les plus peuplés de France.")
-        st.markdown("On retrouve le Nord avec Lille, Tourcoing, Roubaix, Dunkerque, le département de Paris,  les Bouches du Rhône avec Marseille, le Rhône avec Lyon, la région parisienne (92,93), la Gironde avec Bordeaux, le Pas-de-Calais, la région parisienne (78,77).")
-        
-        
-        # Affichage des cartes de France sauvegardées lors de la préparation des données
-        col1, col2 = st.columns(2)
-        
-        original = Image.open('./Images/Populations_Actif.png')
-        col1.header("Actif")
-        col1.image(original, use_column_width=True)
-      
-        grayscale = Image.open('./Images/Populations_Non_Actif.png')
-        col2.header("Non Actif")
-        col2.image(grayscale, use_column_width=True)
-        
-        st.markdown("Plus la couleur est foncée plus la population décrite est présente.")
-        st.markdown("Cette visualisation est en en corrélation avec les graphiques suivants qui indique les 10 départements les plus peuplés et les moins peuplés de personnes Actives.")
-        st.markdown("Les populations (actives et non actives) sont concentrés autours villes et des gros « pôles » économiques français (Paris, Lille, Dunkerque, Bordeaux, Lyon, Marseille, …).")
-        
-          
+        st.markdown("On retrouve le Nord avec Lille, Tourcoing, Roubaix, Dunkerque, le département de Paris,  les Bouches du Rhône avec Marseille, le Rhône avec Lyon, la région parisienne (92,93), la Gironde avec Bordeaux, le Pas-de-Calais, la région parisienne (78,77).")  
  
     
     if choix == 'Salaire Moyen' :
@@ -214,12 +213,14 @@ def bases_streamlit():
         
         
         # Graphique circulaire qui montre les 10 départements ayant le plus de moyennes et grandes entreprises.
-        fig = px.bar(base_etablissement_dp, x='DEP', y='%SumMG', text='%SumMG')
+        top = base_etablissement_dp.sort_values(by='SumMG', ascending=False).head(10)
+        fig = px.bar(top, x='DEP', y='SumMG', text='SumMG')
+        
+        fig.update_layout(xaxis=dict(type='category'),margin=dict(l=100, r=50, t=70, b=50))
         fig.update_traces(textposition='outside')
-        fig.update_layout(xaxis_title='Département', yaxis_title='% Moyennes et Grandes Entreprises')
-        fig.update_layout(annotations=[dict(x=xi, y=yi, text=str(yi)+'%', xanchor='center', yanchor='bottom', showarrow=False) for xi, yi in zip(base_etablissement_dp['DEP'], base_etablissement_dp['%SumMG'])])
+        fig.update_layout(xaxis_title='Département', yaxis_title='Nbre Moyennes et Grandes Entreprises')
         st.plotly_chart(fig)
-        st.markdown("*Ce Pie chart nous permet d’identifier les 10 départements ayant le plus de moyennes et grandes entreprises.*")
+        st.markdown("*Ce graphique nous permet d’identifier les 10 départements ayant le plus de moyennes et grandes entreprises.*")
         st.markdown("*Nous constatons une grande différence entre les départements du 75 (paris) et  du 33 (Gironde avec Bordeaux), le somme des moyennes et grandes entreprise du 75 est environs 2 fois plus élevé que celle du 33 (le dixième département). Cependant nous pouvons nous poser la question de la véracité de ces données concernant Paris puisque peut être s’agit-il d’adresse postale uniquement.*")
         
         
