@@ -242,24 +242,25 @@ def bases_streamlit():
         
         #  Graphiques à barres horizontales qui montrent les 10 départements ayant les loyers par mètre carré les plus élevés et les moins élevés
         max_col = dep_loyer_app.head(10)
-        max_col = max_col.sort_values('loyerm2', ascending=True)
+        
+
+        fig1 = px.bar(max_col, x="DEP", y="loyerm2", color="DEP", orientation='v', title="Top 10 des loyers par mètre carré dans différents départements de France")
+        fig1.update_layout(xaxis=dict(type='category',title="", tickfont=dict(size=12), tickmode='array', tickvals=max_col['DEP'], ticktext=max_col['DEP']),
+                   yaxis=dict(title="Loyer par mètre carré", tickprefix="€", ticksuffix="/m²", nticks=10),
+                   margin=dict(l=100, r=50, t=70, b=50))
+
         min_col = dep_loyer_app.tail(10)
-        min_col = min_col.sort_values('loyerm2', ascending=True)
-        fig, ax = plt.subplots()
-        ax.barh(max_col['DEP'], max_col['loyerm2'], align='center')
-        ax.set_xlabel('Loyer par mètre carré')
-        ax.set_ylabel('Département')
-        ax.set_title('Top 10 des loyers par mètre carré dans différents départements de France')
-        st.write(fig)
-        
-        fig, ax = plt.subplots()
-        ax.barh(min_col['DEP'], min_col['loyerm2'], align='center')
-        ax.set_xlabel('Loyer par mètre carré')
-        ax.set_ylabel('Département')
-        ax.set_title('Top derniers des loyers par mètre carré dans différents départements de France')
-        st.write(fig)
-        
        
+
+        fig2 = px.bar(min_col, x="DEP", y="loyerm2", color="DEP", orientation='v', title="Flop 10 des loyers par mètre carré dans différents départements de France")
+        fig2.update_layout(xaxis=dict(type='category',title="", tickfont=dict(size=12), tickmode='array', tickvals=min_col['DEP'], ticktext=min_col['DEP']),
+                   yaxis=dict(title="Loyer par mètre carré", tickprefix="€", ticksuffix="/m²", nticks=10),
+                   margin=dict(l=100, r=50, t=70, b=50))
+
+        st.plotly_chart(fig1)
+        st.plotly_chart(fig2)
+
+
     if choix == "Type d'entreprise" :
         
         st.markdown("Pour la même raison que l’ajout de la base de données précédente, nous avons décidé d’ajouter une base de donnée gouvernementale nous indiquant le nombre d’entreprise par département selon leur secteur d’activité : ")
