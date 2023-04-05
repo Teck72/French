@@ -29,17 +29,18 @@ def ML_api():
                 '%Juniors': juniors, '%Masters': masters, '%Séniors': seniors, '%indus': indus, '%const': const,
                 '%CTRH': ctrh, '%InfoComm': infocomm, '%STServAdmi': stservadmi, '%AutreServ': autreserv, 'loyerm2': loyerm2}
 
+        
+        
         with st.echo():
              
              url = 'https://teck72.pythonanywhere.com:443'
              response = requests.post(url, json=data)
 
-
         if response.status_code == 200:
-            # Récupération de la réponse de l'API
             try:
-                prediction = json.loads(response.content.decode('utf-8'))['prediction']
-                st.write('La prédiction est : ', prediction)
+                predictions = json.loads(response.content.decode('utf-8'))
+                for model_name, prediction in predictions['predictions'].items():
+                    st.write('Prédiction du ', model_name, ':', prediction)
             except json.JSONDecodeError as e:
                 st.write('Erreur lors de l\'analyse de la réponse JSON :', e.msg)
                 st.write('Contenu de la réponse :', response.content)
@@ -47,4 +48,4 @@ def ML_api():
             st.write('La requête a échoué avec le code', response.status_code)
             st.write('Contenu de la réponse :', response.content)
 
-ML_api()    
+ML_api()
