@@ -33,7 +33,7 @@ def ML_api():
         
         with st.echo():
              
-             url = 'https://teck72.pythonanywhere.com:443'
+             url = 'https://teck72.pythonanywhere.com:443/Prediction'
              response = requests.post(url, json=data)
 
         if response.status_code == 200:
