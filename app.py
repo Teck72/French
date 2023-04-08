@@ -24,7 +24,7 @@ st.set_page_config(page_title='French Industry', page_icon=":guardsman:",
 header = st.container()
 with header:
     logo_image = Image.open("./Images/Logo.png")
-    st.image(logo_image, width=200)
+    st.image(logo_image, width=300)
 
 
 
