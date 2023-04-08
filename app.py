@@ -14,7 +14,17 @@ from ML_evaluation import ML_evaluation
 from ML_predictions import ML_predi
 from ML_local import local
 from API import ML_api
+from PIL import Image
 
+
+st.set_page_config(page_title='French Industry', page_icon=":guardsman:", 
+                   layout="wide", initial_sidebar_state="expanded")
+
+# Ajouter un logo à l'en-tête de votre application
+header = st.container()
+with header:
+    logo_image = Image.open("./images/Logo.png")
+    st.image(logo_image, width=200)
 
 
 
