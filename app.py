@@ -26,7 +26,11 @@ with header:
     logo_image = Image.open("./Images/Logo.png")
     st.image(logo_image, width=300)
 
-
+footer = """
+<div style='text-align: center; font-size: 12px; color: #808080; margin-top: 50px;'>
+    <p>Copyright © 2023 | Datascinetest : Promotion DA Continu Octobre 2022</p>
+</div>
+"""
 
 def main():
     
@@ -59,6 +63,11 @@ def main():
 
     if menu == liste_menu[8] :
         sources()
+        
+    footer_container = st.container()
+    with footer_container:
+        st.write(footer, unsafe_allow_html=True)
+    
         
 if __name__ == '__main__':
     main()
