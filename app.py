@@ -28,7 +28,7 @@ with header:
 
 footer = """
 <div style='text-align: center; font-size: 12px; color: #808080; margin-top: 50px;'>
-    <p>Copyright © 2023 | Datascinetest : Promotion DA Continu Octobre 2022</p>
+    <p>Copyright © 2023 | Datascientest : Promotion DA Continu Octobre 2022</p>
 </div>
 """
 
