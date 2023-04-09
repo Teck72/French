@@ -19,11 +19,14 @@ def local():
     dep = '33'
     local = df[df['DEP'].isin([dep])]
     local.set_index('DEP', inplace = True)
+    st.markdown("Données réelles du département :")
     st.dataframe(local)
+    
     
     prediction = model.predict(local)
     prediction = float(np.round(prediction, 2))
     
+    st.markdown("Prédiction de la moyenne des salaire net moyen par heure : ")
     st.success(prediction)
     
     explainer = shap.TreeExplainer(model)
@@ -45,7 +48,7 @@ def local():
 
     st.markdown('Expected Value :')
     st.success(explainer.expected_value)
-    st.markdown("*La valeur Expected Value est la sortie moyenne attendue du modèle lorsque toutes les variables d'entrée ont une valeur moyenne.*")
+    st.markdown("*La valeur Expected Value est la valeur moyenne attendue du modèle lorsque toutes les variables explicatives ont une valeur égale à leur moyenne.*")
     
     st.markdown('Matrice SHAP :')
     valeur = pd.DataFrame(shap_values,columns=local.columns).head()
@@ -53,15 +56,24 @@ def local():
     
     st.markdown("  ")
     st.markdown("  ")
-    st.markdown("**Explication :**  ")
+    st.markdown("**Interprétation :**  ")
     st.markdown("  ")
     st.markdown("  ")
-    st.markdown(" les valeurs indiquent que %InfoComm, %STServAdmi, %Juniors et %Masters sont les variables les plus importantes pour expliquer la prédiction du modèle, tandis que %Moyenne, %const et %AutreServ ont une influence plus faible  ")
-    st.markdown("La variable la plus importante est %STServAdmi avec une valeur de SHAP de 0.5315, ce qui suggère que les valeurs élevées de cette variable ont un impact positif important sur la prédiction.")
+    st.markdown(" Les graphes du SHAP indiquent que %InfoComm, %STServAdmi, %indus %Juniors et %Masters sont les variables les plus importantes pour expliquer la prédiction du modèle, tandis que %Moyenne, %const et %CTRH exercent une influence bien moindre.  ")
+    st.markdown("La variable la plus importante est %InfoComm avec une valeur de SHAP de 0.3965, ce qui suggère que les valeurs élevées de cette variable ont un impact positif important sur la prédiction.")
+    st.markdown("Ici, il y a une différence de 1.66€ entre l’expected value et la valeur prédite (14.89 – 13.23).   ")
+    st.markdown("Cet écart s’explique par :   ")
+    st.markdown("•	0.3965€ venant de la variable % InfoComm  ")
+    st.markdown("•	0.2894€ venant de la variable %STServAdmi ")
+    st.markdown("•	0.2152€ venant de la varible %Indus  ")
+    st.markdown("•	0.1794€ venant de la variable %Master  ")
+    st.markdown("•	0.1508€ venant de la variable %Junior  ")
+    st.markdown("•	Etc….  ")
     st.markdown("  ")
-    st.markdown("Pour expliquer les valeurs de SHAP données, prenons l'exemple de la variable %STServAdmi. La contribution moyenne de cette variable à la prédiction est de 0.5315. Cela signifie que, en moyenne, une augmentation de 1% de cette variable entraînera une augmentation de la prédiction de 0.5315, par rapport à la prédiction moyenne de toutes les observations d'entraînement. De même, pour la variable %Moyenne, la contribution moyenne est de -0,0171, ce qui signifie qu'une diminution de 1% de cette variable entraînera une diminution de la prédiction de 0,0171, par rapport à la prédiction moyenne.  ")
     
-    st.markdown("**Impact du changement de certaines variables sur note prédiction :**")
+  
+    
+    st.title("**Courbe d’évolution de la prédiction en fonction de la modification de nos facteurs.**")
     info_comm_values = np.arange(0, 40, 2)
 
 
@@ -88,6 +100,8 @@ def local():
 
     st.plotly_chart(fig)
     
+    st.markdown("*Ici l’utilisateur à l’indication que sa prédiction peut varier de minimum 14.34€/h à maximum 15.13€/h en modifiant le % d’entreprise InfoComm entre 0 et 8%. Au-delà le 8%, il n’y aura pas de changement de la prédiction.*")
+    
     info_comm_values = np.arange(0, 40, 2)
     predictions_df2 = pd.DataFrame({'%STServAdmi': info_comm_values})
 
@@ -106,6 +120,8 @@ def local():
                   yaxis_title='Prédiction')
 
     st.plotly_chart(fig)
+    
+    st.markdown("*Ici l’utilisateur à l’indication que sa prédiction peut varier de minimum 14.38€/h à maximum 15.83€/h en modifiant le % d’entreprise InfoComm entre 14.38% et 26%. Avant ou au-delà de ces seuils, il n’y aura pas de changement de la prédiction.*")
     
     info_comm_values = np.arange(0, 40, 2)
     predictions_df2 = pd.DataFrame({'%Masters': info_comm_values})
@@ -126,4 +142,8 @@ def local():
 
     st.plotly_chart(fig)
     
+    st.markdown("*Ici l’utilisateur à l’indication qu’il ne fera pas varier la prédiction de salaire en modulant la variable %Master entre 0 et 26%. *")
+    st.markdown("*Au-delà, il créera une légère augmentation de la prédiction jusqu’à 28%, puis au-delà, l’augmentation de la population fera chuter la prédiction de salaire de 15.55€ à 14.44€/h. *") 
+    
+  
 local()    

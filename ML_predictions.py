@@ -103,9 +103,9 @@ def ML_predi():
     st.markdown("  ")
     st.markdown("  ")
     st.header("**Analyse :**")
-    st.markdown("Les caractéristiques de la région Ile de France sont différentes des autres régions :")
-    st.markdown("Cette région a des caractéristiques uniques qui distinguent ces départements ( 75,77,78,91,92,93,94 et 95 )  des autres, telles que le coût de la vie plus élevé, une concentration de travailleurs hautement qualifiés et une forte proportion de travailleurs indépendants. Ces caractéristiques affectent le salaire moyen de manière unique et nécessitent une approche différente pour prédire le salaire moyen dans ces départements.")
-    
+    st.markdown("Pour l’ensemble des variables cibles sélectionnées, une tendance se vérifie : les départements ayant la plus grande différence entre les valeurs prédites et les valeurs réels sont presque tout le temps, les départements de la région Ile-de-France.")
+    st.markdown("En effet, cette région a des caractéristiques uniques qui distinguent l’ensemble de ces départements ( 75,77,78,91,92,93,94 et 95 ) des autres.")
+    st.markdown("Par exemple, un coût de la vie plus élevé, une concentration de travailleurs hautement qualifiés et une forte proportion de travailleurs indépendants. Ces caractéristiques affectent le salaire moyen de manière unique et nécessitent une approche différente pour prédire le salaire moyen dans ces départements.")
    
     
 ML_predi()    

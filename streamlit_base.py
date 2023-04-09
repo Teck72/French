@@ -196,8 +196,7 @@ def bases_streamlit():
     
     
             
-        st.markdown ( "*Le salaire net moyen par heure pour un cadre est supérieur à ceux des autres catégories.*") 
-        st.markdown ( "*Pour les employés et les travailleurs, la tranche salariale est approximativement la même bien que les travailleurs ont un salaire plus élevé.*")
+        st.markdown ( "*Pour les employés et les travailleurs, la tranche salariale est approximativement la même bien que les travailleurs aient un salaire plus élevé.*") 
         st.markdown ( "*Nous constatons une forte inégalité des salaires des cadres par rapport à ceux des autres catégories. Les cadres et les cadres moyens ont un salaire nettement plus élevé que les autres catégories de personnes en emploi.*")
      
     
@@ -221,16 +220,19 @@ def bases_streamlit():
         fig.update_layout(xaxis_title='Département', yaxis_title='Nbre Moyennes et Grandes Entreprises')
         st.plotly_chart(fig)
         st.markdown("*Ce graphique nous permet d’identifier les 10 départements ayant le plus de moyennes et grandes entreprises.*")
-        st.markdown("*Nous constatons une grande différence entre les départements du 75 (paris) et  du 33 (Gironde avec Bordeaux), le somme des moyennes et grandes entreprise du 75 est environs 2 fois plus élevé que celle du 33 (le dixième département). Cependant nous pouvons nous poser la question de la véracité de ces données concernant Paris puisque peut être s’agit-il d’adresse postale uniquement.*")
+        st.markdown("*Nous constatons une grande différence entre les départements du 75 (paris) et  du 33 (Gironde avec Bordeaux), le somme des moyennes et grandes entreprises du 75 est environ 2 fois plus élevé que celle du 33 (le dixième département). Cependant nous pouvons nous poser la question de la véracité de ces données concernant Paris puisque peut être s’agit-il d’adresse postale uniquement.*")
         
         
     if choix == "Loyer Appartement" :
         
-        st.markdown("Nous avons décidé de rajouter cette base de données afin d’ajouter une variable explicative non corrélés aux autre afin d’augmenter nos scores de Machine Learning.")
+        st.markdown("Nous avons décidé de rajouter cette base de données pour ajouter une variable explicative non corrélés aux autre afin d’augmenter nos scores de Machine Learning.")
         st.markdown("Après étude de cette base de données comprenant différents indicateurs, nous décidons de garder uniquement 2 colonnes : le département et le loyer moyen par m² des appartements.")
         
         st.dataframe(dep_loyer_app)
         # Visualisation de la distribution
+        
+        st.markdown("Distribution de la variable")
+        st.markdown("  ")
         fig = px.box(dep_loyer_app, y=dep_loyer_app['loyerm2'])
         st.plotly_chart(fig) 
         
@@ -245,7 +247,7 @@ def bases_streamlit():
         max_col = dep_loyer_app.head(10)
         
 
-        fig1 = px.bar(max_col, x="DEP", y="loyerm2", color="DEP", orientation='v', title="Top 10 des loyers par mètre carré dans différents départements de France")
+        fig1 = px.bar(max_col, x="DEP", y="loyerm2", color="DEP", orientation='v', title="Top 10 des prix des loyers par mètre carré dans différents départements de France")
         fig1.update_layout(xaxis=dict(type='category',title="", tickfont=dict(size=12), tickmode='array', tickvals=max_col['DEP'], ticktext=max_col['DEP']),
                    yaxis=dict(title="Loyer par mètre carré", tickprefix="€", ticksuffix="/m²", nticks=10),
                    margin=dict(l=100, r=50, t=70, b=50))
@@ -253,7 +255,7 @@ def bases_streamlit():
         min_col = dep_loyer_app.tail(10)
        
 
-        fig2 = px.bar(min_col, x="DEP", y="loyerm2", color="DEP", orientation='v', title="Flop 10 des loyers par mètre carré dans différents départements de France")
+        fig2 = px.bar(min_col, x="DEP", y="loyerm2", color="DEP", orientation='v', title="Flop 10 des prix des loyers par mètre carré dans différents départements de France")
         fig2.update_layout(xaxis=dict(type='category',title="", tickfont=dict(size=12), tickmode='array', tickvals=min_col['DEP'], ticktext=min_col['DEP']),
                    yaxis=dict(title="Loyer par mètre carré", tickprefix="€", ticksuffix="/m²", nticks=10),
                    margin=dict(l=100, r=50, t=70, b=50))
@@ -264,7 +266,7 @@ def bases_streamlit():
 
     if choix == "Type d'entreprise" :
         
-        st.markdown("Pour la même raison que l’ajout de la base de données précédente, nous avons décidé d’ajouter une base de donnée gouvernementale nous indiquant le nombre d’entreprise par département selon leur secteur d’activité : ")
+        st.markdown("Pour la même raison que l’ajout de la base de données précédente, nous avons décidé d’ajouter une base de données gouvernementales nous indiquant le nombre d’entreprise par département selon leur secteur d’activité : ")
         st.markdown("-	indus = Industrie ")
         st.markdown("-	const = Construction  ")
         st.markdown("-	CTRH = Commerce, transports, hébergement et restauration ")
@@ -284,7 +286,8 @@ def bases_streamlit():
         fig = px.box(te, y=variable)
         st.plotly_chart(fig)    
         
-        st.markdown("Nous vous proposons de regarder la composition des entreprises par département.")
+        st.markdown("Nous vous proposons de regarder la composition des entreprises par région avec un détail au département.")
+        st.markdown( "  ")
         
         modele = st.selectbox("Choix de la région :",
                               ("Auvergne-Rhône-Alpes","Bourgogne-Franche-Comté","Bretagne","Centre-Val de Loire","Corse",
@@ -341,7 +344,7 @@ def bases_streamlit():
         st.pyplot(fig)
                 
         
-        st.markdown("Nous vous proposons enfin de regarder la répartition des entreprises sur la toute la France selon leur secteur d’activité.")
+        st.markdown("Nous vous proposons enfin de regarder la répartition des entreprises sur la toute la France selon leur secteur d’activité que vous pouvez choisir.")
         
         modele = st.selectbox("Choix du type d'entreprise pour la visualisation :",
                               ('Industriel','CTRH','STServAdmi','ApESS','AutreServ','Const','FinAss','Immo','InfoComm'))

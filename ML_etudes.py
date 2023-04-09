@@ -41,12 +41,12 @@ df.rename(columns = {'indus':'%indus', 'const':'%const',
 
 def ML_etude():
     st.title("Etude MACHINE LEARNING")
-    st.markdown(" Nous allons etudié deux modéles de régression pour la prédiction du salaire Moyen d'un départment : ")
+    st.markdown(" Nous allons étudier deux modèles de régression pour la prédiction du salaire moyen d'un département : ")
     st.markdown("       -DecisionTreeRegressor ")
     st.markdown("       -RandomForestRegressor ")
     st.markdown("   ")
     st.markdown("   ")
-    st.markdown(" Etude des vaiables de notre Dataset nettoyé :   ")
+    st.markdown(" Voici notre Dataset de variables explicatives nettoyé :   ")
     st.dataframe(df)
     st.markdown("   ")
     st.markdown("**Analyse des corrélations :**")
@@ -81,7 +81,7 @@ def ML_etude():
     
     st.markdown("   ")
     st.markdown("   ")
-    st.markdown("**Etudes de la valeur Cible du Salaire Moyen : SNHM**")
+    st.markdown("**Etude de la valeur cible du salaire moyen : SNHM**")
     with st.echo():
         target = salary.SNHM
         salary.SNHM = round(salary.SNHM,2)
@@ -90,7 +90,7 @@ def ML_etude():
        
     
     st.markdown("   ")
-    modele = st.selectbox('Choix du modéle de régression :',('DecisionTreeRegressor','RandomForestRegressor'))
+    modele = st.selectbox('Choix du modèle de régression :',('DecisionTreeRegressor','RandomForestRegressor'))
     if modele == 'DecisionTreeRegressor' :
         model = joblib.load('./Modeles/DecisionTreeRegressor.joblib')
         st.markdown("**Modéle DecisionTreeRegressor :**")
@@ -99,7 +99,7 @@ def ML_etude():
         st.markdown("*Le processus de construction de l'arbre commence par la sélection d'une variable d'entrée pour diviser l'ensemble de données en deux sous-ensembles. L'objectif est de choisir une variable qui minimise la somme des erreurs quadratiques (ou tout autre critère de qualité de séparation) des deux sous-ensembles résultants.*")
         st.markdown("*Le processus de division est répété de manière récursive sur chaque sous-ensemble jusqu'à ce qu'un critère d'arrêt soit atteint, tel que le nombre minimum de données dans un sous-ensemble ou le nombre maximum de niveaux de l'arbre*")    
         st.markdown("   ")
-        st.markdown("**Score du modéle :**")
+        st.markdown("**Score du modèle :**")
        
 
         st.markdown('Score sur ensemble train : ')
@@ -107,21 +107,21 @@ def ML_etude():
         st.markdown('Score sur ensemble test : ')
         st.info(model.score(X_test, y_test))
         st.markdown("**Conclusion :**   ")
-        st.markdown("Nous constatons un surajustement (overfitting) avec un score partiquement de 1 sur le modéle d'entrenaiment et inférieur à 0,5 sur celui de test.")
-        st.markdown("Notre modèle d'entraînement est trop complexe et s'adapte trop étroitement aux données d'entraînement. Il est capable de mémoriser les exemples d'entraînement plutôt que de généraliser les modèles sous-jacents dans les données.   ")   
-        st.markdown("Pour éviter cela, nous allons utiliser un modéle de forêt aléatoire (Random Forest), qui permet de combiner plusieurs modèles simples pour obtenir une performance de prédiction plus robuste.   ")
+        st.markdown("Nous constatons un surajustement (overfitting) avec un score pratiquement de 1 sur le modèle d'entraînement et un score de 0,55 sur celui de test.")
+        st.markdown("Notre modèle d'entraînement est trop complexe et s'adapte trop étroitement aux données d'entraînement. Il est capable de mémoriser les exemples d'entraînement plutôt que de généraliser les modèles sous-jacents aux nouvelles données entrantes.   ")   
+        st.markdown("Pour éviter cela, nous allons utiliser un modèle de forêt aléatoire (Random Forest), qui permet de combiner plusieurs modèles simples pour obtenir une performance de prédiction plus robuste.   ")
     
     else :
         model = joblib.load('./Modeles/RandomForestRegressor.joblib')  
-        st.markdown("**Modéle RandomForestRegressor :**")
-        st.markdown("*Il est basé sur un ensemble d'arbres de décision, où chaque arbre est entraîné sur un sous-ensemble aléatoire des données d'entraînement et des caractéristiques. Lors de la prédiction, chaque arbre de décision dans l'ensemble donne une prédiction, puis une moyenne (pour la régression) ou un vote majoritaire (pour la classification) est effectué pour produire la prédiction finale.*   ")
+        st.markdown("**Modèle RandomForestRegressor :**")
+        st.markdown("*Il est basé sur un ensemble d'arbres de décision, où chaque arbre est entraîné sur un sous-ensemble aléatoire de données d'entraînement et des caractéristiques différentes. Lors de la prédiction, chaque arbre de décision donne une prédiction, puis il fait une moyenne (pour la régression) pour produire la prédiction finale.*   ")
         st.markdown("*Il est capable de traiter des ensembles de données avec des caractéristiques et des classes très nombreuses ou complexes, sans surajustement (overfitting) comme cela a été constaté avec notre modéle DecisionTreeRegressor.*   ")
         st.markdown("   ")
-        st.markdown("**Score du modéle :**")
+        st.markdown("**Score du modèle :**")
        
-        st.markdown('Score sur ensemble train : ')
+        st.markdown("Score sur l'ensemble train : ")
         st.info(model.score(X_train, y_train))
-        st.markdown('Score sur ensemble test : ')
+        st.markdown("Score sur l'ensemble test : ")
         st.info(model.score(X_test, y_test))
         y_pred = model.predict(X_test)
         r2 = r2_score(y_test, y_pred)
@@ -129,23 +129,31 @@ def ML_etude():
         st.info(r2)
         st.markdown(" *Le score R² (R carré) est une mesure de la qualité de l'ajustement d'un modèle de régression aux données.*")
         st.markdown("*Plus le score R² est proche de 1, meilleure est la qualité de l'ajustement du modèle.*   ")
-        st.markdown("*Il ne permet pas de déterminer si le modèle est pertinent ou non pour les données.*")
+        st.markdown("*Il ne permet pas de déterminer si le modèle est pertinent ou non pour les données, c’est pour cela que, par la suite, nous évaluerons les performances du modèle à l'aide de l'erreur moyenne absolue (MAE).*")
         st.markdown("*Nous allons par la suite évaluer les performances du modéle à l'aide de l'erreur moyenne absolue (MAE).*")
         st.markdown("  ")
         st.markdown("Nos premiers scores de train et de test ainsi que notre R² de 0.83 sont satisfaisants et présagent de bons résultats pour la prédiction de salaire.")
         fig, ax = plt.subplots()
         plot_tree(model.estimators_[0], feature_names=X_test.columns,
                      filled=True,rounded=True);
+        st.markdonw(" ")
+        st.markdown("Illustration du premier arbre aléatoire créé par le modèle : ")
         st.pyplot(fig)
         st.markdown("*Ici notre variable cible est le salaire moyen en France.*")
-        st.markdown("*Notre arbre est plutôt homogène dans son ensemble de 47 occurrences, choisies par la machine, avec un salaire moyen de 13,58€ ainsi qu’une MSE de 4.6.*")
-        st.markdown("*L’objectif final était de faire des groupes homogènes avec une MSE la plus proche possible de 0.*")
-        st.markdown("*La variable explicative la plus importante étant le % d’entreprise classées dans des activités spécialisées, scientifique et technique, et dans des activités de service et d’administratif..*")
-        st.markdown("*Il en ressort un groupe de 46 ayant moins de 22% de ces entreprises présentent dans le département avec un salaire moyen de 13.16€ ainsi qu’une MSE = 1.7 et un groupe de 1 que nous mettrons de coté ayant un salaire moyen de 20.77€ avec une MSE de 0, c’est-à-dire qu’il représente précisément un département.*")
-        st.markdown("*A partir de ce nouvel échantillon de 46 lignes, la seconde variable explicative la plus importante est le % de personne peuplant le département entre 16 et 29 ans (% de juniors). La machine crée ensuite deux nouveaux groupes les plus homogènes possible avec comme frontière 11.56% de Juniors.*")
-        st.markdown("*Nous obtenons donc un groupe de moins de 11.56% de juniors avec un salaire moyen de 12.52€ ainsi qu’un MSE de 0.246 et un autre groupe de plus de 11.56% de juniors avec un salaire moyen de 14.71€ ainsi qu’une MSE de 1.766.*")
-        st.markdown("*Ces deux groupes sont ensuite rescindés en deux pour obtenir 4 groupes les plus homogènes possible. L’un de ces deux groupes à la frontière de 1.5% d’entreprise ayant comme activité principale Info & Communication et l’autre à la frontière de 5.5% d’entreprise dans le secteur industriel.*")
-        st.markdown("*Déjà dans ce 3ème étage du Random Forest nous obtenons 4 groupes de 19, 14,6 et 7 départements ayant respectivement pour salaire moyen 12.25, 12.62, 15.77 et 13.65 euros ainsi qu’une MSE de respectivement 0.13, 0.16, 1.095 et 0.20.*")
-        st.markdown("*La machine découpe ainsi chaque groupe en sous-groupe afin d’obtenir des populations représentatives de notre échantillon de base que nous pourrons comparer avec nos éléments « réels » lorsque l’utilisateur voudra obtenir une prédiction.*")
-    
+        st.markdown("*Notre arbre est composé d’un ensemble de 44 occurrences, choisies par la machine, avec un salaire moyen de 13,92€ ainsi qu’une MSE de 2.24.*")
+        st.markdown("*La MSE est l’erreur quadratique qui est la différence au carrée entre la valeur réelle et la valeur prédite.*")
+        st.markdown("*L’objectif final étant de faire des groupes homogènes avec une MSE la plus proche possible de 0.*")
+        st.markdown("*Ici l’arbre créé deux groupes avec comme frontière une composition, pour les départements, de 11% d’entreprise de la construction*")
+        st.markdown("*Il en ressort donc 2 groupes les plus homogènes possible dont :*")
+        st.markdown("*-	Le premier groupe composé de 2 départements ayant plus de 11% d’entreprises de la construction, ayant un salaire moyen de 19.4€/h avec une MSE de 6.2 (ici MSE haute donc moins fiable).*")
+        st.markdown("*-	Le second groupe composé de 42 départements ayant moins de 11% d’entreprise de la construction, ayant un salaire moyen de 12.74€/h avec une MSE de 0.90 (très satisfaisante)*")
+        st.markdown("*A partir de ces deux nouveaux échantillons, 4 groupes les plus homogènes possibles sont créés en dessous :*")
+        st.markdown("*-	Le premier composé d’un département ayant plus de 4% d’entreprises industrielles avec une MSE = 0 ; c’est-à-dire qu’il est représentatif d’une ligne de données réelles de notre dataset, avec une valeur de salaire moyen = 21.90€/h. C’est la fin de cette branche, il représentera une prédiction possible.*")
+        st.markdown("*-	Le second composé d’un département ayant moins de 4% d’entreprises industrielles avec une MSE = 0, c’est-à-dire qu’il est représentatif d’une ligne de données réelles de notre dataset, avec une valeur de salaire moyen = 16.91€/h. C’est la fin de cette branche, il représentera une prédiction possible. *")    
+        st.markdown("*-	Le troisième composé de 4 départements ayant plus de 30% de masters dans sa population, avec une MSE très satisfaisante de 0.69 et un salaire moyen de 15.35€/h. *")
+        st.markdown("*-	Le quatrième groupe est composé de 38 départements ayant moins de 30% de masters dans sa population, avec une MSE très satisfaisante de 0.35 et une valeur de salaire moyen de 12.54€/h. *")
+        st.markdown("*Ces troisièmes et quatrièmes groupes sont eux même partagés en quatre nouveaux sous-groupes les plus homogènes possible…. *")
+        st.markdown("*Et etcétéra, jusqu’à l’obtention de groupe ayant une MSE la plus proche possible de 0 que notre machine pourra utiliser pour faire les prédictions. *")
+      
+        
 ML_etude()    

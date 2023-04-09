@@ -17,7 +17,7 @@ from API import ML_api
 from PIL import Image
 
 
-st.set_page_config(page_title='French Industry', page_icon=":guardsman:", 
+st.set_page_config(page_title='French Industry', page_icon="./Images/icone.png", 
                    layout="wide", initial_sidebar_state="expanded")
 
 # Ajouter un logo à l'en-tête de votre application
