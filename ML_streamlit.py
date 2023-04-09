@@ -126,10 +126,7 @@ def ML_stream():
     st.pyplot(f,bbox_inches='tight')
     
       
-     
-    fig1, ax1 = plt.subplots()
-    shap.summary_plot(shap_values, local)
-    st.pyplot(fig1)
+   
     st.markdown("*Importance de chaque variable explicative par rapport à la variation de notre variable cible (que ce soit en positif ou en négatif)*")
 
    

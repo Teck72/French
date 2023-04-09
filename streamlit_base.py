@@ -5,6 +5,8 @@ import seaborn as sns
 from PIL import Image
 import plotly.express as px
 from plotly.subplots import make_subplots
+import plotly.graph_objects as go
+
 
 sns.set_theme()
 
@@ -59,16 +61,20 @@ def bases_streamlit():
         
          
         
-        # Affichage d'un graphique circulaire qui montre la répartition des catégories de population en France métropolitaine
-        plt.figure(figsize = (8, 8))
-        x = [Popu_DEP['Ainés'].sum(),Popu_DEP['Enfants'].sum(),Popu_DEP['Juniors'].sum(),Popu_DEP['Masters'].sum(),Popu_DEP['Séniors'].sum()]
-        fig1, ax1 = plt.subplots()
-        plt.pie(x, labels = ['Ainés','Enfants','Juniors','Masters','Séniors'],
-                autopct = lambda x: str(round(x, 2)) + '%',
-                pctdistance = 0.7, labeldistance = 1.05,
-                shadow = False)
-        plt.title('Répartition des catégories de population en France Métropolitaine')
-        st.pyplot(fig1)
+        # Créer un DataFrame avec les données de population par catégorie pour chaque département
+        df = pd.DataFrame({
+            'Catégorie': ['Ainés', 'Enfants', 'Juniors', 'Masters', 'Séniors'],
+            'Population': [Popu_DEP['Ainés'].sum(), Popu_DEP['Enfants'].sum(), 
+                   Popu_DEP['Juniors'].sum(), Popu_DEP['Masters'].sum(), Popu_DEP['Séniors'].sum()]
+            })
+
+        # Créer un graphique circulaire avec Plotly
+        fig = px.pie(df, values='Population', names='Catégorie', 
+             title='Répartition des catégories de population en France Métropolitaine',
+             labels={'Catégorie': 'Catégories'})
+
+        # Afficher le graphique dans l'application web Streamlit
+        st.plotly_chart(fig)
         st.markdown("La plus grande proportion de populations est potentiellement active et a entre 30 et 44 ans, on remarque aussi que la population d’enfants est supérieure au nombre d’ainés, ce qui est plutôt encourageant d’un point de vue économique.")
         
         # Calcule la proportion de la population active et non active
@@ -96,25 +102,24 @@ def bases_streamlit():
         st.markdown("Cette visualisation est en en corrélation avec les graphiques suivants qui indique les 10 départements les plus peuplés et les moins peuplés de personnes Actives.")
         st.markdown("Les populations (actives et non actives) sont concentrés autours villes et des gros « pôles » économiques français (Paris, Lille, Dunkerque, Bordeaux, Lyon, Marseille, …).")
         
-        # Affichage d'un graphique à barres qui montre la répartition des populations actives et non actives sur les 10 départements les plus peuplés de France
-        fig, ax = plt.subplots(figsize=(8,6))
-
         max_col = Popu_DEP2.head(10)
 
-        x =  max_col['DEP']
-        y1 = max_col['Actifs']
-        y2 = max_col['Non_Actifs']
+        # Créer un graphique à barres empilées avec Plotly
+        fig = go.Figure()
+        fig.add_trace(go.Bar(x=max_col['DEP'], y=max_col['Actifs'], name='Actifs', marker_color='#3ED8C9'))
+        fig.add_trace(go.Bar(x=max_col['DEP'], y=max_col['Non_Actifs'], name='Non Actifs', marker_color='#EDFF91'))
 
-        ax.bar(x, y1, color = "#3ED8C9", label = 'Actifs')
-        ax.bar(x, y2,bottom = y1, color = "#EDFF91", label = 'Non Actifs')
+        fig.update_xaxes(visible=True, type='category', categoryorder='array',
+                 categoryarray=max_col[max_col[['Actifs', 'Non_Actifs']].ne(0).any(axis=1)]['DEP'])
+        fig.update_layout(
+            title='Répartition des populations actives et non actives sur les 10 départements les plus peuplés de France',
+            xaxis_title='Départements',
+            yaxis_title='Population',
+            barmode='stack'
+            )
 
-        ax.set_xlabel('Départements')
-        ax.set_ylabel('Population')
-        ax.set_title('10 départements les plus peuplés')
 
-        ax.legend()
-
-        st.pyplot(fig)
+        st.plotly_chart(fig)
         
         
         st.markdown("Nous avons ici la répartition des populations actives et non actives sur les 10 département les plus peuplés de France.")
@@ -324,26 +329,13 @@ def bases_streamlit():
         
         data=data.reset_index()
         
-        # Graphique à barres qui montre le nombre d’activités par type d’activité et par département.
-        fig, ax = plt.subplots()
-        plt.bar(data['DEP'], data['indus'], color='blue', label='indus')
-        plt.bar(data['DEP'], data['const'], color='orange', label='const')
-        plt.bar(data['DEP'], data['CTRH'], color='green', label='CTRH')
-        plt.bar(data['DEP'], data['InfoComm'], color='red', label='InfoComm')
-        plt.bar(data['DEP'], data['FinAss'], color='purple', label='FinAss')
-        plt.bar(data['DEP'], data['Immo'], color='brown', label='Immo')
-        plt.bar(data['DEP'], data['STServAdmi'], color='pink', label='STServAdmi')
-        plt.bar(data['DEP'], data['ApESS'], color='gray', label='ApESS')
-        plt.bar(data['DEP'], data['AutreServ'], color='black', label='AutreServ')
-        plt.title('Nombre de type d\'activité par département')
-        plt.xlabel('Département')
-        plt.ylabel('Nombre d\'activité ')
-        plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
+        filtered_data = data[(data[['indus', 'const', 'CTRH', 'InfoComm', 'FinAss', 'Immo', 'STServAdmi', 'ApESS', 'AutreServ']] > 0).any(axis=1)]
+       
 
-        
-        st.pyplot(fig)
-                
-        
+        fig = px.bar(filtered_data, x='DEP', y=['indus', 'const', 'CTRH', 'InfoComm', 'FinAss', 'Immo', 'STServAdmi', 'ApESS', 'AutreServ'],
+             color_discrete_sequence=px.colors.qualitative.Pastel)
+        fig.update_layout(title='Nombre de type d\'activité par département', xaxis_title='Département', yaxis_title='Nombre d\'activité')
+        st.plotly_chart(fig)
         st.markdown("Nous vous proposons enfin de regarder la répartition des entreprises sur la toute la France selon leur secteur d’activité que vous pouvez choisir.")
         
         modele = st.selectbox("Choix du type d'entreprise pour la visualisation :",

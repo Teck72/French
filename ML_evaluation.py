@@ -5,6 +5,8 @@ import streamlit as st
 import joblib
 import shap
 from sklearn.tree import plot_tree
+import plotly.express as px
+import numpy as np
 
 
 base_etablissement=pd.read_csv("./Data/base_etablissement_dp.csv")
@@ -66,13 +68,25 @@ def ML_evaluation():
     st.markdown("*C'est la valeur moyenne des valeurs SHAP pour toutes les instances du jeux de test.*")
     st.markdown("*Elle permet de comprendre l'importance relative de chaque fonctionnalité pour le modèle de prédiction*")
 
+    mean_abs_shap = np.abs(shap_values).mean(0)
 
-    st.dataframe(shap_values)
-    with st.echo():
-        fig1, ax1 = plt.subplots()
-        shap.summary_plot(shap_values, X_test, plot_type="bar")
-        st.pyplot(fig1)
-        st.markdown("**Importance de chaque variable explicative par rapport à la variation de notre variable cible (que ce soit en positif ou en négatif)**")
+
+    sort_idx = mean_abs_shap.argsort()[::-1]
+    sorted_features = np.array(X_test.columns)[sort_idx]
+
+
+    st.write(pd.DataFrame({'Feature': sorted_features, 'Mean absolute SHAP value': mean_abs_shap[sort_idx]}))
+
+
+    fig = px.bar(x=sorted_features, y=mean_abs_shap[sort_idx],
+             color_continuous_scale=px.colors.sequential.Viridis, width=800,
+             labels=dict(x='Feature', y='SHAP value (magnitude)'),
+             title='SHAP summary plot')
+    fig.update_layout(coloraxis_colorbar=dict(title='Magnitude', tickvals=[0, 0.5, 1]))
+
+
+    st.plotly_chart(fig)
+    st.markdown("**Importance de chaque variable explicative par rapport à la variation de notre variable cible (que ce soit en positif ou en négatif)**")
     with st.echo():
         fig1, ax1 = plt.subplots()
         shap.summary_plot(shap_values, X_test)
