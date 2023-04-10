@@ -50,8 +50,8 @@ def ML_api():
             st.write('Contenu de la réponse :', response.content)
             
      
-    if st.sidebar.button('Site de l API', key='site_web_button'):
+    if st.button('Site de l API', key='site_web_button'):
         webbrowser.open_new_tab('https://teck72.pythonanywhere.com/')
-        st.experimental_rerun() # redémarre toute l'application      
+           
 
 ML_api()
