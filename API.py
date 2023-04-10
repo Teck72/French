@@ -1,6 +1,7 @@
 import streamlit as st
 import requests
 import json
+import webbrowser
 
 
 def ML_api():
@@ -47,5 +48,10 @@ def ML_api():
         else:
             st.write('La requête a échoué avec le code', response.status_code)
             st.write('Contenu de la réponse :', response.content)
+            
+     
+    if st.sidebar.button('Site de l API', key='site_web_button'):
+        webbrowser.open_new_tab('https://teck72.pythonanywhere.com/')
+        st.experimental_rerun() # redémarre toute l'application      
 
 ML_api()
