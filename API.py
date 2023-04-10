@@ -50,6 +50,8 @@ def ML_api():
             st.write('Contenu de la réponse :', response.content)
             
      
-             
+    url = "https://teck72.pythonanywhere.com/"
+
+    st.sidebar.markdown(f"[Site de l'API : Notice]({url})") 
 
 ML_api()
