@@ -50,8 +50,6 @@ def ML_api():
             st.write('Contenu de la réponse :', response.content)
             
      
-    if st.button('Site de l API', key='site_web_button'):
-        webbrowser.open_new_tab('https://teck72.pythonanywhere.com/')
-           
+             
 
 ML_api()
