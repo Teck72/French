@@ -115,7 +115,6 @@ def ML_evaluation():
 
     st.markdown("**Il y a deux infos principales :**")
     st.markdown("  #Le SHAP = plus le chiffre est élevé positivement ou négativement, plus la variable explicative à de l’importance dans la valeur de notre variable cible.")            
-    st.markdown("  #La COULEUR des observations, ici plus elle est rouge plus la valeur dans notre base de données est élevée")
     st.markdown("   ")
     st.markdown("   ")
     st.markdown("**Arbre de Décision :**  ")
