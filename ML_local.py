@@ -31,16 +31,39 @@ def local():
     
     explainer = shap.TreeExplainer(model)
     shap_values = explainer.shap_values(local)
+    
+    trace = go.Bar(y=local.columns, x=shap_values[0], orientation='h')
 
-    
-    st.set_option('deprecation.showPyplotGlobalUse', False)
-    st.pyplot(shap.summary_plot(shap_values, local, plot_type="bar"))
-    
-      
+
+    layout = go.Layout(title="Importance des fonctionnalités pour la prédiction du salaire net moyen par heure",
+                   yaxis=dict(title="Fonctionnalités"),
+                   xaxis=dict(title="SHAP value"),
+                   height=400,
+                   margin=dict(l=100, r=20, t=50, b=50))
+
+
+    fig = go.Figure(data=[trace], layout=layout)
+
+
+    st.plotly_chart(fig)
      
-    fig1, ax1 = plt.subplots()
-    shap.summary_plot(shap_values, local)
-    st.pyplot(fig1)
+    trace = go.Scatter(y=local.columns, x=shap_values[0], mode='markers', 
+                   marker=dict(color=shap_values[0], colorscale='RdBu', size=10),
+                   text=local.values[0])
+
+
+    layout = go.Layout(title="Importance des fonctionnalités pour la prédiction du salaire net moyen par heure",
+                   yaxis=dict(title="Fonctionnalités"),
+                   xaxis=dict(title="SHAP value"),
+                   height=400,
+                   margin=dict(l=100, r=20, t=50, b=50))
+
+
+    fig = go.Figure(data=[trace], layout=layout)
+
+
+    st.plotly_chart(fig)
+    
     st.markdown("*Importance de chaque variable explicative par rapport à la variation de notre variable cible (que ce soit en positif ou en négatif)*")
 
 

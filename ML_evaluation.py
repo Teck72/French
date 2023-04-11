@@ -7,6 +7,7 @@ import shap
 from sklearn.tree import plot_tree
 import plotly.express as px
 import numpy as np
+import plotly.graph_objs as go
 
 
 base_etablissement=pd.read_csv("./Data/base_etablissement_dp.csv")
@@ -87,10 +88,29 @@ def ML_evaluation():
 
     st.plotly_chart(fig)
     st.markdown("**Importance de chaque variable explicative par rapport à la variation de notre variable cible (que ce soit en positif ou en négatif)**")
-    with st.echo():
-        fig1, ax1 = plt.subplots()
-        shap.summary_plot(shap_values, X_test)
-        st.pyplot(fig1)
+ 
+    data = []
+    for i, col in enumerate(X_test.columns):
+           trace = go.Scatter(y=[col] * len(X_test), x=shap_values[:, i], mode='markers',
+                       marker=dict(color=shap_values[:, i], colorscale='RdBu', size=abs(shap_values[:, i])*100, 
+                                   line=dict(width=1, color='black')), 
+                       name=col,
+                       hovertext=['<b>' + col + '</b><br>SHAP value: ' + str(shap_values[j, i]) for j in range(len(X_test))],
+                       hoverinfo='text')
+           data.append(trace)
+
+
+    layout = go.Layout(title='Importance des fonctionnalités pour la prédiction du salaire net moyen par heure',
+                   xaxis=dict(title='SHAP value'),
+                   height=400,
+                   margin=dict(l=100, r=20, t=50, b=50))
+
+
+    fig = go.Figure(data=data, layout=layout)
+
+
+    st.plotly_chart(fig)
+
     st.markdown("**Il y a deux infos principales :**")
     st.markdown("  #Le SHAP = plus le chiffre est élevé positivement ou négativement, plus la variable explicative à de l’importance dans la valeur de notre variable cible.")            
     st.markdown("  #La COULEUR des observations, ici plus elle est rouge plus la valeur dans notre base de données est élevée")
