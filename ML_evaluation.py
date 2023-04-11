@@ -102,7 +102,8 @@ def ML_evaluation():
 
     layout = go.Layout(title='Importance des fonctionnalités pour la prédiction du salaire net moyen par heure',
                    xaxis=dict(title='SHAP value'),
-                   height=400,
+                   height=600,
+                   width=1000,
                    margin=dict(l=100, r=20, t=50, b=50))
 
 
