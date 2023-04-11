@@ -96,7 +96,8 @@ def ML_evaluation():
                                    line=dict(width=1, color='black')), 
                        name=col,
                        hovertext=['<b>' + col + '</b><br>SHAP value: ' + str(shap_values[j, i]) for j in range(len(X_test))],
-                       hoverinfo='text')
+                       hoverinfo='text',
+                       showlegend=False)
            data.append(trace)
 
 
