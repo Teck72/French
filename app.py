@@ -22,9 +22,12 @@ st.set_page_config(page_title='French Industry', page_icon="./Images/icone.png",
 
 # Ajouter un logo à l'en-tête de votre application
 header = st.container()
+sidebar = st.sidebar
+
 with header:
     logo_image = Image.open("./Images/Logo.png")
-    st.image(logo_image, width=300)
+    
+sidebar.image(logo_image, width=200)
 
 footer = """
 <div style='text-align: center; font-size: 12px; color: #808080; margin-top: 50px;'>
