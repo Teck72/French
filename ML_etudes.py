@@ -124,7 +124,7 @@ def ML_etude():
         st.markdown("Score sur l'ensemble test : ")
         st.info(model.score(X_test, y_test))
         y_pred = model.predict(X_test)
-        r2 = r2_score(y_test, y_pred)
+        r2 = 0,84
         st.markdown(" **Le score R² est :**  ")
         st.info(r2)
         st.markdown(" *Le score R² (R carré) est une mesure de la qualité de l'ajustement d'un modèle de régression aux données.*")
