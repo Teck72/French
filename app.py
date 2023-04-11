@@ -28,7 +28,7 @@ with header:
     logo_image = Image.open("./Images/Logo.png")
     
 sidebar.image(logo_image, width=200)
-s
+
 
 footer = """
 <div style='text-align: center; font-size: 12px; color: #808080; margin-top: 50px;'>
