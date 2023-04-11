@@ -28,7 +28,7 @@ with header:
     logo_image = Image.open("./Images/Logo.png")
     
 sidebar.image(logo_image, width=200)
-sidebar.markdown("**<font color='red'>A tool to take strategical decision related to social and economical development for French departments.</font>**")
+sidebar.markdown("<span style='color:red'>**A tool to take strategical decision related to social and economical development for French departments.**</span>")
 
 footer = """
 <div style='text-align: center; font-size: 12px; color: #808080; margin-top: 50px;'>
