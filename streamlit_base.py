@@ -8,8 +8,6 @@ from plotly.subplots import make_subplots
 import plotly.graph_objects as go
 
 
-sns.set_theme()
-
 Popu=pd.read_csv("./Data/Popu_DEP.csv")
 dp_salaires=pd.read_csv("./Data/dp_salaires.csv")
 base_etablissement_dp=pd.read_csv("./Data/base_etablissement.csv")
@@ -230,7 +228,7 @@ def bases_streamlit():
         
     if choix == "Loyer Appartement" :
         
-        st.markdown("Nous avons décidé de rajouter cette base de données pour ajouter une variable explicative non corrélés aux autre afin d’augmenter nos scores de Machine Learning.")
+        st.markdown("Nous avons décidé de rajouter cette base de données pour ajouter une variable explicative non corrélée aux autres afin d’augmenter nos scores de Machine Learning.")
         st.markdown("Après étude de cette base de données comprenant différents indicateurs, nous décidons de garder uniquement 2 colonnes : le département et le loyer moyen par m² des appartements.")
         
         st.dataframe(dep_loyer_app)

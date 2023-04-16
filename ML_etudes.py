@@ -93,7 +93,7 @@ def ML_etude():
     modele = st.selectbox('Choix du modèle de régression :',('DecisionTreeRegressor','RandomForestRegressor'))
     if modele == 'DecisionTreeRegressor' :
         model = joblib.load('./Modeles/DecisionTreeRegressor.joblib')
-        st.markdown("**Modéle DecisionTreeRegressor :**")
+        st.markdown("**Modèle DecisionTreeRegressor :**")
         st.markdown("*Ce modèle est un modèle de régression basé sur un arbre de décision.*")
         st.markdown("*L'arbre de décision est construit en divisant récursivement l'ensemble de données d'entraînement en sous-ensembles en fonction des valeurs des variables d'entrée.*")
         st.markdown("*Le processus de construction de l'arbre commence par la sélection d'une variable d'entrée pour diviser l'ensemble de données en deux sous-ensembles. L'objectif est de choisir une variable qui minimise la somme des erreurs quadratiques (ou tout autre critère de qualité de séparation) des deux sous-ensembles résultants.*")
@@ -124,19 +124,19 @@ def ML_etude():
         st.markdown("Score sur l'ensemble test : ")
         st.info(model.score(X_test, y_test))
         y_pred = model.predict(X_test)
-        r2 = 0,84
+        r2 = r2_score(y_test, y_pred)
         st.markdown(" **Le score R² est :**  ")
         st.info(r2)
         st.markdown(" *Le score R² (R carré) est une mesure de la qualité de l'ajustement d'un modèle de régression aux données.*")
         st.markdown("*Plus le score R² est proche de 1, meilleure est la qualité de l'ajustement du modèle.*   ")
         st.markdown("*Il ne permet pas de déterminer si le modèle est pertinent ou non pour les données, c’est pour cela que, par la suite, nous évaluerons les performances du modèle à l'aide de l'erreur moyenne absolue (MAE).*")
-        st.markdown("*Nous allons par la suite évaluer les performances du modéle à l'aide de l'erreur moyenne absolue (MAE).*")
         st.markdown("  ")
         st.markdown("Nos premiers scores de train et de test ainsi que notre R² de 0.83 sont satisfaisants et présagent de bons résultats pour la prédiction de salaire.")
         fig, ax = plt.subplots()
-        plot_tree(model.estimators_[0], feature_names=X_test.columns,
+        with st.echo():
+            plot_tree(model.estimators_[0], feature_names=X_test.columns,
                      filled=True,rounded=True);
-        st.markdown(" ")
+        st.markdonw(" ")
         st.markdown("Illustration du premier arbre aléatoire créé par le modèle : ")
         st.pyplot(fig)
         st.markdown("*Ici notre variable cible est le salaire moyen en France.*")

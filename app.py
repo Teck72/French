@@ -38,7 +38,7 @@ footer = """
 
 def main():
     
-    liste_menu = ["Introduction","Visualisation Base de donnée", "Etude Machine Learning","Evaluation du modéle","Machine Learning"," Evaluation de la prédiction","Etude Local du département 33","Démonstration API","Sources"]
+    liste_menu = ["Introduction","Visualisation Base de donnée", "Etude Machine Learning","Evaluation du modèle","Machine Learning"," Evaluation de la prédiction","Etude Local du département 33","Démonstration API","Sources"]
 
   
     menu = st.sidebar.selectbox("selectionner votre activité :", liste_menu)

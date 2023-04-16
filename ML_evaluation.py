@@ -57,7 +57,7 @@ def ML_evaluation():
     st.markdown("*Cette librairie permet d’expliquer les modèles complexes au niveau GLOBAL et LOCAL.*")
     st.markdown("*L’idée ici est d’appliquer la théorie des jeux (game therory) et de redistribuer le gain obtenu durant la partie, à tous les joueurs en fonction de leur implication dans la partie jouer.*")
     st.markdown("Si l’on retranscrit sur nos modèles, l’idée est de calculer ce shape en fonction de l’implication de chaque variable à faire varier notre variable cible.")
-    st.markdown("  *- Chaque variable représente un joureur de notre partie.*")
+    st.markdown("  *- Chaque variable représente un joueur de notre partie.*")
     st.markdown("  *- Le gain représente la différence entre la vrai valeur cible et la valeur prédite par le modèle.*")
 
     with st.echo():
@@ -117,15 +117,7 @@ def ML_evaluation():
     st.markdown("  #Le SHAP = plus le chiffre est élevé positivement ou négativement, plus la variable explicative à de l’importance dans la valeur de notre variable cible.")            
     st.markdown("   ")
     st.markdown("   ")
-    st.markdown("**Arbre de Décision :**  ")
-
-    with st.echo():
-            fig, ax = plt.subplots()
-            plot_tree(model.estimators_[0], feature_names=X_test.columns,
-                      filled=True,rounded=True);
-            st.pyplot(fig)
-            
-     
+    
   
            
             

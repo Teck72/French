@@ -3,11 +3,11 @@ import streamlit as st
 
 def intro_streamlit():
     st.title("**Prédire un salaire**") 
-    st.markdown(" **L'objectif de cette étude est de prédire le salaire moyen par catégories d'emploi ou d'âge** ") 
+    st.markdown(" **L'objectif de cette étude est de prédire le salaire moyen par catégories d'emploi ou d'âge.** ") 
     st.markdown(" Les Machines Learning utilisées sont basées sur des algorithmes de régression pour entraîner nos modèles prédictifs : Decision TreeRegressor et Random ForestRegressor.")
     st.markdown("   ")
     st.markdown("Nous avons choisi de répondre à la problématique suivante :")
-    st.markdown("Au niveau départemental, quel est l’impact de la modulation de certains facteurs sur le salaire moyen ?.")
+    st.markdown("**Au niveau départemental, quel est l’impact de la modulation de certains facteurs sur le salaire moyen ?.**")
     st.markdown(" Nos facteurs à moduler :")
     st.markdown(" - La quantité d’entreprise selon leur taille et leur secteur d’activité ")
     st.markdown(" - Le coût du loyer moyen au m² ")
@@ -21,5 +21,5 @@ def intro_streamlit():
     st.markdown("Les données utilisées dans cette étude proviennent de sources officielles telles que DATASCIENTEST, l'observatoire des territoires et l'INSEE.  ")
     st.markdown("Nous avons utilisé ces données pour entraîner notre modèle de Machine Learning à prédire les salaires moyens par catégories d'emploi ou d'âge en fonction de l'âge de la population, du type d'entreprise, du prix au m2 des locations d'appartement et de la taille des entreprises ")
     st.markdown("   ")
-    st.markdown("Nous espérons que cette étude permettra aux demandeurs de mieux comprendre les facteurs qui influencent les salaires moyens en France. ")
+    st.markdown("Nous espérons que cette étude permettra aux utilisateurs de notre outils de mieux comprendre les facteurs qui influencent les salaires moyens en France. ")
     
