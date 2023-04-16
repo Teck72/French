@@ -114,8 +114,8 @@ def ML_evaluation():
     st.plotly_chart(fig)
 
     st.markdown("**Il y a deux infos principales :**")
-    st.markdown("  #Le SHAP = plus le chiffre est élevé positivement ou négativement, plus la variable explicative à de l’importance dans la valeur de notre variable cible.")            
-    st.markdown("   ")
+    st.markdown("  La valeur SHAP indique l'importance de chaque variable explicative dans la prédiction de la variable cible, et plus sa valeur absolue est élevée, plus la variable explicative est importante, indépendamment de son signe.")            
+    st.markdown("  La taille des cercles est proportionnelle à l'importance de chaque variable, et la couleur indique si la variable explicative contribue positivement (en rouge) ou négativement (en bleu) à la prédiction de la variable cible.   ")
     st.markdown("   ")
     
   
