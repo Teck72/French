@@ -72,6 +72,12 @@ def main():
     with footer_container:
         st.write(footer, unsafe_allow_html=True)
     
+    
+    
+st.sidebar.info("Participants :")    
+st.sidebar.info("Clémence COURSAT")
+
+    
         
 if __name__ == '__main__':
     main()
