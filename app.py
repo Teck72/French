@@ -42,6 +42,8 @@ def main():
 
   
     menu = st.sidebar.selectbox("selectionner votre activité :", liste_menu)
+    
+ 
 
     # Page navigation
     if menu == liste_menu[0] :
@@ -72,9 +74,28 @@ def main():
     with footer_container:
         st.write(footer, unsafe_allow_html=True)
     
-    
-    
-
+    with st.sidebar.container():
+        
+        st.markdown(
+       """
+       <style>
+           .light-blue-background {
+               background-color: #d2e4f7;
+               padding: 10px;
+               border-radius: 5px;
+           }
+       </style>
+       <div class="light-blue-background">
+           <p><strong class="bold">Participants :</strong></p>
+           <p>- Clémence COURSAT</p>
+           <p>- Emma WANG </p>
+           <p>- Danielle KITSOUKOU</p>
+           <p>- Nicolas CHABALIER</p>
+       </div>
+       """,
+       unsafe_allow_html=True,
+   )
+        
     
         
 if __name__ == '__main__':
