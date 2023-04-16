@@ -74,8 +74,6 @@ def main():
     
     
     
-st.sidebar.info("Participants :")    
-st.sidebar.info("Clémence COURSAT")
 
     
         
