@@ -115,7 +115,7 @@ def ML_evaluation():
 
     st.markdown("**Il y a deux infos principales :**")
     st.markdown("  La valeur SHAP indique l'importance de chaque variable explicative dans la prédiction de la variable cible, et plus sa valeur absolue est élevée, plus la variable explicative est importante, indépendamment de son signe.")            
-    st.markdown("  La taille des cercles est proportionnelle à l'importance de chaque variable, et la couleur indique si la variable explicative contribue positivement (en rouge) ou négativement (en bleu) à la prédiction de la variable cible.   ")
+    st.markdown("  La taille des cercles est proportionnelle à l'importance de chaque variable, et la couleur indique si la variable explicative contribue positivement (en bleu) ou négativement (en rouge) à la prédiction de la variable cible.   ")
     st.markdown("   ")
     
   
