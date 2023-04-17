@@ -87,10 +87,12 @@ def main():
        </style>
        <div class="light-blue-background">
            <p><strong class="bold">Participants :</strong></p>
-           <p>- Clémence COURSAT</p>
-           <p>- Emma WANG </p>
-           <p>- Danielle KITSOUKOU</p>
-           <p>- Nicolas CHABALIER</p>
+           <li><a href="https://www.linkedin.com/in/cl%C3%A9mence-coursat-99908466/?originalSubdomain=fr">Clémence COURSAT</a></li>
+           <li>Emma WANG</a></li>
+           <li>Danielle KITSOUKOU</a></li>
+           <li>Nicolas CHABALIER</a></li>
+           
+          
        </div>
        """,
        unsafe_allow_html=True,
