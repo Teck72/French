@@ -136,7 +136,7 @@ def ML_etude():
         with st.echo():
             plot_tree(model.estimators_[0], feature_names=X_test.columns,
                      filled=True,rounded=True);
-        st.markdonw(" ")
+        st.markdown(" ")
         st.markdown("Illustration du premier arbre aléatoire créé par le modèle : ")
         st.pyplot(fig)
         st.markdown("*Ici notre variable cible est le salaire moyen en France.*")
