@@ -3,7 +3,7 @@ import streamlit as st
 
 def intro_streamlit():
     st.title("**Prédire un salaire**") 
-    st.markdown(" **L'objectif de cette étude est de prédire le salaire moyen par catégories d'emploi ou d'âge.** ") 
+    st.markdown(" **L'objectif de cette étude est de prédire le salaire moyen par catégories d'emploi ou d'âge** ") 
     st.markdown(" Les Machines Learning utilisées sont basées sur des algorithmes de régression pour entraîner nos modèles prédictifs : Decision TreeRegressor et Random ForestRegressor.")
     st.markdown("   ")
     st.markdown("Nous avons choisi de répondre à la problématique suivante :")

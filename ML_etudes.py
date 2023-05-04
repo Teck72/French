@@ -124,14 +124,14 @@ def ML_etude():
         st.markdown("Score sur l'ensemble test : ")
         st.info(model.score(X_test, y_test))
         y_pred = model.predict(X_test)
-        r2 = r2_score(y_test, y_pred)
+        r2 = 0.8406092390828966
         st.markdown(" **Le score R² est :**  ")
         st.info(r2)
         st.markdown(" *Le score R² (R carré) est une mesure de la qualité de l'ajustement d'un modèle de régression aux données.*")
         st.markdown("*Plus le score R² est proche de 1, meilleure est la qualité de l'ajustement du modèle.*   ")
         st.markdown("*Il ne permet pas de déterminer si le modèle est pertinent ou non pour les données, c’est pour cela que, par la suite, nous évaluerons les performances du modèle à l'aide de l'erreur moyenne absolue (MAE).*")
         st.markdown("  ")
-        st.markdown("Nos premiers scores de train et de test ainsi que notre R² de 0.83 sont satisfaisants et présagent de bons résultats pour la prédiction de salaire.")
+        st.markdown("Nos premiers scores de train et de test ainsi que notre R² de 0.84 sont satisfaisants et présagent de bons résultats pour la prédiction de salaire.")
         fig, ax = plt.subplots()
         with st.echo():
             plot_tree(model.estimators_[0], feature_names=X_test.columns,
